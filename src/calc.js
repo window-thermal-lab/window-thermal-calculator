@@ -5,13 +5,18 @@ const clientId = params.get("client");
 
 console.log("clientId =", clientId);
 
-if( clientId != null )
-{
-fetch(`config/clients/${clientId}.json`)
-  .then(r => r.json())
-  .then(client => {
-    console.log("client config =", client);
-  });
+if (clientId) {
+  fetch(`config/clients/${clientId}.json`)
+    .then(r => {
+      if (!r.ok) return null;
+      return r.json();
+    })
+    .then(client => {
+      console.log("client config =", client);
+    })
+    .catch(() => {
+      console.log("client config not found");
+    });
 }
 
 fetch("config/common.json")
