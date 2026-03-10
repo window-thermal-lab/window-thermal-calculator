@@ -1,11 +1,11 @@
 // window thermal calculator
 
 const params = new URLSearchParams(window.location.search);
-const clientId = params.get("client") || "mm1001";
+const clientId = params.get("client");
 
 console.log("clientId =", clientId);
 
-if( clientId != NULL )
+if( clientId != null )
 {
 fetch(`config/clients/${clientId}.json`)
   .then(r => r.json())
