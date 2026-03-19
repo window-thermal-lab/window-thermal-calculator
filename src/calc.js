@@ -25,7 +25,6 @@ if (clientId) {
     });
 }
 
-
 fetch("config/common.json")
   .then(r => r.json())
   .then(common => {
