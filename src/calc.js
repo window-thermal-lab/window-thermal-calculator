@@ -30,4 +30,6 @@ fetch("config/common.json")
   .then(r => r.json())
   .then(common => {
     console.log("common config =", common);
+
+    output.textContent += "\ncommon: " + JSON.stringify(common);
   });
