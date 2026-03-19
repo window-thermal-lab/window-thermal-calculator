@@ -32,3 +32,16 @@ fetch("config/common.json")
 
     output.textContent += "\ncommon: " + JSON.stringify(common);
   });
+
+
+const btn = document.getElementById("showBtn");
+
+btn.addEventListener("click", function () {
+  console.log("ボタン押された");
+const uw = document.getElementById("uwResult").value;
+
+  // 仮の計算
+  const result = 123;
+
+  document.getElementById("uwResult").value = result;
+});
