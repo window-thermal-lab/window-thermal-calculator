@@ -36,12 +36,30 @@ fetch("config/common.json")
 
 const btn = document.getElementById("showBtn");
 
-btn.addEventListener("click", function () {
-  console.log("ボタン押された");
-const uw = document.getElementById("uwResult").value;
+btn.addEventListener("click", updateCalculation);
 
-  // 仮の計算
-  const result = 123;
+function updateCalculation() {
+  const inputs = getInputs();
+  const result = calculateUw(inputs);
 
+
+
+  renderResult(result);
+}
+
+function getInputs() {
+  return {
+    width: 1000,
+    height: 2000
+  };
+}
+
+function calculateUw(inputs) {
+  const area = (inputs.width/1000) * (inputs.height/1000);
+  return area;
+ }
+
+function renderResult(result) {
   document.getElementById("uwResult").value = result;
-});
+  
+}
