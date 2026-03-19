@@ -21,6 +21,18 @@ if (clientId) {
 
         document.getElementById("hfWidth").value = client.HeadFaceWidth ?? "";;
         document.getElementById("jfWidth").value = client.JambFaceWidth ?? "";;
+        document.getElementById("sfWidth").value = client.SillFaceWidth ?? "";;
+        document.getElementById("fDepth").value = client.FrameDepth ?? "";;
+
+        document.getElementById("trfWidth").value = client.TopRailFaceWidth ?? "";;
+        document.getElementById("stilefWidth").value = client.StileFaceWidth ?? "";;
+        document.getElementById("bfWidth").value = client.BottomRailFaceWidth ?? "";;
+        document.getElementById("sDepth").value = client.SashDepth ?? "";;
+
+        document.getElementById("hol").value = client.HeadOverlap ?? "";;
+        document.getElementById("jol").value = client.JambOverlap ?? "";;
+        document.getElementById("sol").value = client.SillOverlap ?? "";;
+   
       }
 
 
@@ -58,9 +70,21 @@ function getInputs() {
     
     fWidth: parseFloat(document.getElementById("fWidth").value) || 0,
     fHeight: parseFloat(document.getElementById("fHeight").value) || 0,
+
     hfWidth: parseFloat(document.getElementById("hfWidth").value) || 0,
-    jfWidth: parseFloat(document.getElementById("jfWidth").value) || 0
-  
+    jfWidth: parseFloat(document.getElementById("jfWidth").value) || 0,
+    sfWidth: parseFloat(document.getElementById("sfWidth").value) || 0,
+    fDepth: parseFloat(document.getElementById("fDepth").value) || 0,
+
+    trfWidth: parseFloat(document.getElementById("trfWidth").value) || 0,
+    stilefWidth: parseFloat(document.getElementById("stilefWidth").value) || 0,
+    bfWidth: parseFloat(document.getElementById("bfWidth").value) || 0,
+    sDepth: parseFloat(document.getElementById("sDepth").value) || 0,
+    
+    hol: parseFloat(document.getElementById("hol").value) || 0,
+    jol: parseFloat(document.getElementById("jol").value) || 0,
+    sol: parseFloat(document.getElementById("sol").value) || 0
+
   };
 }
 
