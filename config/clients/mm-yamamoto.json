@@ -1,6 +1,21 @@
 {
   "company": "森の窓",
   "prefix": "mm",
-  "defaultWood": "cedar",
-  "glassU": 1.1
+  "defaultWood": "cedar",  
+  
+  "HeadFaceWidth":45,
+  "JambFaceWidth":45,
+  "SillFaceWidth":45,
+
+  "FrameDepth":105,
+
+  "TopRailFaceWidth":78,  
+  "StileFaceWidth":78,
+  "BottomRailFaceWidth":105,
+
+  "SashDepth":56,
+
+  "HeadOverlap": 18,
+  "JambOverlap": 18,
+  "SillOverlap": 18
 }
