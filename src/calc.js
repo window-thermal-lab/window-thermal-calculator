@@ -1,5 +1,6 @@
 // window thermal calculator
 
+let commonData = null;
 const output = document.getElementById("output");
 
 const params = new URLSearchParams(window.location.search);
@@ -8,7 +9,7 @@ const clientId = params.get("client");
 console.log("clientId =", clientId);
 
 if (clientId) {
-  fetch(`config/clients/${clientId}.json`)
+  fetch(`./config/clients/${clientId}.json`)
     .then(r => {
       if (!r.ok) return null;
       return r.json();
@@ -42,21 +43,33 @@ if (clientId) {
     });
 }
 
-fetch("config/common.json")
-  .then(r => r.json())
+fetch("./config/common.json")
+  .then(r => {
+      if (!r.ok) return null;
+      return r.json();
+    })
   .then(common => {
-    console.log("common config =", common);
+    commonData = common;
+
+    console.log("common config =", commonData);
 
     document.getElementById("fWidth").value = 1000;
     document.getElementById("fHeight").value = 2000;
 
-    output.textContent += "\ncommon: " + JSON.stringify(common);
+    output.textContent += "\ncommon: " + JSON.stringify(commonData);
   });
 
 
 const btn = document.getElementById("calcBtn");
 
 btn.addEventListener("click", updateCalculation);
+
+document.querySelectorAll("input, select").forEach(el => {
+  el.addEventListener("input", updateCalculation);
+  el.addEventListener("change", updateCalculation);
+});
+
+window.addEventListener("load", updateCalculation);
 
 function updateCalculation() {
   const inputs = getInputs();
@@ -93,6 +106,13 @@ function getInputs() {
 
 function calculateUw(inputs) {
   
+  if (!commonData) return "";
+
+  const glass = commonData.glassTypes[inputs.glassType];
+  if (!glass) return "";
+
+  const ug = glass.Ug;
+
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
   return area;
  }
