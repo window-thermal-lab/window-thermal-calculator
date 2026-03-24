@@ -57,6 +57,8 @@ fetch("./config/common.json")
     document.getElementById("fHeight").value = 2000;
 
     output.textContent += "\ncommon: " + JSON.stringify(commonData);
+
+    updateCalculation();
   });
 
 
