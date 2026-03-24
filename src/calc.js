@@ -108,10 +108,14 @@ function calculateUw(inputs) {
   
   if (!commonData) return "";
 
-  const glass = commonData.glassTypes[inputs.glassType];
-  if (!glass) return "";
+  const vGlass = commonData.glassTypes?.[inputs.glassType];
+  if (!vGlass) return "";
+  
+  const vWindow = commonData.windowTypes?.[inputs.windowType];
+  if (!vWindow) return "";
 
   const ug = glass.Ug;
+  const uf = win.Uf;
 
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
   return area;
