@@ -71,7 +71,6 @@ document.querySelectorAll("input, select").forEach(el => {
   el.addEventListener("change", updateCalculation);
 });
 
-window.addEventListener("load", updateCalculation);
 
 function updateCalculation() {
   const inputs = getInputs();
