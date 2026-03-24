@@ -107,15 +107,20 @@ function getInputs() {
 function calculateUw(inputs) {
   
   if (!commonData) return "";
-
-  const vGlass = commonData.glassTypes?.[inputs.glassType];
-  if (!vGlass) return "";
   
-  const vWindow = commonData.windowTypes?.[inputs.windowType];
+  const vGlass = commonData.glassTypes && commonData.glassTypes[inputs.glassType];
+  if (!vGlass){
+
+    console.log(inputs.glassType);
+    console.log(commonData.glassTypes);
+    return "";     
+  }  
+
+  const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowType];
   if (!vWindow) return "";
 
-  const ug = glass.Ug;
-  const uf = win.Uf;
+  const ug = vGlass.Ug;
+  const uf = vWindow.Uf;
 
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
   return area;
