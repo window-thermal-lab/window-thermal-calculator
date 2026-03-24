@@ -83,7 +83,10 @@ function getInputs() {
     
     hol: parseFloat(document.getElementById("hol").value) || 0,
     jol: parseFloat(document.getElementById("jol").value) || 0,
-    sol: parseFloat(document.getElementById("sol").value) || 0
+    sol: parseFloat(document.getElementById("sol").value) || 0,
+
+    glassType: document.getElementById("glassType").value,
+    windowType: document.getElementById("windowType").value
 
   };
 }
