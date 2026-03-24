@@ -98,8 +98,8 @@ function getInputs() {
     jol: parseFloat(document.getElementById("jol").value) || 0,
     sol: parseFloat(document.getElementById("sol").value) || 0,
 
-    glassType: document.getElementById("glassType").value,
-    windowType: document.getElementById("windowType").value
+    glassTypeKey: document.getElementById("idGlassType").value,
+    windowTypeKey: document.getElementById("idWindowType").value
 
   };
 }
@@ -108,7 +108,7 @@ function calculateUw(inputs) {
   
   if (!commonData) return "";
   
-  const vGlass = commonData.glassTypes && commonData.glassTypes[inputs.glassType];
+  const vGlass = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
   if (!vGlass){
 
     console.log(inputs.glassType);
@@ -116,7 +116,7 @@ function calculateUw(inputs) {
     return "";     
   }  
 
-  const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowType];
+  const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowTypeKey];
   if (!vWindow) return "";
 
   const ug = vGlass.Ug;
