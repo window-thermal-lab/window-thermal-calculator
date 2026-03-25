@@ -2,7 +2,7 @@
     "calculationStandard": "JIS",
     "defaultGlass": "lowe_argon",
     "defaultSpacerPsi": 0.06,
-
+  "lambdaWood": 0.11,
 
   "glassTypes": {
     "single_clear": {

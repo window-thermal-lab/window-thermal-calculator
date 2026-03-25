@@ -51,14 +51,16 @@ fetch("./config/common.json")
   .then(common => {
     commonData = common;
 
-    console.log("common config =", commonData);
+    if(commonData){
 
-    document.getElementById("fWidth").value = 1000;
-    document.getElementById("fHeight").value = 2000;
+      console.log("common config =", commonData);
 
-    output.textContent += "\ncommon: " + JSON.stringify(commonData);
+      document.getElementById("fWidth").value = 1000;
+      document.getElementById("fHeight").value = 2000;
 
-    updateCalculation();
+      //output.textContent += "\ncommon: " + JSON.stringify(commonData);
+      updateCalculation();
+    }
   });
 
 
@@ -100,7 +102,9 @@ function getInputs() {
     sol: parseFloat(document.getElementById("sol").value) || 0,
 
     glassTypeKey: document.getElementById("idGlassType").value,
-    windowTypeKey: document.getElementById("idWindowType").value
+    windowTypeKey: document.getElementById("idWindowType").value,
+
+    lambdaWood: parseFloat(document.getElementById("lambdaWood").value) || 0
 
   };
 }
@@ -112,7 +116,7 @@ function calculateUw(inputs) {
   const vGlass = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
   if (!vGlass){
 
-    console.log(inputs.glassType);
+    console.log(inputs.glassTypeKey);
     console.log(commonData.glassTypes);
     return "";     
   }  
@@ -120,9 +124,25 @@ function calculateUw(inputs) {
   const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowTypeKey];
   if (!vWindow) return "";
 
-  const ug = vGlass.Ug;
-  const uf = vWindow.Uf;
+  // 実際の計算スタート
+ 
+  // 上枠の熱抵抗
+  let resist;
 
+  if(inputs.lambdaWood > 0 ){
+    resist = (inputs.hfWidth/1000)/inputs.lambdaWood;
+    output.textContent += "\n上枠の熱抵抗: " + resist;   
+  }
+  else{
+    output.textContent += "\n上枠の熱抵抗: lambdaWood が 0 以下です";
+    return "";
+  }
+  
+
+ 
+//output.textContent += "\ncommon: " + JSON.stringify(commonData);
+  const ug = vGlass.Ug;
+  
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
   return area;
  }
