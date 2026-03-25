@@ -34,6 +34,10 @@ const commonPromise = fetch("./config/common.json")
   .then(r => {
     if (!r.ok) return null;
     return r.json();
+  })
+  .catch(() => {
+    console.log("common config not found");
+    return null;
   });
 
 Promise.all([commonPromise, clientPromise])
@@ -75,8 +79,9 @@ Promise.all([commonPromise, clientPromise])
   });
 
 const btn = document.getElementById("calcBtn");
-
-btn.addEventListener("click", updateCalculation);
+if (btn) {
+  btn.addEventListener("click", updateCalculation);
+}
 
 document.querySelectorAll("input, select").forEach(el => {
  // el.addEventListener("input", updateCalculation);
