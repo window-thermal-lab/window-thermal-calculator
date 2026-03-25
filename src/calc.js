@@ -124,7 +124,7 @@ function calculateUw(inputs) {
   const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowTypeKey];
   if (!vWindow) return "";
 
-  // 実際の計算スタート
+  output.textContent = "calculateUw 実際の計算スタート";
  
   // 上枠の熱抵抗
   let resist;
