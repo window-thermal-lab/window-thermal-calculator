@@ -76,7 +76,6 @@ document.querySelectorAll("input, select").forEach(el => {
 
 function updateCalculation() {
 
-  output.textContent = "";  
   const inputs = getInputs();
   const result = calculateUw(inputs);
 
@@ -115,7 +114,7 @@ function calculateUw(inputs) {
   
   
   output.textContent = "calculateUw 実際の計算スタート";
-  
+
   if (!commonData) return "";
   
   const vGlass = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
