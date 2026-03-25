@@ -75,6 +75,8 @@ document.querySelectorAll("input, select").forEach(el => {
 
 
 function updateCalculation() {
+
+  output.textContent = "";  
   const inputs = getInputs();
   const result = calculateUw(inputs);
 
