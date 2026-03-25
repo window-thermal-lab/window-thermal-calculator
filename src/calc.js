@@ -113,6 +113,9 @@ function getInputs() {
 
 function calculateUw(inputs) {
   
+  
+  output.textContent = "calculateUw 実際の計算スタート";
+  
   if (!commonData) return "";
   
   const vGlass = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
@@ -126,7 +129,6 @@ function calculateUw(inputs) {
   const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowTypeKey];
   if (!vWindow) return "";
 
-  output.textContent = "calculateUw 実際の計算スタート";
  
   // 上枠の熱抵抗
   let resist;
