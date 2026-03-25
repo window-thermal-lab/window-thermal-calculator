@@ -69,8 +69,8 @@ const btn = document.getElementById("calcBtn");
 btn.addEventListener("click", updateCalculation);
 
 document.querySelectorAll("input, select").forEach(el => {
-  el.addEventListener("input", updateCalculation);
-  el.addEventListener("change", updateCalculation);
+ // el.addEventListener("input", updateCalculation);
+ // el.addEventListener("change", updateCalculation);
 });
 
 
