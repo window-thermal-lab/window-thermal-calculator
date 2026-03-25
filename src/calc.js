@@ -132,7 +132,7 @@ function calculateUw(inputs) {
   let resist;
 
   if(commonData.lambdaWood > 0 ){
-    resist = (inputs.hfWidth/1000)/commonData.lambdaWood;
+    resist = (inputs.fDepth/1000)/commonData.lambdaWood;
     output.textContent += "\n上枠の熱抵抗: " + resist;   
   }
   else{
