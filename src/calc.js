@@ -18,7 +18,7 @@ if (clientId) {
       console.log("client config =", client);
 
       if (client) {
-        output.textContent = "client: " + JSON.stringify(client);
+        //output.textContent = "client: " + JSON.stringify(client);
 
         document.getElementById("hfWidth").value = client.HeadFaceWidth ?? "";;
         document.getElementById("jfWidth").value = client.JambFaceWidth ?? "";;
