@@ -1,68 +1,78 @@
 // window thermal calculator
 
 let commonData = null;
+
+// output Element
 const output = document.getElementById("output");
 
 const params = new URLSearchParams(window.location.search);
+
+// string
 const clientId = params.get("client");
 
 console.log("clientId =", clientId);
 
+
+let clientPromise;
+
+// client.json取得
 if (clientId) {
-  fetch(`./config/clients/${clientId}.json`)
+  clientPromise = fetch(`./config/clients/${clientId}.json`)
     .then(r => {
       if (!r.ok) return null;
       return r.json();
     })
-    .then(client => {
-      console.log("client config =", client);
+    .catch(() => {
+      console.log("client config not found");
+      return null;
+    });
+} else {
+  clientPromise = Promise.resolve(null);
+}
 
-      if (client) {
-        //output.textContent = "client: " + JSON.stringify(client);
+const commonPromise = fetch("./config/common.json")
+  .then(r => {
+    if (!r.ok) return null;
+    return r.json();
+  });
 
-        document.getElementById("hfWidth").value = client.HeadFaceWidth ?? "";;
-        document.getElementById("jfWidth").value = client.JambFaceWidth ?? "";;
-        document.getElementById("sfWidth").value = client.SillFaceWidth ?? "";;
-        document.getElementById("fDepth").value = client.FrameDepth ?? "";;
+Promise.all([commonPromise, clientPromise])
+  .then(([common, client]) => {
+    commonData = common;
 
-        document.getElementById("trfWidth").value = client.TopRailFaceWidth ?? "";;
-        document.getElementById("stilefWidth").value = client.StileFaceWidth ?? "";;
-        document.getElementById("bfWidth").value = client.BottomRailFaceWidth ?? "";;
-        document.getElementById("sDepth").value = client.SashDepth ?? "";;
 
-        document.getElementById("hol").value = client.HeadOverlap ?? "";;
-        document.getElementById("jol").value = client.JambOverlap ?? "";;
-        document.getElementById("sol").value = client.SillOverlap ?? "";;
-   
+  if (client) {
+        console.log("client config =", client);
+
+        document.getElementById("hfWidth").value = client.HeadFaceWidth ?? "";
+        document.getElementById("jfWidth").value = client.JambFaceWidth ?? "";
+        document.getElementById("sfWidth").value = client.SillFaceWidth ?? "";
+        document.getElementById("fDepth").value = client.FrameDepth ?? "";
+
+        document.getElementById("trfWidth").value = client.TopRailFaceWidth ?? "";
+        document.getElementById("stilefWidth").value = client.StileFaceWidth ?? "";
+        document.getElementById("bfWidth").value = client.BottomRailFaceWidth ?? "";
+        document.getElementById("sDepth").value = client.SashDepth ?? "";
+
+        document.getElementById("hol").value = client.HeadOverlap ?? "";
+        document.getElementById("jol").value = client.JambOverlap ?? "";
+        document.getElementById("sol").value = client.SillOverlap ?? "";
       }
 
 
-    })
-    .catch(() => {
-      console.log("client config not found");
-    });
-}
-
-fetch("./config/common.json")
-  .then(r => {
-      if (!r.ok) return null;
-      return r.json();
-    })
-  .then(common => {
-    commonData = common;
-
-    if(commonData){
-
+       if (commonData) {
       console.log("common config =", commonData);
 
       document.getElementById("fWidth").value = 1000;
       document.getElementById("fHeight").value = 2000;
 
-      //output.textContent += "\ncommon: " + JSON.stringify(commonData);
       updateCalculation();
     }
-  });
 
+  })
+  .catch(err => {
+    console.log("init error", err);
+  });
 
 const btn = document.getElementById("calcBtn");
 
