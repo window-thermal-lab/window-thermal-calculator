@@ -105,8 +105,7 @@ function getInputs() {
     glassTypeKey: document.getElementById("idGlassType").value,
     windowTypeKey: document.getElementById("idWindowType").value,
 
-    lambdaWood: parseFloat(document.getElementById("lambdaWood").value) || 0
-
+    
   };
 }
 
@@ -133,7 +132,7 @@ function calculateUw(inputs) {
   let resist;
 
   if(inputs.lambdaWood > 0 ){
-    resist = (inputs.hfWidth/1000)/inputs.lambdaWood;
+    resist = (inputs.hfWidth/1000)/commonData.lambdaWood;
     output.textContent += "\n上枠の熱抵抗: " + resist;   
   }
   else{
