@@ -181,7 +181,7 @@ function calculateUw(inputs) {
   const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea)+(1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
   debuglog("木部のコンダクタンス: " + fConductance);
 
-  const gConductance = vGlass.Ug*areaSet.glazingArea;
+  const gConductance = vGlazing.Ug*areaSet.glazingArea;
   debuglog("グレージングのコンダクタンス: " + gConductance);
 
   const pConductance = commonData.AluSpacerPsi*areaSet.glazingPerimeter;
