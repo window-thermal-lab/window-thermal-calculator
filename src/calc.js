@@ -150,7 +150,10 @@ function calculateUw(inputs) {
 
   debuglog("上枠の表面積: " + areaSet.headArea);
   debuglog("縦枠の表面積: " + areaSet.jambArea);
-  debuglog("下枠の表面積: " + areaSet.SillArea);
+  debuglog("下枠の表面積: " + areaSet.sillArea);
+  debuglog("上框の表面積: " + areaSet.topRailArea);
+  debuglog("縦框の表面積: " + areaSet.stillArea);
+  debuglog("下框の表面積: " + areaSet.BottomArea);
 
  
   let resist;
@@ -203,16 +206,26 @@ function getAreas(inputs) {
   const wm = inputs.fWidth / 1000;
   const hm = inputs.fHeight / 1000;
 
+  const glassTotalWidth =wm-(inputs.jfWidth/1000)*2-(inputs.jol/1000)*2-(inputs.stilefWidth/1000)*2;
+  const glassHeight =hm-inputs.hfWidth/1000-inputs.sfWidth/1000-inputs.hol/1000-inputs.sol/1000;
 
   const headArea = wm*(inputs.hfWidth/1000);
   const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;
-  const SillArea = wm*inputs.sfWidth/1000;
+  const sillArea = wm*inputs.sfWidth/1000;
+  const topRailArea = (glassTotalWidth/2)*(inputs.hol/1000)*2;
+  const stileArea = (hm-(inputs.hfWidth/1000)-inputs.sfWidth/1000)*((inputs.jol/1000)*2+(inputs.stilefWidth/1000)*2);
+  const BottomArea = (glassTotalWidth/2)*(inputs.sol/1000)*2;
+
 
   return {
     headArea: headArea,
     jambArea: jambArea,
-    SillArea: SillArea
-  };
+    sillArea: sillArea,
+    topRailArea: topRailArea,
+    stileArea: stileArea,
+    BottomArea: BottomArea
 
+  };
  
-}
+ 
+} 
