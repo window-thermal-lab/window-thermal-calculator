@@ -231,6 +231,8 @@ function getAreas(inputs) {
   const stileArea = (hm-(inputs.hfWidth/1000)-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);
   const BottomArea = (glassTotalWidth/2)*BottomVisible*2;
 
+  debuglog("グレージングの総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+BottomArea));
+
   return {
     headArea: headArea,
     jambArea: jambArea,
