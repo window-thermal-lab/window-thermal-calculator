@@ -10,6 +10,10 @@ const params = new URLSearchParams(window.location.search);
 // string
 const clientId = params.get("client");
 
+function debuglog(msg) {
+  output.textContent += "\n" + msg;
+}
+
 console.log("clientId =", clientId);
 
 
@@ -67,8 +71,8 @@ Promise.all([commonPromise, clientPromise])
        if (commonData) {
       console.log("common config =", commonData);
 
-      document.getElementById("fWidth").value = 1000;
-      document.getElementById("fHeight").value = 2000;
+      document.getElementById("fWidth").value = 2000;
+      document.getElementById("fHeight").value = 2200;
 
       updateCalculation();
     }
@@ -142,18 +146,37 @@ function calculateUw(inputs) {
   const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowTypeKey];
   if (!vWindow) return "";
 
+  const areaSet = getAreas(inputs);
+
  
-  // 上枠の熱抵抗
   let resist;
 
   if(commonData.lambdaWood > 0 ){
     resist = (inputs.fDepth/1000)/commonData.lambdaWood;
-    output.textContent += "\n上枠の熱抵抗: " + resist;   
+    debuglog("上枠の熱抵抗: " + resist);   
+    
+    resist = (inputs.fDepth/1000)/commonData.lambdaWood;
+    debuglog("縦枠の熱抵抗: " + resist);
+
+    resist = (inputs.fDepth/1000)/commonData.lambdaWood;
+    debuglog("縦枠の熱抵抗: " + resist);
+
+    
+
+
+
   }
   else{
-    output.textContent += "\n上枠の熱抵抗: lambdaWood が 0 以下です";
+    debuglog("上枠の熱抵抗: lambdaWood が 0 以下です");
     return "";
   }
+
+
+
+
+
+
+
   
 
  
@@ -167,4 +190,25 @@ function calculateUw(inputs) {
 function renderResult(result) {
   document.getElementById("uwResult").value = result;
   
+}
+
+
+// 共通関数
+function getAreas(inputs) {
+
+  const wm = inputs.fWidth / 1000;
+  const hm = inputs.fHeight / 1000;
+
+
+  const headArea = wm*(inputs.hfWidth/1000);
+  const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;
+  const SillArea = wm*inputs.sfWidth/1000;
+
+  return {
+    headArea: headArea,
+    jambArea: jambArea,
+    SillArea: SillArea
+  };
+
+ 
 }
