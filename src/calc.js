@@ -141,8 +141,8 @@ function calculateUw(inputs) {
   }  
   
   
-  const vGlass = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
-  if (!vGlass){
+  const vGlazing = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
+  if (!vGlazing){
 
     console.log(inputs.glassTypeKey);
     console.log(commonData.glassTypes);
@@ -170,7 +170,7 @@ function calculateUw(inputs) {
 
   debuglog("枠の総抵抗値: " + resistSet.frameResist);
   debuglog("障子の総抵抗値: " + resistSet.sashResist);
-  debuglog("Ug: " + vGlass.Ug);
+  debuglog("Ug: " + vGlazing.Ug);
 
   if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
     debuglog("熱抵抗: frameResist 又は sashResistが 0 以下です");
@@ -178,21 +178,20 @@ function calculateUw(inputs) {
   }  
 
   // コンダクタンス
-  const Uf = (areaSet.headArea+areaSet.jambArea+areaSet.sillArea)*(1/resistSet.frameResist)+(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea)*(1/resistSet.sashResist);
-  debuglog("Uf: " + Uf);
+  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea)+(1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
+  debuglog("木部のコンダクタンス: " + fConductance);
 
-  
+  const gConductance = vGlass.Ug*areaSet.glazingArea;
+  debuglog("グレージングのコンダクタンス: " + gConductance);
   
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
   return area;
  
 }
+
 function renderResult(result) {
   document.getElementById("uwResult").value = result;
 }
-  
-
-
 
 // 共通関数
 function getAreas(inputs) {

@@ -1,7 +1,9 @@
 {
   "calculationStandard": "JIS",
   "defaultGlass": "lowe_argon",
-  "defaultSpacerPsi": 0.06,
+
+
+  "AluSpacerPsi": 0.08,
 
 
 
