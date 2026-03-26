@@ -168,7 +168,7 @@ function calculateUw(inputs) {
     resist = (inputs.fDepth/1000)/commonData.lambdaWood;
     debuglog("縦枠の熱抵抗: " + resist);
 
-    
+    debuglog("Ug: " + glassTypeKey.Ug);
 
 
 
@@ -208,10 +208,18 @@ function getAreas(inputs) {
     
   const topRailVisible = inputs.trfWidth/1000-inputs.hol/1000
   const stileVisible = inputs.stilefWidth/1000-inputs.jol/1000
-  const BottomVisible = inputs.bfWidth/1000-inputs.sol/1000
+  const bottomVisible = inputs.bfWidth/1000-inputs.sol/1000
 
-  const glassTotalWidth = wm-(inputs.jfWidth/1000)*2-stileVisible*2-(inputs.stilefWidth/1000)*2;
-  const glassHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-topRailVisible-BottomVisible;
+  const glazingTotalWidth = wm-(inputs.jfWidth/1000)*2-stileVisible*2-(inputs.stilefWidth/1000)*2;
+  const glazingHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-topRailVisible-bottomVisible;
+  
+  if (glazingTotalWidth <= 0) {
+    debuglog("エラー: glazingTotalWidth が 0 以下です");
+  }
+
+  if (glazingHeight <= 0) {
+    debuglog("エラー: glazingHeight が 0 以下です");
+  }
 
   /*
   debuglog("wm: " + wm);
@@ -220,22 +228,22 @@ function getAreas(inputs) {
   debuglog("縦框の見付け: " + inputs.stilefWidth/1000);
   */
 
-  debuglog("ガラスの総幅: " + glassTotalWidth);
-  debuglog("ガラスの高さ: " + glassHeight);
+  debuglog("ガラスの総幅: " + glazingTotalWidth);
+  debuglog("ガラスの高さ: " + glazingHeight);
   debuglog("上框の見える部分: " + topRailVisible);
   debuglog("縦框の見える部分: " + stileVisible);
-  debuglog("下框の見える部分: " + BottomVisible);
+  debuglog("下框の見える部分: " + bottomVisible);
   
   const headArea = wm*(inputs.hfWidth/1000);
   const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;
   const sillArea = wm*inputs.sfWidth/1000;
-  const topRailArea = (glassTotalWidth/2)*topRailVisible*2;
+  const topRailArea = (glazingTotalWidth/2)*topRailVisible*2;
   const stileArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);
-  const BottomArea = (glassTotalWidth/2)*BottomVisible*2;
+  const bottomArea = (glazingTotalWidth/2)*bottomVisible*2;
 
-  debuglog("木部の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+BottomArea));
-  debuglog("グレージングの総面積: " + glassTotalWidth*glassHeight);
-  debuglog("窓の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+BottomArea+glassTotalWidth*glassHeight));
+  debuglog("木部の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea));
+  debuglog("グレージングの総面積: " + glazingTotalWidth*glazingHeight);
+  debuglog("窓の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea+glazingTotalWidth*glazingHeight));
 
   return {
     headArea: headArea,
@@ -243,7 +251,7 @@ function getAreas(inputs) {
     sillArea: sillArea,
     topRailArea: topRailArea,
     stileArea: stileArea,
-    BottomArea: BottomArea
+    BottomArea: bottomArea
 
   };
  
