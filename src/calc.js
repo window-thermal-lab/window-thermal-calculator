@@ -206,15 +206,18 @@ function getAreas(inputs) {
   const wm = inputs.fWidth / 1000;
   const hm = inputs.fHeight / 1000;
 
-  const glassTotalWidth =wm-(inputs.jfWidth/1000)*2-(inputs.jol/1000)*2-(inputs.stilefWidth/1000)*2;
-  const glassHeight =hm-inputs.hfWidth/1000-inputs.sfWidth/1000-inputs.hol/1000-inputs.sol/1000;
+  const glassTotalWidth = wm-(inputs.jfWidth/1000)*2-(inputs.jol/1000)*2-(inputs.stilefWidth/1000)*2;
+  const glassHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-inputs.hol/1000-inputs.sol/1000;
+  const topRailVisible = inputs.trfWidth/1000-inputs.hol/1000
+  const stileVisible = inputs.stilefWidth/1000-inputs.jol/1000
+  const BottomVisible = inputs.bfWidth/1000-inputs.sol/1000
 
   const headArea = wm*(inputs.hfWidth/1000);
   const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;
   const sillArea = wm*inputs.sfWidth/1000;
-  const topRailArea = (glassTotalWidth/2)*(inputs.hol/1000)*2;
-  const stileArea = (hm-(inputs.hfWidth/1000)-inputs.sfWidth/1000)*((inputs.jol/1000)*2+(inputs.stilefWidth/1000)*2);
-  const BottomArea = (glassTotalWidth/2)*(inputs.sol/1000)*2;
+  const topRailArea = (glassTotalWidth/2)*topRailVisible*2;
+  const stileArea = (hm-(inputs.hfWidth/1000)-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);
+  const BottomArea = (glassTotalWidth/2)*BottomVisible*2;
 
 
   return {
@@ -228,4 +231,4 @@ function getAreas(inputs) {
   };
  
  
-} 
+}
