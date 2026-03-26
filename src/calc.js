@@ -205,18 +205,18 @@ function getAreas(inputs) {
 
   const wm = inputs.fWidth / 1000;
   const hm = inputs.fHeight / 1000;
-
-  const glassTotalWidth = wm-(inputs.jfWidth/1000)*2-(inputs.jol/1000)*2-(inputs.stilefWidth/1000)*2;
-
-  debuglog("wm: " + wm);
-  debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
-  debuglog("縦枠と縦框の重なり: " + inputs.jol/1000);
-  debuglog("縦框の見付け: " + inputs.stilefWidth/1000);
-
-  const glassHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-inputs.hol/1000-inputs.sol/1000;
+    
   const topRailVisible = inputs.trfWidth/1000-inputs.hol/1000
   const stileVisible = inputs.stilefWidth/1000-inputs.jol/1000
   const BottomVisible = inputs.bfWidth/1000-inputs.sol/1000
+
+  const glassTotalWidth = wm-(inputs.jfWidth/1000)*2-stileVisible*2-(inputs.stilefWidth/1000)*2;
+  const glassHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-inputs.hol/1000-inputs.sol/1000;
+
+  debuglog("wm: " + wm);
+  debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
+  debuglog("縦框の見える部分: " + stileVisible);
+  debuglog("縦框の見付け: " + inputs.stilefWidth/1000);
 
   debuglog("ガラスの総幅: " + glassTotalWidth);
   debuglog("ガラスの高さ: " + glassHeight);
