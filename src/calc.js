@@ -183,7 +183,10 @@ function calculateUw(inputs) {
 
   const gConductance = vGlass.Ug*areaSet.glazingArea;
   debuglog("グレージングのコンダクタンス: " + gConductance);
-  
+
+  const pConductance = commonData.AluSpacerPsi*areaSet.glazingPerimeter;
+  debuglog("スペーサーのコンダクタンス: " + pConductance);
+
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
   return area;
  
