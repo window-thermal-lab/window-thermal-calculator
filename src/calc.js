@@ -187,7 +187,10 @@ function calculateUw(inputs) {
   const pConductance = commonData.AluSpacerPsi*areaSet.glazingPerimeter;
   debuglog("スペーサーのコンダクタンス: " + pConductance);
 
-  const Uw = (fConductance + gConductance + pConductance)/(areaSet.totalArea);
+  const totalConductance = fConductance + gConductance + pConductance
+
+  const Uw = totalConductance/(areaSet.totalArea);
+
   return Uw;
  
 }
@@ -242,7 +245,7 @@ function getAreas(inputs) {
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
 
-  debuglog("木部の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea));
+  debuglog("木部の総面積: " + (headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea));
   debuglog("グレージングの総面積: " + glazingArea);
   debuglog("グレージングの周長: " + glazingPerimeter);
   debuglog("窓の総面積: " + totalArea);
