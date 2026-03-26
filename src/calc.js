@@ -159,7 +159,7 @@ function calculateUw(inputs) {
   let resist;
 
   if(commonData.lambdaWood > 0 ){
-    resist = (inputs.fDepth/1000)/commonData.lambdaWood;
+    resist = commonData.Rsi+(inputs.fDepth/1000)/commonData.lambdaWood+commonData.Rse;
     debuglog("上枠の熱抵抗: " + resist);   
     
     resist = (inputs.fDepth/1000)/commonData.lambdaWood;
@@ -169,6 +169,8 @@ function calculateUw(inputs) {
     debuglog("縦枠の熱抵抗: " + resist);
 
     debuglog("Ug: " + vGlass.Ug);
+
+
 
 
 
@@ -186,8 +188,7 @@ function calculateUw(inputs) {
 
   
 
- 
-//output.textContent += "\ncommon: " + JSON.stringify(commonData);
+
   const ug = vGlass.Ug;
   
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
@@ -221,6 +222,7 @@ function getAreas(inputs) {
     debuglog("エラー: glazingHeight が 0 以下です");
   }
 
+  const glazingArea = glazingTotalWidth*glazingHeight;
   /*
   debuglog("wm: " + wm);
   debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
@@ -242,10 +244,11 @@ function getAreas(inputs) {
   const bottomArea = (glazingTotalWidth/2)*bottomVisible*2;
 
   debuglog("木部の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea));
-  debuglog("グレージングの総面積: " + glazingTotalWidth*glazingHeight);
-  debuglog("窓の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea+glazingTotalWidth*glazingHeight));
+  debuglog("グレージングの総面積: " + glazingArea);
+  debuglog("窓の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea+glazingArea));
 
   return {
+    glazingArea: glazingArea,
     headArea: headArea,
     jambArea: jambArea,
     sillArea: sillArea,

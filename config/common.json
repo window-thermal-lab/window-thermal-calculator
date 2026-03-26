@@ -1,8 +1,13 @@
 {
-    "calculationStandard": "JIS",
-    "defaultGlass": "lowe_argon",
-    "defaultSpacerPsi": 0.06,
+  "calculationStandard": "JIS",
+  "defaultGlass": "lowe_argon",
+  "defaultSpacerPsi": 0.06,
+
+
+
   "lambdaWood": 0.11,
+  "Rsi":0.13,
+  "Rse":0.04,
 
   "glassTypes": {
     "single_clear": {
