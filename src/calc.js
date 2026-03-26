@@ -165,7 +165,7 @@ function calculateUw(inputs) {
     debuglog("枠の総抵抗値: " + resistSet.frameResist);
     debuglog("障子の総抵抗値: " + resistSet.sashRresist);
     debuglog("Ug: " + vGlass.Ug);
-    
+
   }
   else{
     debuglog("上枠の熱抵抗: lambdaWood が 0 以下です");
@@ -181,7 +181,7 @@ function calculateUw(inputs) {
   
 
 
-  const ug = vGlass.Ug;
+  
   
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
   return area;
@@ -249,13 +249,11 @@ function getAreas(inputs) {
     bottomArea: bottomArea
 
   };
+}
 
-  // 共通関数
+ 
 function getResist(inputs) {
 
-  const wm = inputs.fWidth / 1000;
-  const hm = inputs.fHeight / 1000;
-    
   const frameResist = commonData.Rsi+(inputs.fDepth/1000)/commonData.lambdaWood+commonData.Rse;
   const sashResist = commonData.Rsi+(inputs.sDepth/1000)/commonData.lambdaWood+commonData.Rse;
 
