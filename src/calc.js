@@ -96,7 +96,7 @@ document.querySelectorAll("input, select").forEach(el => {
 function updateCalculation() {
 
   output.textContent = "";
-  
+
   const inputs = getInputs();
   const result = calculateUw(inputs);
 
@@ -162,8 +162,6 @@ function calculateUw(inputs) {
   debuglog("下框の表面積: " + areaSet.bottomArea);
 
   
- 
-
   if(commonData.lambdaWood > 0 ){
    
     const resistSet = getResist(inputs);
@@ -171,6 +169,9 @@ function calculateUw(inputs) {
     debuglog("枠の総抵抗値: " + resistSet.frameResist);
     debuglog("障子の総抵抗値: " + resistSet.sashResist);
     debuglog("Ug: " + vGlass.Ug);
+
+
+    
 
   }
   else{
@@ -221,6 +222,7 @@ function getAreas(inputs) {
   }
 
   const glazingArea = glazingTotalWidth*glazingHeight;
+  const glazingPerimeter = glazingTotalWidth*2+glazingHeight*4;
   /*
   debuglog("wm: " + wm);
   debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
@@ -243,10 +245,13 @@ function getAreas(inputs) {
 
   debuglog("木部の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea));
   debuglog("グレージングの総面積: " + glazingArea);
+  debuglog("グレージングの周長: " + glazingPerimeter);
   debuglog("窓の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea+glazingArea));
+
 
   return {
     glazingArea: glazingArea,
+    glazingPerimeter: glazingPerimeter,
     headArea: headArea,
     jambArea: jambArea,
     sillArea: sillArea,
