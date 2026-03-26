@@ -168,7 +168,7 @@ function calculateUw(inputs) {
     resist = (inputs.fDepth/1000)/commonData.lambdaWood;
     debuglog("縦枠の熱抵抗: " + resist);
 
-    debuglog("Ug: " + inputs.glassTypeKey.Ug);
+    debuglog("Ug: " + vGlass.Ug);
 
 
 
