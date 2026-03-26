@@ -231,7 +231,6 @@ function getAreas(inputs) {
   const stileArea = (hm-(inputs.hfWidth/1000)-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);
   const BottomArea = (glassTotalWidth/2)*BottomVisible*2;
 
-
   return {
     headArea: headArea,
     jambArea: jambArea,
