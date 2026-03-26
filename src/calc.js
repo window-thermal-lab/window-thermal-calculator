@@ -155,25 +155,17 @@ function calculateUw(inputs) {
   debuglog("縦框の表面積: " + areaSet.stileArea);
   debuglog("下框の表面積: " + areaSet.bottomArea);
 
+  
  
-  let resist;
 
   if(commonData.lambdaWood > 0 ){
-    resist = commonData.Rsi+(inputs.fDepth/1000)/commonData.lambdaWood+commonData.Rse;
-    debuglog("上枠の熱抵抗: " + resist);   
-    
-    resist = (inputs.fDepth/1000)/commonData.lambdaWood;
-    debuglog("縦枠の熱抵抗: " + resist);
+   
+    const resistSet = getResist(inputs);
 
-    resist = (inputs.fDepth/1000)/commonData.lambdaWood;
-    debuglog("縦枠の熱抵抗: " + resist);
-
+    debuglog("枠の総抵抗値: " + resistSet.frameResist);
+    debuglog("障子の総抵抗値: " + resistSet.sashRresist);
     debuglog("Ug: " + vGlass.Ug);
-
-
-
-
-
+    
   }
   else{
     debuglog("上枠の熱抵抗: lambdaWood が 0 以下です");
@@ -256,6 +248,20 @@ function getAreas(inputs) {
     stileArea: stileArea,
     bottomArea: bottomArea
 
+  };
+
+  // 共通関数
+function getResist(inputs) {
+
+  const wm = inputs.fWidth / 1000;
+  const hm = inputs.fHeight / 1000;
+    
+  const frameResist = commonData.Rsi+(inputs.fDepth/1000)/commonData.lambdaWood+commonData.Rse;
+  const sashResist = commonData.Rsi+(inputs.sDepth/1000)/commonData.lambdaWood+commonData.Rse;
+
+  return {
+    frameResist: frameResist,
+    sashResist: sashResist   
   };
  
  
