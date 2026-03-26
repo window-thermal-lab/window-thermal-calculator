@@ -211,7 +211,7 @@ function getAreas(inputs) {
   const BottomVisible = inputs.bfWidth/1000-inputs.sol/1000
 
   const glassTotalWidth = wm-(inputs.jfWidth/1000)*2-stileVisible*2-(inputs.stilefWidth/1000)*2;
-  const glassHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-inputs.hol/1000-inputs.sol/1000;
+  const glassHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-topRailVisible-BottomVisible;
 
   debuglog("wm: " + wm);
   debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
