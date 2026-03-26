@@ -153,7 +153,7 @@ function calculateUw(inputs) {
   debuglog("下枠の表面積: " + areaSet.sillArea);
   debuglog("上框の表面積: " + areaSet.topRailArea);
   debuglog("縦框の表面積: " + areaSet.stileArea);
-  debuglog("下框の表面積: " + areaSet.BottomArea);
+  debuglog("下框の表面積: " + areaSet.bottomArea);
 
  
   let resist;
