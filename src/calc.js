@@ -178,7 +178,7 @@ function calculateUw(inputs) {
   }  
 
   // コンダクタンス
-  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea)+(1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
+  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea) + (1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
   debuglog("木部のコンダクタンス: " + fConductance);
 
   const gConductance = vGlazing.Ug*areaSet.glazingArea;
@@ -187,8 +187,8 @@ function calculateUw(inputs) {
   const pConductance = commonData.AluSpacerPsi*areaSet.glazingPerimeter;
   debuglog("スペーサーのコンダクタンス: " + pConductance);
 
-  const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
-  return area;
+  const Uw = (fConductance + gConductance + pConductance)/windowArea;
+  return Uw;
  
 }
 
@@ -219,6 +219,7 @@ function getAreas(inputs) {
 
   const glazingArea = glazingTotalWidth*glazingHeight;
   const glazingPerimeter = glazingTotalWidth*2+glazingHeight*4;
+  const windowArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
   /*
   debuglog("wm: " + wm);
   debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
@@ -242,12 +243,13 @@ function getAreas(inputs) {
   debuglog("木部の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea));
   debuglog("グレージングの総面積: " + glazingArea);
   debuglog("グレージングの周長: " + glazingPerimeter);
-  debuglog("窓の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea+glazingArea));
+  debuglog("窓の総面積: " + windowArea);
 
 
   return {
     glazingArea: glazingArea,
     glazingPerimeter: glazingPerimeter,
+    windowArea: windowArea,
     headArea: headArea,
     jambArea: jambArea,
     sillArea: sillArea,
