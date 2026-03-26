@@ -163,7 +163,7 @@ function calculateUw(inputs) {
     const resistSet = getResist(inputs);
 
     debuglog("枠の総抵抗値: " + resistSet.frameResist);
-    debuglog("障子の総抵抗値: " + resistSet.sashRresist);
+    debuglog("障子の総抵抗値: " + resistSet.sashResist);
     debuglog("Ug: " + vGlass.Ug);
 
   }
