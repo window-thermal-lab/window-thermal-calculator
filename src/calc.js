@@ -152,7 +152,7 @@ function calculateUw(inputs) {
   debuglog("縦枠の表面積: " + areaSet.jambArea);
   debuglog("下枠の表面積: " + areaSet.sillArea);
   debuglog("上框の表面積: " + areaSet.topRailArea);
-  debuglog("縦框の表面積: " + areaSet.stillArea);
+  debuglog("縦框の表面積: " + areaSet.stileArea);
   debuglog("下框の表面積: " + areaSet.BottomArea);
 
  
@@ -230,7 +230,7 @@ function getAreas(inputs) {
   const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;
   const sillArea = wm*inputs.sfWidth/1000;
   const topRailArea = (glassTotalWidth/2)*topRailVisible*2;
-  const stileArea = (hm-(inputs.hfWidth/1000)-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);
+  const stileArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);
   const BottomArea = (glassTotalWidth/2)*BottomVisible*2;
 
   debuglog("木部の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+BottomArea));
