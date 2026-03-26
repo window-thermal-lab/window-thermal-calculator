@@ -88,8 +88,8 @@ if (btn) {
 }
 
 document.querySelectorAll("input, select").forEach(el => {
- // el.addEventListener("input", updateCalculation);
- // el.addEventListener("change", updateCalculation);
+  el.addEventListener("input", updateCalculation);
+  el.addEventListener("change", updateCalculation);
 });
 
 
@@ -132,8 +132,12 @@ function calculateUw(inputs) {
   
   
   // 計算スタート
-
-  if (!commonData) return "";
+  
+  if (!commonData) {
+    debuglog("commonData未ロード");
+    return "";
+  }  
+  
   
   const vGlass = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
   if (!vGlass){
