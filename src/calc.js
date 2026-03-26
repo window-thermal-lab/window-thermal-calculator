@@ -219,7 +219,7 @@ function getAreas(inputs) {
 
   const glazingArea = glazingTotalWidth*glazingHeight;
   const glazingPerimeter = glazingTotalWidth*2+glazingHeight*4;
-  const windowArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
+  
   /*
   debuglog("wm: " + wm);
   debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
@@ -239,6 +239,8 @@ function getAreas(inputs) {
   const topRailArea = (glazingTotalWidth/2)*topRailVisible*2;
   const stileArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);
   const bottomArea = (glazingTotalWidth/2)*bottomVisible*2;
+
+  const windowArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
 
   debuglog("木部の総面積: " + (headArea+jambArea+sillArea+topRailArea+stileArea+bottomArea));
   debuglog("グレージングの総面積: " + glazingArea);
