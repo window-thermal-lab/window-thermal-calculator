@@ -214,6 +214,9 @@ function getAreas(inputs) {
 
   debuglog("ガラスの総幅: " + glassTotalWidth);
   debuglog("ガラスの高さ: " + glassHeight);
+  debuglog("上框の見える部分: " + topRailVisible);
+  debuglog("縦框の見える部分: " + stileVisible);
+  debuglog("下框の見える部分: " + BottomVisible);
   
   const headArea = wm*(inputs.hfWidth/1000);
   const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;
