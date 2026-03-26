@@ -7,11 +7,11 @@
   "glassTypes": {
     "single_clear": {
       "name": "単板クリア",
-      "Ug": 6.0
+      "Ug": 5.0
     },
     "double_clear": {
       "name": "複層クリア",
-      "Ug": 2.8
+      "Ug": 2.4
     },
     "double_lowe_argon": {
       "name": "複層Low-E Ar",

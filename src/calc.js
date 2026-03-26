@@ -251,7 +251,7 @@ function getAreas(inputs) {
     sillArea: sillArea,
     topRailArea: topRailArea,
     stileArea: stileArea,
-    BottomArea: bottomArea
+    bottomArea: bottomArea
 
   };
  
