@@ -161,43 +161,37 @@ function calculateUw(inputs) {
   debuglog("縦框の表面積: " + areaSet.stileArea);
   debuglog("下框の表面積: " + areaSet.bottomArea);
 
-  
-  if(commonData.lambdaWood > 0 ){
-   
-    const resistSet = getResist(inputs);
-
-    debuglog("枠の総抵抗値: " + resistSet.frameResist);
-    debuglog("障子の総抵抗値: " + resistSet.sashResist);
-    debuglog("Ug: " + vGlass.Ug);
-
-
-    
-
-  }
-  else{
-    debuglog("上枠の熱抵抗: lambdaWood が 0 以下です");
+  if(commonData.lambdaWood <= 0 ){
+    debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
     return "";
   }
 
+  const resistSet = getResist(inputs);
 
+  debuglog("枠の総抵抗値: " + resistSet.frameResist);
+  debuglog("障子の総抵抗値: " + resistSet.sashResist);
+  debuglog("Ug: " + vGlass.Ug);
 
+  if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
+    debuglog("熱抵抗: frameResist 又は sashResistが 0 以下です");
+    return "";
+  }  
 
-
-
-
-  
-
+  // コンダクタンス
+  const Uf = (areaSet.headArea+areaSet.jambArea+areaSet.sillArea)*(1/resistSet.frameResist)+(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea)*(1/resistSet.sashResist);
+  debuglog("Uf: " + Uf);
 
   
   
   const area = (inputs.fWidth / 1000) * (inputs.fHeight / 1000);
   return area;
- }
-
+ 
+}
 function renderResult(result) {
   document.getElementById("uwResult").value = result;
-  
 }
+  
+
 
 
 // 共通関数
