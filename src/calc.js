@@ -187,7 +187,7 @@ function calculateUw(inputs) {
   const pConductance = commonData.AluSpacerPsi*areaSet.glazingPerimeter;
   debuglog("スペーサーのコンダクタンス: " + pConductance);
 
-  const Uw = (fConductance + gConductance + pConductance)/windowArea;
+  const Uw = (fConductance + gConductance + pConductance)/areaSet.windowArea;
   return Uw;
  
 }
