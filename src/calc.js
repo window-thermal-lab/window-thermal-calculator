@@ -72,6 +72,7 @@ Promise.all([commonPromise, clientPromise])
     // 初期値
     document.getElementById("fWidth").value = 2000;
     document.getElementById("fHeight").value = 2200;
+     document.getElementById("ugResult").value = 1.6;
 
 
   if (client) {
