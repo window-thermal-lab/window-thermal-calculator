@@ -32,7 +32,11 @@
     },
     "sliding": {
       "name": "引違い"
+    },
+    "fixed": {
+      "name": "FIX"
     }
   }
 
+  
 }
