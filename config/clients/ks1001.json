@@ -1,2 +1,20 @@
 {
+  "clientName": "川上製作所",
+
+  "HeadFaceWidth":44,
+  "JambFaceWidth":44,
+  "SillFaceWidth":56, 
+
+  "FrameDepth":110,
+
+  "TopRailFaceWidth":110, 
+  "StileFaceWidth":110,
+  "BottomRailFaceWidth":110,
+
+  "SashDepth":56,
+
+  "HeadOverlap": 14,
+  "JambOverlap": 13,
+  "SillOverlap": 13  
 }
+

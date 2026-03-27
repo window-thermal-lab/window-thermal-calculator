@@ -1,8 +1,6 @@
 {
-  "company": "森の窓",
-  "prefix": "mm",
-  "defaultWood": "cedar",  
-  
+  "clientName": "森の窓",
+   
   "HeadFaceWidth":45,
   "JambFaceWidth":45,
   "SillFaceWidth":45,
