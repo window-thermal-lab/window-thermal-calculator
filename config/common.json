@@ -1,7 +1,7 @@
 {
   "calculationStandard": "JIS",
   "defaultGlass": "lowe_argon",
-
+  "defaultWindowType": "sliding",
 
   "AluSpacerPsi": 0.08,
 

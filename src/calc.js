@@ -1,25 +1,26 @@
 // window thermal calculator
 
-let commonData = null;
+let commonData = {};
 
-// output Element
+// output コントロール
 const output = document.getElementById("output");
+
+const btn = document.getElementById("calcBtn");
 
 const params = new URLSearchParams(window.location.search);
 
 // string
 const clientId = params.get("client");
+console.log("clientId =", clientId);
 
 function debuglog(msg) {
+  if (!output) return;
   output.textContent += "\n" + msg;
 }
 
-console.log("clientId =", clientId);
-
-
+// client.json 取得
 let clientPromise;
 
-// client.json取得
 if (clientId) {
   clientPromise = fetch(`./config/clients/${clientId}.json`)
     .then(r => {
@@ -34,6 +35,7 @@ if (clientId) {
   clientPromise = Promise.resolve(null);
 }
 
+// common.json 取得
 const commonPromise = fetch("./config/common.json")
   .then(r => {
     if (!r.ok) return null;
@@ -46,7 +48,30 @@ const commonPromise = fetch("./config/common.json")
 
 Promise.all([commonPromise, clientPromise])
   .then(([common, client]) => {
+    if (!common) {
+      console.log("common config is null");
+      return;
+    }
+
     commonData = common;
+    console.log("common config =", commonData);
+
+     // プルダウン生成
+    buildSelectFromObject(
+      "idGlassType",
+      commonData.glassTypes,
+      commonData.defaultGlass
+    );
+
+    buildSelectFromObject(
+      "idWindowType",
+      commonData.windowTypes,
+      commonData.defaultWindowType
+    );
+    
+    // 初期値
+    document.getElementById("fWidth").value = 2000;
+    document.getElementById("fHeight").value = 2200;
 
 
   if (client) {
@@ -65,44 +90,149 @@ Promise.all([commonPromise, clientPromise])
         document.getElementById("hol").value = client.HeadOverlap ?? "";
         document.getElementById("jol").value = client.JambOverlap ?? "";
         document.getElementById("sol").value = client.SillOverlap ?? "";
-      }
+      }     
 
-
-       if (commonData) {
-      console.log("common config =", commonData);
-
-      document.getElementById("fWidth").value = 2000;
-      document.getElementById("fHeight").value = 2200;
-
-      updateCalculation();
-    }
+      updateCalculation();   
 
   })
   .catch(err => {
     console.log("init error", err);
   });
 
-const btn = document.getElementById("calcBtn");
+// イベント登録
 if (btn) {
   btn.addEventListener("click", updateCalculation);
 }
 
 document.querySelectorAll("input, select").forEach(el => {
-  el.addEventListener("input", updateCalculation);
+  //el.addEventListener("input", updateCalculation);
   el.addEventListener("change", updateCalculation);
 });
 
+function buildSelectFromObject(selectId, items, selectedKey) {
+  const select = document.getElementById(selectId);
+  if (!select || !items) return;
 
+  // いったん中身を消す
+  select.innerHTML = "";
+
+  Object.entries(items).forEach(([key, item]) => {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = item.name;
+
+    if (key === selectedKey) {
+      option.selected = true;
+    }
+
+    select.appendChild(option);
+  });
+
+  // selectedKey が存在しない場合は先頭を選ぶ
+  if (!items[selectedKey] && select.options.length > 0) {
+    select.selectedIndex = 0;
+  }
+}
+
+
+// 
 function updateCalculation() {
 
   output.textContent = "";
 
   const inputs = getInputs();
+
+  const selectedGlass = commonData.glassTypes?.[inputs.glassTypeKey];
+  const selectedWindow = commonData.windowTypes?.[inputs.windowTypeKey];
+
+  if (!selectedGlass || !selectedWindow) {
+    console.log("選択値が不正です");
+    return;
+  }
+
   const result = calculateUw(inputs);
+
+  if (result == null) {
+  debuglog("計算できませんでした");
+  return;
+  }
 
   renderResult(result);
 }
 
+// 計算メイン関数
+function calculateUw(inputs) {
+  
+  
+  // 計算スタート
+  
+  if (!commonData.glassTypes || !commonData.windowTypes) {
+  debuglog("commonData未ロード");
+  return null;
+  }
+  
+  
+  const vGlazing = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
+  if (!vGlazing){
+
+    console.log(inputs.glassTypeKey);
+    console.log(commonData.glassTypes);
+    return null;     
+  }  
+
+  const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowTypeKey];
+  if (!vWindow) return null;
+
+  const areaSet = getAreas(inputs);
+
+  debuglog("上枠の表面積: " + areaSet.headArea);
+  debuglog("縦枠の表面積: " + areaSet.jambArea);
+  debuglog("下枠の表面積: " + areaSet.sillArea);
+  debuglog("上框の表面積: " + areaSet.topRailArea);
+  debuglog("縦框の表面積: " + areaSet.stileArea);
+  debuglog("下框の表面積: " + areaSet.bottomArea);
+
+  if(commonData.lambdaWood <= 0 ){
+    debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
+    return null;
+  }
+
+  const resistSet = getResist(inputs);
+
+  debuglog("枠の総抵抗値: " + resistSet.frameResist);
+  debuglog("障子の総抵抗値: " + resistSet.sashResist);
+  debuglog("Ug: " + vGlazing.Ug);
+
+  if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
+    debuglog("熱抵抗: frameResist 又は sashResistが 0 以下です");
+    return null;
+  }  
+
+  // コンダクタンス
+  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea) + (1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
+  debuglog("木部のコンダクタンス: " + fConductance);
+
+  const gConductance = vGlazing.Ug*areaSet.glazingArea;
+  debuglog("グレージングのコンダクタンス: " + gConductance);
+
+  const pConductance = commonData.AluSpacerPsi*areaSet.glazingPerimeter;
+  debuglog("スペーサーのコンダクタンス: " + pConductance);
+
+  const totalConductance = fConductance + gConductance + pConductance
+
+  const Uw = totalConductance/(areaSet.totalArea);
+
+  return Uw;
+ 
+}
+
+// 最終表示
+function renderResult(result) {
+  document.getElementById("uwResult").value = result;
+}
+
+
+// Get系関数
 function getInputs() {
   return {
     
@@ -130,76 +260,7 @@ function getInputs() {
   };
 }
 
-function calculateUw(inputs) {
-  
-  
-  // 計算スタート
-  
-  if (!commonData) {
-    debuglog("commonData未ロード");
-    return "";
-  }  
-  
-  
-  const vGlazing = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
-  if (!vGlazing){
 
-    console.log(inputs.glassTypeKey);
-    console.log(commonData.glassTypes);
-    return "";     
-  }  
-
-  const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowTypeKey];
-  if (!vWindow) return "";
-
-  const areaSet = getAreas(inputs);
-
-  debuglog("上枠の表面積: " + areaSet.headArea);
-  debuglog("縦枠の表面積: " + areaSet.jambArea);
-  debuglog("下枠の表面積: " + areaSet.sillArea);
-  debuglog("上框の表面積: " + areaSet.topRailArea);
-  debuglog("縦框の表面積: " + areaSet.stileArea);
-  debuglog("下框の表面積: " + areaSet.bottomArea);
-
-  if(commonData.lambdaWood <= 0 ){
-    debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
-    return "";
-  }
-
-  const resistSet = getResist(inputs);
-
-  debuglog("枠の総抵抗値: " + resistSet.frameResist);
-  debuglog("障子の総抵抗値: " + resistSet.sashResist);
-  debuglog("Ug: " + vGlazing.Ug);
-
-  if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
-    debuglog("熱抵抗: frameResist 又は sashResistが 0 以下です");
-    return "";
-  }  
-
-  // コンダクタンス
-  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea) + (1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
-  debuglog("木部のコンダクタンス: " + fConductance);
-
-  const gConductance = vGlazing.Ug*areaSet.glazingArea;
-  debuglog("グレージングのコンダクタンス: " + gConductance);
-
-  const pConductance = commonData.AluSpacerPsi*areaSet.glazingPerimeter;
-  debuglog("スペーサーのコンダクタンス: " + pConductance);
-
-  const totalConductance = fConductance + gConductance + pConductance
-
-  const Uw = totalConductance/(areaSet.totalArea);
-
-  return Uw;
- 
-}
-
-function renderResult(result) {
-  document.getElementById("uwResult").value = result;
-}
-
-// 共通関数
 function getAreas(inputs) {
 
   const wm = inputs.fWidth / 1000;
