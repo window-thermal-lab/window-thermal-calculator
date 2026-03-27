@@ -1,20 +1,21 @@
 {
-  "clientName": "川上製作所",
+  "clientName": "森の窓",
+   
+  "HeadFaceWidth":45,
+  "JambFaceWidth":45,
+  "SillFaceWidth":45,
 
-  "HeadFaceWidth":44,
-  "JambFaceWidth":44,
-  "SillFaceWidth":56, 
+  "FrameDepth":105,
 
-  "FrameDepth":110,
-
-  "TopRailFaceWidth":110, 
-  "StileFaceWidth":110,
-  "BottomRailFaceWidth":110,
+  "TopRailFaceWidth":78,  
+  "StileFaceWidth":78,
+  "BottomRailFaceWidth":105,
 
   "SashDepth":56,
 
-  "HeadOverlap": 14,
-  "JambOverlap": 13,
-  "SillOverlap": 13  
+  "HeadOverlap": 18,
+  "JambOverlap": 18,
+  "SillOverlap": 18
 }
+
 
