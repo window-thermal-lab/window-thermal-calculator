@@ -72,7 +72,7 @@ Promise.all([commonPromise, clientPromise])
     // 初期値
     document.getElementById("fWidth").value = 2000;
     document.getElementById("fHeight").value = 2200;
-     document.getElementById("ugResult").value = 1.6;
+    document.getElementById("ugResult").value = 1.6;
 
 
   if (client) {
@@ -240,6 +240,8 @@ function getInputs() {
     fWidth: parseFloat(document.getElementById("fWidth").value) || 0,
     fHeight: parseFloat(document.getElementById("fHeight").value) || 0,
 
+    fHeiugResultght: parseFloat(document.getElementById("ugResult").value) || 0,
+  
     hfWidth: parseFloat(document.getElementById("hfWidth").value) || 0,
     jfWidth: parseFloat(document.getElementById("jfWidth").value) || 0,
     sfWidth: parseFloat(document.getElementById("sfWidth").value) || 0,
