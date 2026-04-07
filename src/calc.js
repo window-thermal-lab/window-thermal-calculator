@@ -133,6 +133,9 @@ function buildSelectFromObject(selectId, items, selectedKey) {
   if (!items[selectedKey] && select.options.length > 0) {
     select.selectedIndex = 0;
   }
+
+  console.log("selectedKey =", selectedKey);
+  console.log("items =", items);
 }
 
 
