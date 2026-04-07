@@ -1,7 +1,7 @@
 {
   "calculationStandard": "JIS",
   "defaultGlass": "lowe_argon",
-  "defaultWindowType": "doubleDoor",
+  "defaultWindowType": "singleDoor",
 
   "AluSpacerPsi": 0.08,
 
@@ -27,6 +27,9 @@
   },
 
   "windowTypes": {
+    "singleDoor": {
+      "name": "片開きドア"
+    },
     "doubleDoor": {
       "name": "両開きドア"
     },

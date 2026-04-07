@@ -1,5 +1,10 @@
 // window thermal calculator
 
+const KEY_SINGLE_DOOR = "singleDoor";
+const KEY_DOUBLE_DOOR = "doubleDoor";
+const KEY_SLIDING = "sliding";
+const KEY_FIX = "fixed";
+
 let commonData = {};
 
 // output コントロール
