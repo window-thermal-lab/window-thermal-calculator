@@ -359,7 +359,7 @@ function getAreas(inputs) {
   const jambArea = (i.h-i.hfWidth-i.sfWidth)*i.jfWidth*2;                              // 縦枠の表面積
   const sillArea = i.w*i.sfWidth;                                                                            // 下枠の表面積
   const topRailArea = glazingTotalWidth*topRailVisible;                                                         // 上框の表面積
-  const stileArea = i.h*(i.stilefWidth*stileCount-i.jol*overlapCount);        // 縦框の表面積
+  const stileArea = (i.h-i.hfWidth-i.sfWidth)*(i.stilefWidth*stileCount-i.jol*overlapCount);        // 縦框の表面積
   const bottomArea = glazingTotalWidth*bottomVisible;                                                           // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
