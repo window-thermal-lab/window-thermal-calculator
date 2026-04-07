@@ -3,7 +3,7 @@
 const KEY_SINGLE_DOOR = "singleDoor";
 const KEY_DOUBLE_DOOR = "doubleDoor";
 const KEY_SLIDING = "sliding";
-const KEY_FIX = "fixed";
+const KEY_FIXED = "fixed";
 
 let commonData = {};
 
@@ -274,15 +274,53 @@ function getInputs() {
 
 function getAreas(inputs) {
 
-  const wm = inputs.fWidth / 1000;
-  const hm = inputs.fHeight / 1000;
-    
-  const topRailVisible = inputs.trfWidth/1000-inputs.hol/1000
-  const stileVisible = inputs.stilefWidth/1000-inputs.jol/1000
-  const bottomVisible = inputs.bfWidth/1000-inputs.sol/1000
 
-  const glazingTotalWidth = wm-(inputs.jfWidth/1000)*2-(inputs.stilefWidth/1000)*2-stileVisible*2;
-  const glazingHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-topRailVisible-bottomVisible;
+   const i ={
+    w: inputs.fWidth / 1000,
+    h: inputs.fHeight / 1000,
+    hfWidth: inputs.hfWidth/1000,
+    jfWidth: inputs.jfWidth/1000,
+    sfWidth: inputs.sfWidth/1000,
+    fDepth: inputs.fDepth/1000,
+
+    trfWidth: inputs.trfWidth/1000,
+    stilefWidth: inputs.stilefWidth/1000,
+    bfWidth: inputs.bfWidth/1000,
+    sDepth: inputs.sDepth/1000,
+    
+    hol: inputs.hol/1000,
+    jol: inputs.jol/1000,
+    sol: inputs.sol/1000,
+
+  }
+
+  
+  const topRailVisible = i.trfWidth-i.hol;
+  const stileVisible = i.stilefWidth-i.jol;
+  const bottomVisible = i.bfWidth-i.sol;
+
+  
+  const STILE_COUNT = {
+  [KEY_SINGLE_DOOR]: 2,
+  [KEY_DOUBLE_DOOR]: 4,
+  [KEY_SLIDING]: 2,
+  [KEY_FIXED]: 0
+  };
+
+  const stileCount = STILE_COUNT[inputs.windowTypeKey] ?? 0;
+  
+  const OVERLAP_COUNT = {
+  [KEY_SINGLE_DOOR]: 2,
+  [KEY_DOUBLE_DOOR]: 2,
+  [KEY_SLIDING]: 0,
+  [KEY_FIXED]: 0
+  };
+
+  const overlapCount = OVERLAP_COUNT[inputs.windowTypeKey] ?? 0;
+
+  const glazingTotalWidth = i.w-i.jfWidth*2-i.stilefWidth*stileCount+i.jol*overlapCount;
+  
+  const glazingHeight = i.h-i.hfWidth-i.sfWidth-topRailVisible-bottomVisible;
   
   if (glazingTotalWidth <= 0) {
     debuglog("エラー: glazingTotalWidth が 0 以下です");
@@ -292,11 +330,20 @@ function getAreas(inputs) {
     debuglog("エラー: glazingHeight が 0 以下です");
   }
 
+  const GLAZING_COUNT = {
+  [KEY_SINGLE_DOOR]: 1,
+  [KEY_DOUBLE_DOOR]: 2,
+  [KEY_SLIDING]: 2,
+  [KEY_FIXED]: 1
+  };
+
+  const glazingCount = GLAZING_COUNT[inputs.windowTypeKey] ?? 0;
+
   const glazingArea = glazingTotalWidth*glazingHeight;
-  const glazingPerimeter = glazingTotalWidth*2+glazingHeight*4;
+  const glazingPerimeter = glazingTotalWidth*2+glazingHeight*glazingCount*2;
   
   /*
-  debuglog("wm: " + wm);
+  debuglog("wM: " + i.w);
   debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
   debuglog("縦框の見える部分: " + stileVisible);
   debuglog("縦框の見付け: " + inputs.stilefWidth/1000);
@@ -308,13 +355,12 @@ function getAreas(inputs) {
   debuglog("縦框の見える部分: " + stileVisible);
   debuglog("下框の見える部分: " + bottomVisible);
   
-
-  const headArea = wm*(inputs.hfWidth/1000);                                                                          // 上枠の表面積
-  const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;                              // 縦枠の表面積
-  const sillArea = wm*inputs.sfWidth/1000;                                                                            // 下枠の表面積
-  const topRailArea = (glazingTotalWidth/2)*topRailVisible*2;                                                         // 上框の表面積
-  const stileArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);        // 縦框の表面積
-  const bottomArea = (glazingTotalWidth/2)*bottomVisible*2;                                                           // 下框の表面積
+  const headArea = i.w*i.hfWidth;                                                                          // 上枠の表面積
+  const jambArea = (i.h-i.hfWidth-i.sfWidth)*i.jfWidth*2;                              // 縦枠の表面積
+  const sillArea = i.w*i.sfWidth;                                                                            // 下枠の表面積
+  const topRailArea = glazingTotalWidth*topRailVisible;                                                         // 上框の表面積
+  const stileArea = i.h*(i.stilefWidth*stileCount-i.jol*overlapCount);        // 縦框の表面積
+  const bottomArea = glazingTotalWidth*bottomVisible;                                                           // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
 
