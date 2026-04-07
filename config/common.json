@@ -1,6 +1,6 @@
 {
   "calculationStandard": "JIS",
-  "defaultGlass": "lowe_argon",
+  "defaultGlass": "double_lowe_argon",
   "defaultWindowType": "singleDoor",
 
   "AluSpacerPsi": 0.08,

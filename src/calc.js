@@ -281,7 +281,7 @@ function getAreas(inputs) {
   const stileVisible = inputs.stilefWidth/1000-inputs.jol/1000
   const bottomVisible = inputs.bfWidth/1000-inputs.sol/1000
 
-  const glazingTotalWidth = wm-(inputs.jfWidth/1000)*2-stileVisible*2-(inputs.stilefWidth/1000)*2;
+  const glazingTotalWidth = wm-(inputs.jfWidth/1000)*2-(inputs.stilefWidth/1000)*2-stileVisible*2;
   const glazingHeight = hm-inputs.hfWidth/1000-inputs.sfWidth/1000-topRailVisible-bottomVisible;
   
   if (glazingTotalWidth <= 0) {
@@ -308,12 +308,13 @@ function getAreas(inputs) {
   debuglog("縦框の見える部分: " + stileVisible);
   debuglog("下框の見える部分: " + bottomVisible);
   
-  const headArea = wm*(inputs.hfWidth/1000);
-  const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;
-  const sillArea = wm*inputs.sfWidth/1000;
-  const topRailArea = (glazingTotalWidth/2)*topRailVisible*2;
-  const stileArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);
-  const bottomArea = (glazingTotalWidth/2)*bottomVisible*2;
+
+  const headArea = wm*(inputs.hfWidth/1000);                                                                          // 上枠の表面積
+  const jambArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(inputs.jfWidth/1000)*2;                              // 縦枠の表面積
+  const sillArea = wm*inputs.sfWidth/1000;                                                                            // 下枠の表面積
+  const topRailArea = (glazingTotalWidth/2)*topRailVisible*2;                                                         // 上框の表面積
+  const stileArea = (hm-inputs.hfWidth/1000-inputs.sfWidth/1000)*(stileVisible*2+(inputs.stilefWidth/1000)*2);        // 縦框の表面積
+  const bottomArea = (glazingTotalWidth/2)*bottomVisible*2;                                                           // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
 
