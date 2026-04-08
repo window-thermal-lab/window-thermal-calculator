@@ -279,7 +279,7 @@ function getSelected() {
 function getAreas(inputs,selected) {
 
 
-   const i ={
+  const i ={
     w: inputs.fWidth / 1000,
     h: inputs.fHeight / 1000,
     hfWidth: inputs.hfWidth/1000,
@@ -297,37 +297,26 @@ function getAreas(inputs,selected) {
     sol: inputs.sol/1000,
   }
 
+  const wt = commonData.windowTypes[selected.windowTypeKey];
+
   const c ={    
-    sashCount : commonData.sashCount,
-    overlapCount : commonData.overlapCount,
+    sashCount : wt.sashCount ?? 0,
+    overlapCount : wt.overlapCount ?? 0,
+    category: wt.category ?? "unknown",
   }
   
   const topRailVisible = i.trfWidth-i.hol;
   const stileVisible = i.stilefWidth-i.jol;
   const bottomVisible = i.bfWidth-i.sol;
 
-  
-  const STILE_COUNT = {
-  [KEY_SINGLE_DOOR]: 2,
-  [KEY_DOUBLE_DOOR]: 4,
-  [KEY_SLIDING]: 2,
-  [KEY_FIXED]: 0
-  };
+  const sashTotalWidth = i.w-i.jfWidth*2;
+  const glazingTotalWidth = sashTotalWidth-i.stilefWidth*c.sashCount*2+i.jol*c.overlapCount;
 
-  const stileCount = STILE_COUNT[selected.windowTypeKey] ?? 0;
-  
-  const OVERLAP_COUNT = {
-  [KEY_SINGLE_DOOR]: 2,
-  [KEY_DOUBLE_DOOR]: 2,
-  [KEY_SLIDING]: 0,
-  [KEY_FIXED]: 0
-  };
 
-  const overlapCount = OVERLAP_COUNT[selected.windowTypeKey] ?? 0;
+  const hasSash = c.sashCount > 0 ? 1 : 0;
+  const sashHeight = i.h-i.hfWidth-i.sfWidth;
+  const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
-  const glazingTotalWidth = i.w-i.jfWidth*2-i.stilefWidth*stileCount+i.jol*overlapCount;
-  
-  const glazingHeight = i.h-i.hfWidth-i.sfWidth-topRailVisible-bottomVisible;
   
   if (glazingTotalWidth <= 0) {
     debuglog("エラー: glazingTotalWidth が 0 以下です");
@@ -337,16 +326,13 @@ function getAreas(inputs,selected) {
     debuglog("エラー: glazingHeight が 0 以下です");
   }
 
-  const GLAZING_COUNT = {
-  [KEY_SINGLE_DOOR]: 1,
-  [KEY_DOUBLE_DOOR]: 2,
-  [KEY_SLIDING]: 2,
-  [KEY_FIXED]: 1
-  };
-
-  const glazingCount = GLAZING_COUNT[selected.windowTypeKey] ?? 0;
-
+  // グレージングの枚数
+  const glazingCount = (c.category === "fixed") ? 1 : c.sashCount;
+ 
+  // グレージングの総表面積
   const glazingArea = glazingTotalWidth*glazingHeight;
+
+  // グレージングの総周長
   const glazingPerimeter = glazingTotalWidth*2+glazingHeight*glazingCount*2;
   
   /*
@@ -366,7 +352,7 @@ function getAreas(inputs,selected) {
   const jambArea = (i.h-i.hfWidth-i.sfWidth)*i.jfWidth*2;                              // 縦枠の表面積
   const sillArea = i.w*i.sfWidth;                                                                            // 下枠の表面積
   const topRailArea = glazingTotalWidth*topRailVisible;                                                         // 上框の表面積
-  const stileArea = (i.h-i.hfWidth-i.sfWidth)*(i.stilefWidth*stileCount-i.jol*overlapCount);        // 縦框の表面積
+  const stileArea = (i.h-i.hfWidth-i.sfWidth)*(i.stilefWidth*c.sashCount*2-i.jol*c.overlapCount);        // 縦框の表面積
   const bottomArea = glazingTotalWidth*bottomVisible;                                                           // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
