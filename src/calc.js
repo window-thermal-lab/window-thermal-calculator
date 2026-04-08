@@ -70,13 +70,13 @@ Promise.all([commonPromise, clientPromise])
 
     buildSelectFromObject(
       "idWindowType",
-      commonData.spacerTypes,
+      commonData.windowTypes,
       commonData.defaultWindowType
     );
 
     buildSelectFromObject(
       "idSpacerType",
-      commonData.windowTypes,
+      commonData.spacerTypes,
       commonData.defaultSpacerType
     );
  
