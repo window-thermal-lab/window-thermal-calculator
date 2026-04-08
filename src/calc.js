@@ -145,7 +145,6 @@ function buildSelectFromObject(selectId, items, selectedKey) {
 }
 
 
-// 
 function updateCalculation() {
 
   output.textContent = "";
@@ -183,7 +182,7 @@ function calculateUw(inputs,selected,config) {
     return null;
   }
 
-  const resistSet = getResist(inputs);
+  const resistSet = getResist(inputs,config);
 
   debuglog("枠の総抵抗値: " + resistSet.frameResist);
   debuglog("障子の総抵抗値: " + resistSet.sashResist);
@@ -383,10 +382,10 @@ function getAreas(inputs,selected,config) {
 }
 
  
-function getResist(inputs) {
+function getResist(inputs,config) {
 
-  const frameResist = commonData.Rsi+(inputs.fDepth/1000)/commonData.lambdaWood+commonData.Rse;
-  const sashResist = commonData.Rsi+(inputs.sDepth/1000)/commonData.lambdaWood+commonData.Rse;
+  const frameResist = config.Rsi+(inputs.fDepth/1000)/config.lambdaWood+config.Rse;
+  const sashResist = config.Rsi+(inputs.sDepth/1000)/config.lambdaWood+config.Rse;
 
   return {
     frameResist: frameResist,
