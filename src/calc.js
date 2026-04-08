@@ -207,7 +207,7 @@ function calculateUw(inputs,selected,config) {
   debuglog("グレージングのコンダクタンス: " + gConductance);
 
   const pConductance = config.spacerPsi*areaSet.glazingPerimeter;
-  debuglog("スペーサーのpsi値: " + spacerPsi);
+  debuglog("スペーサーのpsi値: " + config.spacerPsi);
   debuglog("スペーサーのコンダクタンス: " + pConductance);
 
   const totalConductance = fConductance + gConductance + pConductance
