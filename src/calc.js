@@ -387,6 +387,10 @@ function getResist(inputs,config) {
   const frameResist = config.Rsi+(inputs.fDepth/1000)/config.lambdaWood+config.Rse;
   const sashResist = config.Rsi+(inputs.sDepth/1000)/config.lambdaWood+config.Rse;
 
+  debuglog("木部の熱伝導率: " + config.lambdaWood);
+  debuglog("室内側表面抵抗: " + config.Rsi);
+  debuglog("室外側表面抵抗: " + config.Rse);
+
   return {
     frameResist: frameResist,
     sashResist: sashResist   
