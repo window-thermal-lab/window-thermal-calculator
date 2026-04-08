@@ -70,10 +70,16 @@ Promise.all([commonPromise, clientPromise])
 
     buildSelectFromObject(
       "idWindowType",
-      commonData.windowTypes,
+      commonData.spacerTypes,
       commonData.defaultWindowType
     );
-    
+
+    buildSelectFromObject(
+      "idSpacerType",
+      commonData.windowTypes,
+      commonData.defaultSpacerType
+    );
+ 
     // 初期値代入
     document.getElementById("fWidth").value = 2000;
     document.getElementById("fHeight").value = 2200;
@@ -200,7 +206,8 @@ function calculateUw(inputs,selected,config) {
   const gConductance = inputs.ugResult*areaSet.glazingArea;
   debuglog("グレージングのコンダクタンス: " + gConductance);
 
-  const pConductance = config.aluSpacerPsi*areaSet.glazingPerimeter;
+  const pConductance = config.spacerPsi*areaSet.glazingPerimeter;
+  debuglog("スペーサーのpsi値: " + spacerPsi);
   debuglog("スペーサーのコンダクタンス: " + pConductance);
 
   const totalConductance = fConductance + gConductance + pConductance
@@ -239,17 +246,26 @@ function getConfig(selected) {
     return null;
   } 
 
+  const st = commonData.spacerTypes?.[selected.spacerTypeKey];
+  if (!st){
+    debuglog(selected.spacerTypeKey);
+    debuglog(commonData.spacerTypes);
+    return null;
+  } 
+
   return {
     gt: gt,
     wt: wt,
+    st: st,
     sashCount: wt.sashCount ?? 0,
     overlapCount: wt.overlapCount ?? 0,
     category: wt.category ?? "unknown",
-    
+        
+    spacerPsi: st.psi ?? 0,
+
     lambdaWood: commonData.lambdaWood,
-    aluSpacerPsi: commonData.AluSpacerPsi,
-    rsi: commonData.Rsi,
-    rse: commonData.Rse
+    rsi: commonData.rsi,
+    rse: commonData.rse
   };
 }
 
@@ -280,7 +296,8 @@ function getInputs() {
 function getSelected() {
   return {    
     glassTypeKey: document.getElementById("idGlassType").value,
-    windowTypeKey: document.getElementById("idWindowType").value,    
+    windowTypeKey: document.getElementById("idWindowType").value,
+    spacerTypeKey: document.getElementById("idSpacerType").value,   
   };
 }
 

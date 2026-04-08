@@ -1,15 +1,12 @@
 {
-  "calculationStandard": "JIS",
+ 
   "defaultGlass": "double_lowe_argon",
   "defaultWindowType": "singleDoor",
-
-  "AluSpacerPsi": 0.08,
-
-
+  "defaultSpacerType": "aluSpacerPsi",
 
   "lambdaWood": 0.11,
-  "Rsi":0.13,
-  "Rse":0.04,
+  "rsi":0.13,
+  "rse":0.04,
 
   "glassTypes": {
     "single_clear": {
@@ -52,7 +49,20 @@
       "sashCount":0,
       "overlapCount":0
     }
+  },
+
+  "spacerTypes": {
+    "aluSpacerPsi": {      
+      "name": "アルミスペーサー",
+      "psi":"0.08"
+    },
+    "plasticSpacerPsi": {
+      "name": "樹脂スペーサー",
+      "psi":"0.06"
+     
+    }   
   }
+
 
   
 }
