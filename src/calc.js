@@ -153,10 +153,10 @@ function updateCalculation() {
   const inputs = getInputs();
   const selected = getSelected();
 
-  const selectedGlass = commonData.glassTypes?.[selected.glassTypeKey];
+  const selectedGlazing = commonData.glassTypes?.[selected.glassTypeKey];
   const selectedWindow = commonData.windowTypes?.[selected.windowTypeKey];
 
-  if (!selectedGlass || !selectedWindow) {
+  if (!selectedGlazing || !selectedWindow) {
     console.log("選択値が不正です");
     return;
   }
@@ -177,24 +177,32 @@ function calculateUw(inputs,selected) {
   
   // 計算スタート
   
-  if (!commonData.glassTypes || !commonData.windowTypes) {
+  if (!commonData) {
   debuglog("commonData未ロード");
   return null;
   }
   
   
-  const vGlazing = commonData.glassTypes && commonData.glassTypes[selected.glassTypeKey];
-  if (!vGlazing){
-
-    console.log(selected.glassTypeKey);
-    console.log(commonData.glassTypes);
+  const gt = commonData.glassTypes && commonData.glassTypes[selected.glassTypeKey];
+  if (!gt){
+    debuglog(selected.glassTypeKey);
+    debuglog(commonData.glassTypes);
     return null;     
   }  
 
-  const vWindow = commonData.windowTypes && commonData.windowTypes[selected.windowTypeKey];
-  if (!vWindow) return null;
+  const wt = commonData.windowTypes && commonData.windowTypes[selected.windowTypeKey];
+  if (!wt){
+    debuglog(selected.windowTypeKey);
+    debuglog(commonData.windowTypes);
+  } return null;
 
-  const areaSet = getAreas(inputs,selected);
+  const c ={    
+    sashCount : wt.sashCount ?? 0,
+    overlapCount : wt.overlapCount ?? 0,
+    category: wt.category ?? "unknown",
+  }
+
+  const areaSet = getAreas(inputs,selected,c);
 
   debuglog("上枠の表面積: " + areaSet.headArea);
   debuglog("縦枠の表面積: " + areaSet.jambArea);
@@ -276,7 +284,7 @@ function getSelected() {
 }
 
 
-function getAreas(inputs,selected) {
+function getAreas(inputs,selected,c) {
 
 
   const i ={
@@ -295,15 +303,7 @@ function getAreas(inputs,selected) {
     hol: inputs.hol/1000,
     jol: inputs.jol/1000,
     sol: inputs.sol/1000,
-  }
-
-  const wt = commonData.windowTypes[selected.windowTypeKey];
-
-  const c ={    
-    sashCount : wt.sashCount ?? 0,
-    overlapCount : wt.overlapCount ?? 0,
-    category: wt.category ?? "unknown",
-  }
+  }  
   
   const topRailVisible = i.trfWidth-i.hol;
   const stileVisible = i.stilefWidth-i.jol;
@@ -313,8 +313,11 @@ function getAreas(inputs,selected) {
   const glazingTotalWidth = sashTotalWidth-i.stilefWidth*c.sashCount*2+i.jol*c.overlapCount;
 
 
+  // 障子が存在しているかどうか
   const hasSash = c.sashCount > 0 ? 1 : 0;
-  const sashHeight = i.h-i.hfWidth-i.sfWidth;
+
+  const innerHeight = i.h-i.hfWidth-i.sfWidth;
+  const sashHeight = innerHeight;
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
   
@@ -349,10 +352,10 @@ function getAreas(inputs,selected) {
   debuglog("下框の見える部分: " + bottomVisible);
   
   const headArea = i.w*i.hfWidth;                                                                          // 上枠の表面積
-  const jambArea = (i.h-i.hfWidth-i.sfWidth)*i.jfWidth*2;                              // 縦枠の表面積
+  const jambArea = innerHeight*i.jfWidth*2;                              // 縦枠の表面積
   const sillArea = i.w*i.sfWidth;                                                                            // 下枠の表面積
   const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                                         // 上框の表面積
-  const stileArea = (i.h-i.hfWidth-i.sfWidth)*(i.stilefWidth*c.sashCount*2-i.jol*c.overlapCount);        // 縦框の表面積
+  const stileArea = innerHeight*(i.stilefWidth*c.sashCount*2-i.jol*c.overlapCount);        // 縦框の表面積
   const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                                           // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
