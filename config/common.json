@@ -27,17 +27,30 @@
   },
 
   "windowTypes": {
-    "singleDoor": {
-      "name": "片開きドア"
+    "singleDoor": {      
+      "name": "片開きドア",
+      "category":"swing",
+      "sashCount":1,
+      "overlapCount":2
+
     },
     "doubleDoor": {
-      "name": "両開きドア"
+      "name": "両開きドア",
+      "category":"swing",
+      "sashCount":2,
+      "overlapCount":2
     },
     "sliding": {
-      "name": "引違い"
+      "name": "引違い",
+      "category":"sliding",
+      "sashCount":2,
+      "overlapCount":0
     },
     "fixed": {
-      "name": "FIX"
+      "name": "FIX",
+      "category":"fixed",
+      "sashCount":0,
+      "overlapCount":0
     }
   }
 

@@ -74,7 +74,7 @@ Promise.all([commonPromise, clientPromise])
       commonData.defaultWindowType
     );
     
-    // 初期値
+    // 初期値代入
     document.getElementById("fWidth").value = 2000;
     document.getElementById("fHeight").value = 2200;
     document.getElementById("ugResult").value = 1.6;
@@ -83,6 +83,7 @@ Promise.all([commonPromise, clientPromise])
   if (client) {
         console.log("client config =", client);
 
+        // コントロールに代入
         document.getElementById("hfWidth").value = client.HeadFaceWidth ?? "";
         document.getElementById("jfWidth").value = client.JambFaceWidth ?? "";
         document.getElementById("sfWidth").value = client.SillFaceWidth ?? "";
@@ -150,16 +151,17 @@ function updateCalculation() {
   output.textContent = "";
 
   const inputs = getInputs();
+  const selected = getSelected();
 
-  const selectedGlass = commonData.glassTypes?.[inputs.glassTypeKey];
-  const selectedWindow = commonData.windowTypes?.[inputs.windowTypeKey];
+  const selectedGlass = commonData.glassTypes?.[selected.glassTypeKey];
+  const selectedWindow = commonData.windowTypes?.[selected.windowTypeKey];
 
   if (!selectedGlass || !selectedWindow) {
     console.log("選択値が不正です");
     return;
   }
 
-  const result = calculateUw(inputs);
+  const result = calculateUw(inputs,selected);
 
   if (result == null) {
   debuglog("計算できませんでした");
@@ -170,7 +172,7 @@ function updateCalculation() {
 }
 
 // 計算メイン関数
-function calculateUw(inputs) {
+function calculateUw(inputs,selected) {
   
   
   // 計算スタート
@@ -181,18 +183,18 @@ function calculateUw(inputs) {
   }
   
   
-  const vGlazing = commonData.glassTypes && commonData.glassTypes[inputs.glassTypeKey];
+  const vGlazing = commonData.glassTypes && commonData.glassTypes[selected.glassTypeKey];
   if (!vGlazing){
 
-    console.log(inputs.glassTypeKey);
+    console.log(selected.glassTypeKey);
     console.log(commonData.glassTypes);
     return null;     
   }  
 
-  const vWindow = commonData.windowTypes && commonData.windowTypes[inputs.windowTypeKey];
+  const vWindow = commonData.windowTypes && commonData.windowTypes[selected.windowTypeKey];
   if (!vWindow) return null;
 
-  const areaSet = getAreas(inputs);
+  const areaSet = getAreas(inputs,selected);
 
   debuglog("上枠の表面積: " + areaSet.headArea);
   debuglog("縦枠の表面積: " + areaSet.jambArea);
@@ -262,17 +264,19 @@ function getInputs() {
     
     hol: parseFloat(document.getElementById("hol").value) || 0,
     jol: parseFloat(document.getElementById("jol").value) || 0,
-    sol: parseFloat(document.getElementById("sol").value) || 0,
+    sol: parseFloat(document.getElementById("sol").value) || 0,    
+  };
+}
 
+function getSelected() {
+  return {    
     glassTypeKey: document.getElementById("idGlassType").value,
-    windowTypeKey: document.getElementById("idWindowType").value,
-
-    
+    windowTypeKey: document.getElementById("idWindowType").value,    
   };
 }
 
 
-function getAreas(inputs) {
+function getAreas(inputs,selected) {
 
 
    const i ={
@@ -291,9 +295,12 @@ function getAreas(inputs) {
     hol: inputs.hol/1000,
     jol: inputs.jol/1000,
     sol: inputs.sol/1000,
-
   }
 
+  const c ={    
+    sashCount : commonData.sashCount,
+    overlapCount : commonData.overlapCount,
+  }
   
   const topRailVisible = i.trfWidth-i.hol;
   const stileVisible = i.stilefWidth-i.jol;
@@ -307,7 +314,7 @@ function getAreas(inputs) {
   [KEY_FIXED]: 0
   };
 
-  const stileCount = STILE_COUNT[inputs.windowTypeKey] ?? 0;
+  const stileCount = STILE_COUNT[selected.windowTypeKey] ?? 0;
   
   const OVERLAP_COUNT = {
   [KEY_SINGLE_DOOR]: 2,
@@ -316,7 +323,7 @@ function getAreas(inputs) {
   [KEY_FIXED]: 0
   };
 
-  const overlapCount = OVERLAP_COUNT[inputs.windowTypeKey] ?? 0;
+  const overlapCount = OVERLAP_COUNT[selected.windowTypeKey] ?? 0;
 
   const glazingTotalWidth = i.w-i.jfWidth*2-i.stilefWidth*stileCount+i.jol*overlapCount;
   
@@ -337,7 +344,7 @@ function getAreas(inputs) {
   [KEY_FIXED]: 1
   };
 
-  const glazingCount = GLAZING_COUNT[inputs.windowTypeKey] ?? 0;
+  const glazingCount = GLAZING_COUNT[selected.windowTypeKey] ?? 0;
 
   const glazingArea = glazingTotalWidth*glazingHeight;
   const glazingPerimeter = glazingTotalWidth*2+glazingHeight*glazingCount*2;
