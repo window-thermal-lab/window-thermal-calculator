@@ -354,7 +354,7 @@ function getAreas(inputs,selected,config) {
 
   if(glazingCount===0) {
     debuglog("エラー: glazingCount が 0 です");
-    return;
+    return null;
   }
 
   // グレージング1枚あたりの幅
