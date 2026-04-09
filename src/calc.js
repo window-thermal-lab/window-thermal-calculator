@@ -89,7 +89,7 @@ Promise.all([commonPromise, clientPromise])
     // 初期値代入
     document.getElementById("fWidth").value = 2000;
     document.getElementById("fHeight").value = 2200;
-    document.getElementById("ugResult").value = 1.6;
+    document.getElementById("ugInput").value = 1.6;
 
 
   if (client) {
@@ -209,7 +209,7 @@ function calculateUw(inputs,selected,config) {
   const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea) + (1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
   debuglog("木部のコンダクタンス: " + fConductance);
 
-  const gConductance = inputs.ugResult*areaSet.glazingArea;
+  const gConductance = inputs.ugInput*areaSet.glazingArea;
   debuglog("グレージングのコンダクタンス: " + gConductance);
 
   const pConductance = config.spacerPsi*areaSet.glazingPerimeter;
@@ -290,7 +290,7 @@ function getInputs() {
     fWidth: parseFloat(document.getElementById("fWidth").value) || 0,
     fHeight: parseFloat(document.getElementById("fHeight").value) || 0,
 
-    ugResult: parseFloat(document.getElementById("ugResult").value) || 0,
+    ugInput: parseFloat(document.getElementById("ugInput").value) || 0,
   
     hfWidth: parseFloat(document.getElementById("hfWidth").value) || 0,
     jfWidth: parseFloat(document.getElementById("jfWidth").value) || 0,
