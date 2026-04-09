@@ -73,11 +73,11 @@
   "spacerTypes": {
     "aluSpacerPsi": {      
       "name": "アルミスペーサー",
-      "psi":"0.08"
+      "psi":0.08
     },
     "plasticSpacerPsi": {
       "name": "樹脂スペーサー",
-      "psi":"0.06"
+      "psi":0.06
      
     }   
   }
