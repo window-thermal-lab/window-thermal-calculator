@@ -417,10 +417,10 @@ function getAreas(inputs,selected,config) {
  
 function getResist(inputs,selected,config) {
 
-  const frameResist = config.rsi+(inputs.fDepth/1000)/selected.lambdaWood+config.rse;
-  const sashResist = config.rsi+(inputs.sDepth/1000)/selected.lambdaWood+config.rse;
+  const frameResist = config.rsi+(inputs.fDepth/1000)/config.lambdaWood+config.rse;
+  const sashResist = config.rsi+(inputs.sDepth/1000)/config.lambdaWood+config.rse;
 
-  debuglog("木部の熱伝導率: " + selected.lambdaWood);
+  debuglog("木部の熱伝導率: " + config.lambdaWood);
   debuglog("室内側表面抵抗: " + config.rsi);
   debuglog("室外側表面抵抗: " + config.rse);
 
