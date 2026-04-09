@@ -198,7 +198,7 @@ function calculateUw(inputs,selected,config) {
 
   debuglog("枠の総抵抗値: " + resistSet.frameResist);
   debuglog("障子の総抵抗値: " + resistSet.sashResist);
-  debuglog("Ug: " + config.gt.Ug);
+  debuglog("Ug: " + inputs.ugInput);
 
   if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
     debuglog("熱抵抗: frameResist 又は sashResistが 0 以下です");
