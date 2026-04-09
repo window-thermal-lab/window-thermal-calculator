@@ -189,12 +189,12 @@ function calculateUw(inputs,selected,config) {
   debuglog("縦框の表面積: " + areaSet.stileArea);
   debuglog("下框の表面積: " + areaSet.bottomArea);
 
-  if(config.lambdaWood <= 0 ){
+  if(selected.lambdaWood <= 0 ){
     debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
     return null;
   }
 
-  const resistSet = getResist(inputs,config);
+  const resistSet = getResist(inputs,selected,config);
 
   debuglog("枠の総抵抗値: " + resistSet.frameResist);
   debuglog("障子の総抵抗値: " + resistSet.sashResist);
