@@ -344,8 +344,21 @@ function getAreas(inputs,selected,config) {
   const bottomVisible = i.bfWidth-i.sol;
 
   const sashTotalWidth = i.w-i.jfWidth*2;
+
+  
+
   const glazingTotalWidth = sashTotalWidth-i.stilefWidth*config.sashCount*2+i.jol*config.overlapCount;
 
+  // グレージングの枚数
+  const glazingCount = (config.category === "fixed") ? 1 : config.sashCount;
+
+  if(glazingCount===0) {
+    debuglog("エラー: glazingCount が 0 です");
+    return;
+  }
+
+  // グレージング1枚あたりの幅
+  const glazingWidth = glazingTotalWidth / glazingCount;
 
   // 障子が存在しているかどうか
   const hasSash = config.sashCount > 0 ? 1 : 0;
@@ -363,14 +376,13 @@ function getAreas(inputs,selected,config) {
     debuglog("エラー: glazingHeight が 0 以下です");
   }
 
-  // グレージングの枚数
-  const glazingCount = (config.category === "fixed") ? 1 : config.sashCount;
+  
  
   // グレージングの総表面積
-  const glazingArea = glazingTotalWidth*glazingHeight;
+  const glazingArea = glazingWidth*glazingHeight*glazingCount;
 
   // グレージングの総周長
-  const glazingPerimeter = glazingTotalWidth*2+glazingHeight*glazingCount*2;
+  const glazingPerimeter = (glazingWidth+glazingHeight)*2*glazingCount;
   
   /*
   debuglog("wM: " + i.w);
@@ -385,12 +397,12 @@ function getAreas(inputs,selected,config) {
   debuglog("縦框の見える部分: " + stileVisible);
   debuglog("下框の見える部分: " + bottomVisible);
   
-  const headArea = i.w*i.hfWidth;                                                                          // 上枠の表面積
-  const jambArea = innerHeight*i.jfWidth*2;                              // 縦枠の表面積
-  const sillArea = i.w*i.sfWidth;                                                                            // 下枠の表面積
-  const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                                         // 上框の表面積
-  const stileArea = innerHeight*(i.stilefWidth*config.sashCount*2-i.jol*config.overlapCount);        // 縦框の表面積
-  const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                                           // 下框の表面積
+  const headArea = i.w*i.hfWidth;                                                                           // 上枠の表面積
+  const jambArea = innerHeight*i.jfWidth*2;                                                                 // 縦枠の表面積
+  const sillArea = i.w*i.sfWidth;                                                                           // 下枠の表面積
+  const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                             // 上框の表面積
+  const stileArea = innerHeight*(i.stilefWidth*config.sashCount*2-i.jol*config.overlapCount);               // 縦框の表面積
+  const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                               // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
 
