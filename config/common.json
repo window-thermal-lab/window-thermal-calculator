@@ -2,9 +2,9 @@
  
   "defaultGlass": "double_lowe_argon",
   "defaultWindowType": "singleDoor",
+  "defaultWoodType": "douglasFir",
   "defaultSpacerType": "aluSpacerPsi",
 
-  "lambdaWood": 0.11,
   "rsi":0.13,
   "rse":0.04,
 
@@ -48,6 +48,25 @@
       "category":"fixed",
       "sashCount":0,
       "overlapCount":0
+    }
+  },
+
+  "woodTypes": {
+    "douglasFir": {  
+      "name": "米松",     
+      "lambdaWood":0.11
+    },
+    "pine": {
+      "name": "パイン",    
+      "lambdaWood":0.13
+    },
+    "ash": {
+      "name": "タモ",      
+      "lambdaWood":0.16
+    },
+    "whiteOak": {
+      "name": "ホワイトオーク",    
+      "lambdaWood":0.18
     }
   },
 

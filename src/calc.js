@@ -75,6 +75,12 @@ Promise.all([commonPromise, clientPromise])
     );
 
     buildSelectFromObject(
+      "idWoodType",
+      commonData.woodTypes,
+      commonData.defaultWoodType
+    );
+
+    buildSelectFromObject(
       "idSpacerType",
       commonData.spacerTypes,
       commonData.defaultSpacerType
@@ -246,6 +252,13 @@ function getConfig(selected) {
     return null;
   } 
 
+  const woodt = commonData.woodTypes?.[selected.woodTypeKey];
+  if (!woodt){
+    debuglog(selected.woodTypeKey);
+    debuglog(commonData.woodTypes);
+    return null;
+  } 
+
   const st = commonData.spacerTypes?.[selected.spacerTypeKey];
   if (!st){
     debuglog(selected.spacerTypeKey);
@@ -256,14 +269,16 @@ function getConfig(selected) {
   return {
     gt: gt,
     wt: wt,
+    woodt:woodt,
     st: st,
     sashCount: wt.sashCount ?? 0,
     overlapCount: wt.overlapCount ?? 0,
     category: wt.category ?? "unknown",
         
-    spacerPsi: st.psi ?? 0,
+    lambdaWood: woodt.lambdaWood ?? 0,
 
-    lambdaWood: commonData.lambdaWood,
+    spacerPsi: st.psi ?? 0,    
+
     rsi: commonData.rsi,
     rse: commonData.rse
   };
@@ -297,6 +312,7 @@ function getSelected() {
   return {    
     glassTypeKey: document.getElementById("idGlassType").value,
     windowTypeKey: document.getElementById("idWindowType").value,
+    woodTypeKey: document.getElementById("idWoodType").value,
     spacerTypeKey: document.getElementById("idSpacerType").value,   
   };
 }
@@ -399,12 +415,12 @@ function getAreas(inputs,selected,config) {
 }
 
  
-function getResist(inputs,config) {
+function getResist(inputs,selected,config) {
 
-  const frameResist = config.rsi+(inputs.fDepth/1000)/config.lambdaWood+config.rse;
-  const sashResist = config.rsi+(inputs.sDepth/1000)/config.lambdaWood+config.rse;
+  const frameResist = config.rsi+(inputs.fDepth/1000)/selected.lambdaWood+config.rse;
+  const sashResist = config.rsi+(inputs.sDepth/1000)/selected.lambdaWood+config.rse;
 
-  debuglog("木部の熱伝導率: " + config.lambdaWood);
+  debuglog("木部の熱伝導率: " + selected.lambdaWood);
   debuglog("室内側表面抵抗: " + config.rsi);
   debuglog("室外側表面抵抗: " + config.rse);
 
