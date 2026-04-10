@@ -392,8 +392,8 @@ function getAreas(inputs,selected,config) {
   const glazingPerimeter = (glazingWidth+glazingHeight)*2*glazingCount;
   
  
-  debuglog("ガラスの総幅: " + glazingTotalWidth);
-  debuglog("ガラスの高さ: " + glazingHeight);
+  debuglog2("ガラスの総幅: " + glazingTotalWidth);
+  debuglog2("ガラスの高さ: " + glazingHeight);
   //debuglog("上框の見える部分: " + topRailVisible);
   //debuglog("縦框の見える部分: " + stileVisible);
   //debuglog("下框の見える部分: " + bottomVisible);
@@ -409,7 +409,7 @@ function getAreas(inputs,selected,config) {
 
   debuglog("木部の総面積: " + (headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea));
   debuglog("グレージングの総面積: " + glazingArea);
-  debuglog("グレージングの周長: " + glazingPerimeter);
+  debuglog2("グレージングの周長: " + glazingPerimeter);
   debuglog("窓の総面積: " + totalArea);
 
 
