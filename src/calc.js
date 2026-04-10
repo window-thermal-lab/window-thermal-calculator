@@ -203,8 +203,8 @@ function calculateUw(inputs,selected,config) {
 
   const resistSet = getResist(inputs,selected,config);
 
-  debuglog("枠の総抵抗値: " + resistSet.frameResist);
-  debuglog("障子の総抵抗値: " + resistSet.sashResist);
+  debuglog2("枠の総抵抗値: " + resistSet.frameResist);
+  if((areaSet.topRailArea + areaSet.stileArea + areaSet.bottomArea)) debuglog2("障子の総抵抗値: " + resistSet.sashResist);
   debuglog("Ug: " + inputs.ugInput);
 
   if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
