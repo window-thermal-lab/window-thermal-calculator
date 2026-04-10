@@ -165,8 +165,8 @@ function buildSelectFromObject(selectId, items, selectedKey) {
 
 function updateCalculation() {
 
-  output.textContent = "";
-  output2.textContent = "";
+  if(output) output.textContent = "";
+  if(output2) output2.textContent = "";
   
   const inputs = getInputs();
   const selected = getSelected();
