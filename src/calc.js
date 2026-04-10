@@ -384,18 +384,12 @@ function getAreas(inputs,selected,config) {
   // グレージングの総周長
   const glazingPerimeter = (glazingWidth+glazingHeight)*2*glazingCount;
   
-  /*
-  debuglog("wM: " + i.w);
-  debuglog("縦枠の見付け: " + inputs.jfWidth/1000);
-  debuglog("縦框の見える部分: " + stileVisible);
-  debuglog("縦框の見付け: " + inputs.stilefWidth/1000);
-  */
-
+ 
   debuglog("ガラスの総幅: " + glazingTotalWidth);
   debuglog("ガラスの高さ: " + glazingHeight);
-  debuglog("上框の見える部分: " + topRailVisible);
-  debuglog("縦框の見える部分: " + stileVisible);
-  debuglog("下框の見える部分: " + bottomVisible);
+  //debuglog("上框の見える部分: " + topRailVisible);
+  //debuglog("縦框の見える部分: " + stileVisible);
+  //debuglog("下框の見える部分: " + bottomVisible);
   
   const headArea = i.w*i.hfWidth;                                                                           // 上枠の表面積
   const jambArea = innerHeight*i.jfWidth*2;                                                                 // 縦枠の表面積
