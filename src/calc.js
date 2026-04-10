@@ -9,6 +9,7 @@ let commonData = {};
 
 // output コントロール
 const output = document.getElementById("output");
+const output2 = document.getElementById("output2");
 
 const btn = document.getElementById("calcBtn");
 
@@ -21,6 +22,11 @@ console.log("clientId =", clientId);
 function debuglog(msg) {
   if (!output) return;
   output.textContent += "\n" + msg;
+}
+
+function debuglog2(msg) {
+  if (!output2) return;
+  output2.textContent += "\n" + msg;
 }
 
 // client.json 取得
@@ -427,8 +433,8 @@ function getResist(inputs,selected,config) {
   const sashResist = config.rsi+(inputs.sDepth/1000)/config.lambdaWood+config.rse;
 
   debuglog("木部の熱伝導率: " + config.lambdaWood);
-  debuglog("室内側表面抵抗: " + config.rsi);
-  debuglog("室外側表面抵抗: " + config.rse);
+  debuglog2("室内側表面抵抗: " + config.rsi);
+  debuglog2("室外側表面抵抗: " + config.rse);
 
   return {
     frameResist: frameResist,
