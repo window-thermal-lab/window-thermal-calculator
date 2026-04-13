@@ -11,8 +11,6 @@ let commonData = {};
 const output = document.getElementById("output");
 const output2 = document.getElementById("output2");
 
-const btn = document.getElementById("calcBtn");
-
 const params = new URLSearchParams(window.location.search);
 
 // string
@@ -125,9 +123,10 @@ Promise.all([commonPromise, clientPromise])
   });
 
 // イベント登録
+/*
 if (btn) {
   btn.addEventListener("click", updateCalculation);
-}
+}*/
 
 document.querySelectorAll("input, select").forEach(el => {
   //el.addEventListener("input", updateCalculation);
