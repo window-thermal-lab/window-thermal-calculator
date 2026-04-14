@@ -387,10 +387,10 @@ function getAreas(inputs,selected,config) {
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
 
-  debuglog("木部の総面積: " + (headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea)*MM2_TO_M2);
-  debuglog("グレージングの総面積: " + glazingArea*MM2_TO_M2);
+  debuglog("木部の総面積: " + (headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea)*MM_TO_M*MM_TO_M);
+  debuglog("グレージングの総面積: " + glazingArea*MM_TO_M*MM_TO_M);
   debuglog2("グレージングの周長: " + glazingPerimeter*MM_TO_M);
-  debuglog("窓の総面積: " + totalArea*MM2_TO_M2);
+  debuglog("窓の総面積: " + totalArea*MM_TO_M*MM_TO_M);
 
   return {
     glazingArea: glazingArea,
