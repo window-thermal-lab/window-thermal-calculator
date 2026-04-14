@@ -5,6 +5,9 @@ const KEY_DOUBLE_DOOR = "doubleDoor";
 const KEY_SLIDING = "sliding";
 const KEY_FIXED = "fixed";
 
+const MM_TO_M = 0.001;
+const MM2_TO_M2 = 1e-6;
+
 let commonData = {};
 
 // output コントロール
@@ -328,33 +331,15 @@ function getSelected() {
 function getAreas(inputs,selected,config) {
 
 
-  const i ={
-    w: inputs.fWidth / 1000,
-    h: inputs.fHeight / 1000,
-    hfWidth: inputs.hfWidth/1000,
-    jfWidth: inputs.jfWidth/1000,
-    sfWidth: inputs.sfWidth/1000,
-    fDepth: inputs.fDepth/1000,
+  const topRailVisible = inputs.trfWidth-inputs.hol;
+  const stileVisible = inputs.stilefWidth-inputs.jol;
+  const bottomVisible = inputs.bfWidth-inputs.sol;
 
-    trfWidth: inputs.trfWidth/1000,
-    stilefWidth: inputs.stilefWidth/1000,
-    bfWidth: inputs.bfWidth/1000,
-    sDepth: inputs.sDepth/1000,
-    
-    hol: inputs.hol/1000,
-    jol: inputs.jol/1000,
-    sol: inputs.sol/1000,
-  }  
-  
-  const topRailVisible = i.trfWidth-i.hol;
-  const stileVisible = i.stilefWidth-i.jol;
-  const bottomVisible = i.bfWidth-i.sol;
-
-  const sashTotalWidth = i.w-i.jfWidth*2;
+  const sashTotalWidth = inputs.w-inputs.jfWidth*2;
 
   
 
-  const glazingTotalWidth = sashTotalWidth-i.stilefWidth*config.sashCount*2+i.jol*config.overlapCount;
+  const glazingTotalWidth = sashTotalWidth-inputs.stilefWidth*config.sashCount*2+inputs.jol*config.overlapCount;
 
   // グレージングの枚数
   const glazingCount = (config.category === "fixed") ? 1 : config.sashCount;
@@ -370,7 +355,7 @@ function getAreas(inputs,selected,config) {
   // 障子が存在しているかどうか
   const hasSash = config.sashCount > 0 ? 1 : 0;
 
-  const innerHeight = i.h-i.hfWidth-i.sfWidth;
+  const innerHeight = inputs.h-inputs.hfWidth-inputs.sfWidth;
   const sashHeight = innerHeight;
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
@@ -398,11 +383,11 @@ function getAreas(inputs,selected,config) {
   //debuglog("縦框の見える部分: " + stileVisible);
   //debuglog("下框の見える部分: " + bottomVisible);
   
-  const headArea = i.w*i.hfWidth;                                                                           // 上枠の表面積
-  const jambArea = innerHeight*i.jfWidth*2;                                                                 // 縦枠の表面積
-  const sillArea = i.w*i.sfWidth;                                                                           // 下枠の表面積
+  const headArea = inputs.w*inputs.hfWidth;                                                                           // 上枠の表面積
+  const jambArea = innerHeight*inputs.jfWidth*2;                                                                 // 縦枠の表面積
+  const sillArea = inputs.w*inputs.sfWidth;                                                                           // 下枠の表面積
   const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                             // 上框の表面積
-  const stileArea = innerHeight*(i.stilefWidth*config.sashCount*2-i.jol*config.overlapCount);               // 縦框の表面積
+  const stileArea = innerHeight*(inputs.stilefWidth*config.sashCount*2-inputs.jol*config.overlapCount);               // 縦框の表面積
   const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                               // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
@@ -410,8 +395,9 @@ function getAreas(inputs,selected,config) {
   debuglog("木部の総面積: " + (headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea));
   debuglog("グレージングの総面積: " + glazingArea);
   debuglog2("グレージングの周長: " + glazingPerimeter);
-  debuglog("窓の総面積: " + totalArea);
-
+  debuglog("窓の総面積: " + totalArea*MM2_TO_M2);
+//const MM_TO_M = 0.001;
+//const MM2_TO_M2 = 1e-6;
 
   return {
     glazingArea: glazingArea,
@@ -430,8 +416,8 @@ function getAreas(inputs,selected,config) {
  
 function getResist(inputs,selected,config) {
 
-  const frameResist = config.rsi+(inputs.fDepth/1000)/config.lambdaWood+config.rse;
-  const sashResist = config.rsi+(inputs.sDepth/1000)/config.lambdaWood+config.rse;
+  const frameResist = config.rsi+inputs.fDepth/config.lambdaWood+config.rse;
+  const sashResist = config.rsi+inputs.sDepth/config.lambdaWood+config.rse;
 
   debuglog("木部の熱伝導率: " + config.lambdaWood);
   debuglog2("室内側表面抵抗: " + config.rsi);
