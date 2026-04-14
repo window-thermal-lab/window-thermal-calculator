@@ -375,7 +375,7 @@ function getAreas(inputs,selected,config) {
   const glazingPerimeter = (glazingWidth+glazingHeight)*2*glazingCount;
   
  
-  debuglog2("グレージングの総幅: " + glazingTotalWidth*MM_TO_M);
+  debuglog2("グレージングの総幅: " + glazingTotalWidth);
   debuglog2("グレージングの高さ: " + glazingHeight*MM_TO_M);
   //debuglog("上框の見える部分: " + topRailVisible);
   //debuglog("縦框の見える部分: " + stileVisible);
