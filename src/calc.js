@@ -212,8 +212,8 @@ function calculateUw(inputs,selected,config) {
   if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
     debuglog("熱抵抗: frameResist 又は sashResistが 0 以下です");
     return null;
-  }  debuglog("Ug: " + inputs.ugInput);
-
+  } 
+debuglog("Ug: " + resistSet.frameResist);
   // コンダクタンス
   const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea) + (1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
   debuglog("木部のコンダクタンス: " + fConductance);
