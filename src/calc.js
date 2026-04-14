@@ -6,7 +6,7 @@ const KEY_SLIDING = "sliding";
 const KEY_FIXED = "fixed";
 
 const MM_TO_M = 0.001;
-const MM2_TO_M2 = 0.001;//1e-6;
+const MM2_TO_M2 = 1e-6;
 
 let commonData = {};
 
@@ -205,7 +205,7 @@ function calculateUw(inputs,selected,config) {
 
   const resistSet = getResist(inputs,selected,config);
 
-  debuglog2("枠の総抵抗値: " + resistSet.frameResist);
+  debuglog2("枠の総抵抗値: " + resistSet.frameResist*MM_TO_M);
   if(areaSet.topRailArea + areaSet.stileArea + areaSet.bottomArea>0) debuglog2("障子の総抵抗値: " + resistSet.sashResist);
   debuglog("Ug: " + inputs.ugInput);
 
