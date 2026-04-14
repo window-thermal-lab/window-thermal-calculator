@@ -191,15 +191,12 @@ function calculateUw(inputs,selected,config) {
 
   const areaSet = getAreas(inputs,selected,config);
 
-   debuglog("上枠の表面積mm: " + areaSet.headArea);
-  debuglog("１回0.001かける上枠の表面積: " + areaSet.headArea*MM_TO_M);
-   debuglog("２回0.001かける上枠の表面積: " + areaSet.headArea*MM_TO_M*MM_TO_M);
-  debuglog("１回で1e-6かける上枠の表面積: " + areaSet.headArea*MM2_TO_M2);
-  debuglog("縦枠の表面積: " + areaSet.jambArea*MM2_TO_M2);
-  debuglog("下枠の表面積: " + areaSet.sillArea*MM2_TO_M2);
-  debuglog("上框の表面積: " + areaSet.topRailArea*MM2_TO_M2);
-  debuglog("縦框の表面積: " + areaSet.stileArea*MM2_TO_M2);
-  debuglog("下框の表面積: " + areaSet.bottomArea*MM2_TO_M2);
+  debuglog("上枠の表面積mm: " + areaSet.headArea);
+  debuglog("縦枠の表面積: " + areaSet.jambArea*MM_TO_M*MM_TO_M);
+  debuglog("下枠の表面積: " + areaSet.sillArea*MM_TO_M*MM_TO_M);
+  debuglog("上框の表面積: " + areaSet.topRailArea*MM_TO_M*MM_TO_M);
+  debuglog("縦框の表面積: " + areaSet.stileArea*MM_TO_M*MM_TO_M);
+  debuglog("下框の表面積: " + areaSet.bottomArea*MM_TO_M*MM_TO_M);
 
   if(selected.lambdaWood <= 0 ){
     debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
