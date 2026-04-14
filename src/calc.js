@@ -6,7 +6,7 @@ const KEY_SLIDING = "sliding";
 const KEY_FIXED = "fixed";
 
 const MM_TO_M = 0.001;
-const MM2_TO_M2 = 1e-6;
+const MM2_TO_M2 = 0.001;//1e-6;
 
 let commonData = {};
 
@@ -375,7 +375,7 @@ function getAreas(inputs,selected,config) {
   const glazingPerimeter = (glazingWidth+glazingHeight)*2*glazingCount;
   
  
-  debuglog2("グレージングの総幅: " + glazingTotalWidth);
+  debuglog2("グレージングの総幅: " + glazingTotalWidth*MM_TO_M);
   debuglog2("グレージングの高さ: " + glazingHeight*MM_TO_M);
   //debuglog("上框の見える部分: " + topRailVisible);
   //debuglog("縦框の見える部分: " + stileVisible);
