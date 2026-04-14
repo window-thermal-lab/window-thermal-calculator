@@ -1,19 +1,19 @@
 {
   "clientName": "森の窓",
    
-  "HeadFaceWidth":45,
-  "JambFaceWidth":45,
-  "SillFaceWidth":45,
+  "HeadFaceWidth":56,
+  "JambFaceWidth":56,
+  "SillFaceWidth":56,
 
-  "FrameDepth":105,
+  "FrameDepth":92,
 
-  "TopRailFaceWidth":78,  
-  "StileFaceWidth":78,
-  "BottomRailFaceWidth":105,
+  "TopRailFaceWidth":68,  
+  "StileFaceWidth":68,
+  "BottomRailFaceWidth":68,
 
   "SashDepth":56,
 
-  "HeadOverlap": 18,
-  "JambOverlap": 18,
-  "SillOverlap": 18
+  "HeadOverlap": 14,
+  "JambOverlap": 14,
+  "SillOverlap": 14
 }
