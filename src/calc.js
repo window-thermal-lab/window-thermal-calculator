@@ -202,8 +202,7 @@ function calculateUw(inputs,selected,config) {
     debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
     return null;
   }
-//const MM_TO_M = 0.001;
-//const MM2_TO_M2 = 1e-6;
+
   const resistSet = getResist(inputs,selected,config);
 
   debuglog2("枠の総抵抗値: " + resistSet.frameResist);
@@ -337,8 +336,6 @@ function getAreas(inputs,selected,config) {
   const bottomVisible = inputs.bfWidth-inputs.sol;
 
   const sashTotalWidth = inputs.w-inputs.jfWidth*2;
-
-  
 
   const glazingTotalWidth = sashTotalWidth-inputs.stilefWidth*config.sashCount*2+inputs.jol*config.overlapCount;
 
