@@ -337,7 +337,7 @@ function getAreas(inputs,selected,config) {
 
   debuglog(topRailVisible);
 
-  const sashTotalWidth = inputs.w-inputs.jfWidth*2;
+  const sashTotalWidth = inputs.fWidth-inputs.jfWidth*2;
 
   const glazingTotalWidth = sashTotalWidth-inputs.stilefWidth*config.sashCount*2+inputs.jol*config.overlapCount;
 
@@ -348,7 +348,6 @@ function getAreas(inputs,selected,config) {
     debuglog("エラー: glazingCount が 0 です");
     return null;
   }
-debuglog(glazingTotalWidth);
 
   // グレージング1枚あたりの幅
   const glazingWidth = glazingTotalWidth / glazingCount;
@@ -356,7 +355,7 @@ debuglog(glazingTotalWidth);
   // 障子が存在しているかどうか
   const hasSash = config.sashCount > 0 ? 1 : 0;
 
-  const innerHeight = inputs.h-inputs.hfWidth-inputs.sfWidth;
+  const innerHeight = inputs.fHeight-inputs.hfWidth-inputs.sfWidth;
   const sashHeight = innerHeight;
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
