@@ -6,7 +6,6 @@ const KEY_SLIDING = "sliding";
 const KEY_FIXED = "fixed";
 
 const MM_TO_M = 0.001;
-const MM2_TO_M2 = 0.000001;
 
 let commonData = {};
 
@@ -215,10 +214,10 @@ function calculateUw(inputs,selected,config) {
   } 
 
   // コンダクタンス
-  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea*MM2_TO_M2+areaSet.jambArea*MM2_TO_M2+areaSet.sillArea*MM2_TO_M2) + (1/resistSet.sashResist)*(areaSet.topRailArea*MM2_TO_M2+areaSet.stileArea*MM2_TO_M2+areaSet.bottomArea*MM2_TO_M2);
+  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea*MM_TO_M*MM_TO_M+areaSet.jambArea*MM_TO_M*MM_TO_M+areaSet.sillArea*MM_TO_M*MM_TO_M) + (1/resistSet.sashResist)*(areaSet.topRailArea*MM_TO_M*MM_TO_M+areaSet.stileArea*MM_TO_M*MM_TO_M+areaSet.bottomArea*MM_TO_M*MM_TO_M);
   debuglog("木部のコンダクタンス: " + fConductance);
 
-  const gConductance = inputs.ugInput*areaSet.glazingArea*MM2_TO_M2;
+  const gConductance = inputs.ugInput*areaSet.glazingArea*MM_TO_M*MM_TO_M;
   debuglog("グレージングのコンダクタンス: " + gConductance);
 
   const pConductance = config.spacerPsi*areaSet.glazingPerimeter*MM_TO_M;
@@ -228,7 +227,7 @@ function calculateUw(inputs,selected,config) {
 
   const totalConductance = fConductance + gConductance + pConductance
 
-  const Uw = totalConductance/(areaSet.totalArea*MM2_TO_M2);
+  const Uw = totalConductance/(areaSet.totalArea*MM_TO_M*MM_TO_M);
 
   return Uw;
  
