@@ -191,7 +191,9 @@ function calculateUw(inputs,selected,config) {
 
   const areaSet = getAreas(inputs,selected,config);
 
-  debuglog("上枠の表面積mm: " + areaSet.headArea);
+   debuglog("上枠の表面積mm: " + areaSet.headArea);
+  debuglog("上枠の表面積: " + areaSet.headArea*MM_TO_M);
+   debuglog("上枠の表面積: " + areaSet.headArea*MM_TO_M*MM_TO_M);
   debuglog("上枠の表面積: " + areaSet.headArea*MM2_TO_M2);
   debuglog("縦枠の表面積: " + areaSet.jambArea*MM2_TO_M2);
   debuglog("下枠の表面積: " + areaSet.sillArea*MM2_TO_M2);
