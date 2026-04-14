@@ -202,7 +202,8 @@ function calculateUw(inputs,selected,config) {
     debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
     return null;
   }
-
+//const MM_TO_M = 0.001;
+//const MM2_TO_M2 = 1e-6;
   const resistSet = getResist(inputs,selected,config);
 
   debuglog2("枠の総抵抗値: " + resistSet.frameResist);
@@ -377,8 +378,8 @@ function getAreas(inputs,selected,config) {
   const glazingPerimeter = (glazingWidth+glazingHeight)*2*glazingCount;
   
  
-  debuglog2("グレージングの総幅: " + glazingTotalWidth);
-  debuglog2("グレージングの高さ: " + glazingHeight);
+  debuglog2("グレージングの総幅: " + glazingTotalWidth*MM_TO_M);
+  debuglog2("グレージングの高さ: " + glazingHeight*MM_TO_M);
   //debuglog("上框の見える部分: " + topRailVisible);
   //debuglog("縦框の見える部分: " + stileVisible);
   //debuglog("下框の見える部分: " + bottomVisible);
@@ -392,12 +393,10 @@ function getAreas(inputs,selected,config) {
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
 
-  debuglog("木部の総面積: " + (headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea));
-  debuglog("グレージングの総面積: " + glazingArea);
-  debuglog2("グレージングの周長: " + glazingPerimeter);
+  debuglog("木部の総面積: " + (headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea)*MM2_TO_M2);
+  debuglog("グレージングの総面積: " + glazingArea*MM2_TO_M2);
+  debuglog2("グレージングの周長: " + glazingPerimeter*MM_TO_M);
   debuglog("窓の総面積: " + totalArea*MM2_TO_M2);
-//const MM_TO_M = 0.001;
-//const MM2_TO_M2 = 1e-6;
 
   return {
     glazingArea: glazingArea,
