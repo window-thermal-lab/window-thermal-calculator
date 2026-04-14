@@ -348,6 +348,7 @@ function getAreas(inputs,selected,config) {
     debuglog("エラー: glazingCount が 0 です");
     return null;
   }
+debuglog(glazingTotalWidth);
 
   // グレージング1枚あたりの幅
   const glazingWidth = glazingTotalWidth / glazingCount;
