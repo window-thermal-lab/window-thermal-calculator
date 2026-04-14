@@ -215,13 +215,13 @@ function calculateUw(inputs,selected,config) {
   } 
 
   // コンダクタンス
-  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea) + (1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
+  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea*MM2_TO_M2+areaSet.jambArea*MM2_TO_M2+areaSet.sillArea*MM2_TO_M2) + (1/resistSet.sashResist)*(areaSet.topRailArea*MM2_TO_M2+areaSet.stileArea*MM2_TO_M2+areaSet.bottomArea*MM2_TO_M2);
   debuglog("木部のコンダクタンス: " + fConductance);
 
-  const gConductance = inputs.ugInput*areaSet.glazingArea;
+  const gConductance = inputs.ugInput*areaSet.glazingArea*MM2_TO_M2;
   debuglog("グレージングのコンダクタンス: " + gConductance);
 
-  const pConductance = config.spacerPsi*areaSet.glazingPerimeter;
+  const pConductance = config.spacerPsi*areaSet.glazingPerimeter*MM_TO_M;
   
   debuglog("スペーサーのコンダクタンス: " + pConductance);
   debuglog("スペーサーのpsi: " + config.spacerPsi);
