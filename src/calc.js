@@ -91,8 +91,8 @@ Promise.all([commonPromise, clientPromise])
     );
  
     // 初期値代入
-    document.getElementById("fWidth").value = 2000;
-    document.getElementById("fHeight").value = 2200;
+    document.getElementById("fWidth").value = 1000;
+    document.getElementById("fHeight").value = 1000;
     document.getElementById("ugInput").value = 1.6;
 
 
