@@ -206,13 +206,13 @@ function calculateUw(inputs,selected,config) {
   const resistSet = getResist(inputs,selected,config);
 
   debuglog2("枠の総抵抗値: " + resistSet.frameResist*MM_TO_M);
-  if(areaSet.topRailArea + areaSet.stileArea + areaSet.bottomArea>0) debuglog2("障子の総抵抗値: " + resistSet.sashResist);
+  if(areaSet.topRailArea + areaSet.stileArea + areaSet.bottomArea>0) debuglog2("障子の総抵抗値: " + resistSet.sashResist*MM_TO_M);
   debuglog("Ug: " + inputs.ugInput);
 
   if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
     debuglog("熱抵抗: frameResist 又は sashResistが 0 以下です");
     return null;
-  }  
+  }  debuglog("Ug: " + inputs.ugInput);
 
   // コンダクタンス
   const fConductance = (1/resistSet.frameResist)*(areaSet.headArea+areaSet.jambArea+areaSet.sillArea) + (1/resistSet.sashResist)*(areaSet.topRailArea+areaSet.stileArea+areaSet.bottomArea);
