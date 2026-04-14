@@ -228,7 +228,7 @@ function calculateUw(inputs,selected,config) {
 
   const totalConductance = fConductance + gConductance + pConductance
 
-  const Uw = totalConductance/(areaSet.totalArea);
+  const Uw = totalConductance/(areaSet.totalArea*MM2_TO_M2);
 
   return Uw;
  
