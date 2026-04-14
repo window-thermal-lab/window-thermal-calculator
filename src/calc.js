@@ -6,7 +6,7 @@ const KEY_SLIDING = "sliding";
 const KEY_FIXED = "fixed";
 
 const MM_TO_M = 0.001;
-const MM2_TO_M2 = 1e-6;
+const MM2_TO_M2 = MM_TO_M*MM_TO_M;
 
 let commonData = {};
 
