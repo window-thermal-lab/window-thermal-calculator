@@ -213,21 +213,21 @@ function calculateUw(inputs,selected,config) {
     return null;
   } 
 
-  // コンダクタンス
-  const fConductance = (1/resistSet.frameResist)*(areaSet.headArea*MM_TO_M*MM_TO_M+areaSet.jambArea*MM_TO_M*MM_TO_M+areaSet.sillArea*MM_TO_M*MM_TO_M) + (1/resistSet.sashResist)*(areaSet.topRailArea*MM_TO_M*MM_TO_M+areaSet.stileArea*MM_TO_M*MM_TO_M+areaSet.bottomArea*MM_TO_M*MM_TO_M);
-  debuglog("木部のコンダクタンス: " + fConductance);
+  // 熱損失係数
+  const fHeatLossRate = (1/resistSet.frameResist)*(areaSet.headArea*MM_TO_M*MM_TO_M+areaSet.jambArea*MM_TO_M*MM_TO_M+areaSet.sillArea*MM_TO_M*MM_TO_M) + (1/resistSet.sashResist)*(areaSet.topRailArea*MM_TO_M*MM_TO_M+areaSet.stileArea*MM_TO_M*MM_TO_M+areaSet.bottomArea*MM_TO_M*MM_TO_M);
+  debuglog("木部の熱損失係数: " + fHeatLossRate);
 
-  const gConductance = inputs.ugInput*areaSet.glazingArea*MM_TO_M*MM_TO_M;
-  debuglog("グレージングのコンダクタンス: " + gConductance);
+  const gHeatLossRate = inputs.ugInput*areaSet.glazingArea*MM_TO_M*MM_TO_M;
+  debuglog("グレージングの熱損失係数: " + gHeatLossRate);
 
-  const pConductance = config.spacerPsi*areaSet.glazingPerimeter*MM_TO_M;
+  const pHeatLossRate = config.spacerPsi*areaSet.glazingPerimeter*MM_TO_M;
   
-  debuglog("スペーサーのコンダクタンス: " + pConductance);
+  debuglog("スペーサーの熱損失係数: " + pHeatLossRate);
   debuglog("スペーサーのpsi: " + config.spacerPsi);
 
-  const totalConductance = fConductance + gConductance + pConductance
+  const totalHeatLossRate = fHeatLossRate + gHeatLossRate + pHeatLossRate
 
-  const Uw = totalConductance/(areaSet.totalArea*MM_TO_M*MM_TO_M);
+  const Uw = totalHeatLossRate/(areaSet.totalArea*MM_TO_M*MM_TO_M);
 
   return Uw;
  
