@@ -87,6 +87,12 @@ Promise.all([commonPromise, clientPromise])
     );
 
     buildSelectFromObject(
+      "idAdvantageType",
+      commonData.advantageTypes,
+      commonData.defadvantageType
+    );
+
+    buildSelectFromObject(
       "idSpacerType",
       commonData.spacerTypes,
       commonData.defaultSpacerType

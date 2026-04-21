@@ -4,6 +4,7 @@
   "defaultWindowType": "singleDoor",
   "defaultWoodType": "douglasFir",
   "defaultSpacerType": "aluSpacerPsi",
+  "defadvantageType": "horizontal",
 
   "rsi":0.13,
   "rse":0.04,
@@ -80,7 +81,19 @@
       "psi":0.06
      
     }   
+  },
+
+  "advantageTypes": {
+  
+  "horizontal": {
+    "name": "横勝ち"
+  },
+  "vertical": {
+    "name": "縦勝ち"
   }
+}
+
+
 
 
   
