@@ -86,10 +86,10 @@
   "advantageTypes": {
   
   "horizontal": {
-    "name": "横勝ち"
+    "name": "横勝ち枠"
   },
   "vertical": {
-    "name": "縦勝ち"
+    "name": "縦勝ち枠"
   }
 }
 

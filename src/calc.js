@@ -80,17 +80,17 @@ Promise.all([commonPromise, clientPromise])
       commonData.defaultWindowType
     );
 
-    buildSelectFromObject(
-      "idWoodType",
-      commonData.woodTypes,
-      commonData.defaultWoodType
-    );
-
-    buildSelectFromObject(
+     buildSelectFromObject(
       "idAdvantageType",
       commonData.advantageTypes,
       commonData.defadvantageType
     );
+
+    buildSelectFromObject(
+      "idWoodType",
+      commonData.woodTypes,
+      commonData.defaultWoodType
+    );   
 
     buildSelectFromObject(
       "idSpacerType",
@@ -267,6 +267,13 @@ function getConfig(selected) {
     return null;
   } 
 
+  const at = commonData.advantageTypes?.[selected.advantageTypeKey];
+  if (!at){
+    debuglog(selected.advantageTypeKey);
+    debuglog(commonData.advantageTypes);
+    return null;
+  } 
+
   const woodt = commonData.woodTypes?.[selected.woodTypeKey];
   if (!woodt){
     debuglog(selected.woodTypeKey);
@@ -284,6 +291,7 @@ function getConfig(selected) {
   return {
     gt: gt,
     wt: wt,
+   
     woodt:woodt,
     st: st,
     sashCount: wt.sashCount ?? 0,
@@ -327,6 +335,7 @@ function getSelected() {
   return {    
     glassTypeKey: document.getElementById("idGlassType").value,
     windowTypeKey: document.getElementById("idWindowType").value,
+    advantageTypeKey: document.getElementById("idAdvantageType").value,
     woodTypeKey: document.getElementById("idWoodType").value,
     spacerTypeKey: document.getElementById("idSpacerType").value,   
   };
@@ -358,8 +367,8 @@ function getAreas(inputs,selected,config) {
   // 障子が存在しているかどうか
   const hasSash = config.sashCount > 0 ? 1 : 0;
 
-  const innerHeight = inputs.fHeight-inputs.hfWidth-inputs.sfWidth;
-  const sashHeight = innerHeight;
+  const frameInnerHeight = inputs.fHeight-inputs.hfWidth-inputs.sfWidth;
+  const sashHeight = frameInnerHeight;
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
   
@@ -384,12 +393,39 @@ function getAreas(inputs,selected,config) {
   //debuglog("縦框の見える部分: " + stileVisible);
   //debuglog("下框の見える部分: " + bottomVisible);
   
-  const headArea = inputs.fWidth*inputs.hfWidth;                                                                           // 上枠の表面積
-  const jambArea = innerHeight*inputs.jfWidth*2;                                                                 // 縦枠の表面積
-  const sillArea = inputs.fWidth*inputs.sfWidth;                                                                           // 下枠の表面積
-  const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                             // 上框の表面積
-  const stileArea = innerHeight*(inputs.stilefWidth*config.sashCount*2-inputs.jol*config.overlapCount);               // 縦框の表面積
-  const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                               // 下框の表面積
+  let effectiveWidth = inputs.fWidth;
+
+  if (selected.advantageTypeKey === "vertical") {
+    effectiveWidth -= inputs.jfWidth * 2;
+  }
+
+  // 上枠の表面積
+  const headArea = effectiveWidth * inputs.hfWidth;
+  
+
+  let effectiveHeight = inputs.fHeight;
+
+  if (selected.advantageTypeKey === "horizontal") {
+    effectiveHeight = frameInnerHeight;
+  }
+
+  // 縦枠の表面積
+  const jambArea = effectiveHeight*inputs.jfWidth*2;
+
+
+  effectiveWidth = inputs.fWidth;
+
+ 
+  if (selected.advantageTypeKey === "vertical") {
+    effectiveWidth -= inputs.jfWidth * 2;
+  }
+
+  // 下枠の表面積
+  const sillArea = effectiveWidth*inputs.sfWidth;   
+  
+  const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                                            // 上框の表面積
+  const stileArea = innerHeight*(inputs.stilefWidth*config.sashCount*2-inputs.jol*config.overlapCount);                    // 縦框の表面積
+  const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                                              // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
 
