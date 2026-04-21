@@ -421,10 +421,11 @@ function getAreas(inputs,selected,config) {
   }
 
   // 下枠の表面積
-  const sillArea = effectiveWidth*inputs.sfWidth;   
+  const sillArea = effectiveWidth*inputs.sfWidth;  
+
   
   const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                                            // 上框の表面積
-  const stileArea = innerHeight*(inputs.stilefWidth*config.sashCount*2-inputs.jol*config.overlapCount);                    // 縦框の表面積
+  const stileArea = frameInnerHeight*(inputs.stilefWidth*config.sashCount*2-inputs.jol*config.overlapCount);                    // 縦框の表面積
   const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                                              // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
