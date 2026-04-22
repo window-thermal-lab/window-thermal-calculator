@@ -108,15 +108,15 @@ Promise.all([commonPromise, clientPromise])
         console.log("client config =", client);
 
         // コントロールに代入
-        document.getElementById("hfWidth").value = client.HeadFaceWidth ?? "";
-        document.getElementById("jfWidth").value = client.JambFaceWidth ?? "";
-        document.getElementById("sfWidth").value = client.SillFaceWidth ?? "";
-        document.getElementById("fDepth").value = client.FrameDepth ?? "";
+        document.getElementById("headFaceW").value = client.HeadFaceWidth ?? "";
+        document.getElementById("jambFaceW").value = client.JambFaceWidth ?? "";
+        document.getElementById("sillFaceW").value = client.SillFaceWidth ?? "";
+        document.getElementById("frameD").value = client.FrameDepth ?? "";
 
-        document.getElementById("trfWidth").value = client.TopRailFaceWidth ?? "";
-        document.getElementById("stilefWidth").value = client.StileFaceWidth ?? "";
-        document.getElementById("bfWidth").value = client.BottomRailFaceWidth ?? "";
-        document.getElementById("sDepth").value = client.SashDepth ?? "";
+        document.getElementById("topRailFaceW").value = client.TopRailFaceWidth ?? "";
+        document.getElementById("stileFaceW").value = client.StileFaceWidth ?? "";
+        document.getElementById("bottomRailFaceW").value = client.BottomRailFaceWidth ?? "";
+        document.getElementById("sashD").value = client.SashDepth ?? "";
 
         document.getElementById("hol").value = client.HeadOverlap ?? "";
         document.getElementById("jol").value = client.JambOverlap ?? "";
@@ -316,15 +316,15 @@ function getInputs() {
 
     ugInput: parseFloat(document.getElementById("ugInput").value) || 0,
   
-    hfWidth: parseFloat(document.getElementById("hfWidth").value) || 0,
-    jfWidth: parseFloat(document.getElementById("jfWidth").value) || 0,
-    sfWidth: parseFloat(document.getElementById("sfWidth").value) || 0,
-    fDepth: parseFloat(document.getElementById("fDepth").value) || 0,
+    headFaceW: parseFloat(document.getElementById("headFaceW").value) || 0,
+    jambFaceW: parseFloat(document.getElementById("jambFaceW").value) || 0,
+    sillFaceW: parseFloat(document.getElementById("sillFaceW").value) || 0,
+    frameD: parseFloat(document.getElementById("frameD").value) || 0,
 
-    trfWidth: parseFloat(document.getElementById("trfWidth").value) || 0,
-    stilefWidth: parseFloat(document.getElementById("stilefWidth").value) || 0,
-    bfWidth: parseFloat(document.getElementById("bfWidth").value) || 0,
-    sDepth: parseFloat(document.getElementById("sDepth").value) || 0,
+    topRailFaceW: parseFloat(document.getElementById("topRailFaceW").value) || 0,
+    stileFaceW: parseFloat(document.getElementById("stileFaceW").value) || 0,
+    bottomRailFaceW: parseFloat(document.getElementById("bottomRailFaceW").value) || 0,
+    sashD: parseFloat(document.getElementById("sashD").value) || 0,
     
     hol: parseFloat(document.getElementById("hol").value) || 0,
     jol: parseFloat(document.getElementById("jol").value) || 0,
@@ -346,13 +346,13 @@ function getSelected() {
 function getAreas(inputs,selected,config) {
 
 
-  const topRailVisible = inputs.trfWidth-inputs.hol;
-  const stileVisible = inputs.stilefWidth-inputs.jol;
-  const bottomVisible = inputs.bfWidth-inputs.sol;
+  const topRailVisible = inputs.topRailFaceW-inputs.hol;
+  const stileVisible = inputs.stileFaceW-inputs.jol;
+  const bottomVisible = inputs.bottomRailFaceW-inputs.sol;
 
-  const sashTotalWidth = inputs.fWidth-inputs.jfWidth*2;
+  const sashTotalWidth = inputs.fWidth-inputs.jambFaceW*2;
 
-  const glazingTotalWidth = sashTotalWidth-inputs.stilefWidth*config.sashCount*2+inputs.jol*config.overlapCount;
+  const glazingTotalWidth = sashTotalWidth-inputs.stileFaceW*config.sashCount*2+inputs.jol*config.overlapCount;
 
   // グレージングの枚数
   const glazingCount = (config.category === "fixed") ? 1 : config.sashCount;
@@ -368,7 +368,7 @@ function getAreas(inputs,selected,config) {
   // 障子が存在しているかどうか
   const hasSash = config.sashCount > 0 ? 1 : 0;
 
-  const frameInnerHeight = inputs.fHeight-inputs.hfWidth-inputs.sfWidth;
+  const frameInnerHeight = inputs.fHeight-inputs.headFaceW-inputs.sillFaceW;
   const sashHeight = frameInnerHeight;
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
@@ -394,16 +394,16 @@ function getAreas(inputs,selected,config) {
   //debuglog("縦框の見える部分: " + stileVisible);
   //debuglog("下框の見える部分: " + bottomVisible);
   
-  const frameInnerWidth = inputs.fWidth - inputs.jfWidth*2;
+  const frameInnerWidth = inputs.fWidth - inputs.jambFaceW*2;
 
   const isHorizontal = selected.advantageTypeKey === "horizontal";
   
-  const headArea = isHorizontal ? inputs.fWidth*inputs.hfWidth : frameInnerWidth*inputs.hfWidth;       // 上枠の表面積
-  const jambArea = isHorizontal ? frameInnerHeight*inputs.jfWidth*2 : inputs.fHeight*inputs.jfWidth*2; // 縦枠の表面積
-  const sillArea = isHorizontal ? inputs.fWidth*inputs.sfWidth : frameInnerWidth*inputs.sfWidth;       // 下枠の表面積
+  const headArea = isHorizontal ? inputs.fWidth*inputs.headFaceW : frameInnerWidth*inputs.headFaceW;       // 上枠の表面積
+  const jambArea = isHorizontal ? frameInnerHeight*inputs.jambFaceW*2 : inputs.fHeight*inputs.jambFaceW*2; // 縦枠の表面積
+  const sillArea = isHorizontal ? inputs.fWidth*inputs.sillFaceW : frameInnerWidth*inputs.sillFaceW;       // 下枠の表面積
   
   const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                                            // 上框の表面積
-  const stileArea = frameInnerHeight*(inputs.stilefWidth*config.sashCount*2-inputs.jol*config.overlapCount);               // 縦框の表面積
+  const stileArea = frameInnerHeight*(inputs.stileFaceW*config.sashCount*2-inputs.jol*config.overlapCount);               // 縦框の表面積
   const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                                              // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
@@ -430,9 +430,9 @@ function getAreas(inputs,selected,config) {
  
 function getResist(inputs,selected,config) {
 
-  const frameResistSide = config.rsi+(inputs.fDepth*MM_TO_M)/config.lambdaWood+config.rse;
-  const frameResistSill = config.rsi+(inputs.fDepth*MM_TO_M)/config.lambdaWood+config.rse;
-  const sashResist = config.rsi+(inputs.sDepth*MM_TO_M)/config.lambdaWood+config.rse;
+  const frameResistSide = config.rsi+(inputs.frameD*MM_TO_M)/config.lambdaWood+config.rse;
+  const frameResistSill = config.rsi+(inputs.frameD*MM_TO_M)/config.lambdaWood+config.rse;
+  const sashResist = config.rsi+(inputs.sashD*MM_TO_M)/config.lambdaWood+config.rse;
 
   debuglog("木部の熱伝導率: " + config.lambdaWood);
   debuglog2("室内側表面抵抗: " + config.rsi);
