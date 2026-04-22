@@ -210,17 +210,18 @@ function calculateUw(inputs,selected,config) {
 
   const resistSet = getResist(inputs,selected,config);
 
-  debuglog2("枠の総抵抗値: " + resistSet.frameResist);
+  debuglog2("3方枠の総抵抗値: " + resistSet.frameResistSide);
+  debuglog2("下枠の総抵抗値: " + resistSet.frameResistSill);
   if(areaSet.topRailArea + areaSet.stileArea + areaSet.bottomArea>0) debuglog2("障子の総抵抗値: " + resistSet.sashResist);
   debuglog("Ug: " + inputs.ugInput);
 
-  if(resistSet.frameResist <=0 || resistSet.sashResist <=0){
-    debuglog("熱抵抗: frameResist 又は sashResistが 0 以下です");
+  if(resistSet.frameResistSide <=0 || resistSet.frameResistSill <=0 || resistSet.sashResist <=0 ){
+    debuglog("熱抵抗: frameResistSide 又は frameResistSill 又は sashResistが 0 以下です");
     return null;
   } 
 
   // 熱損失係数
-  const fHeatLossRate = (1/resistSet.frameResist)*(areaSet.headArea*MM_TO_M*MM_TO_M+areaSet.jambArea*MM_TO_M*MM_TO_M+areaSet.sillArea*MM_TO_M*MM_TO_M) + (1/resistSet.sashResist)*(areaSet.topRailArea*MM_TO_M*MM_TO_M+areaSet.stileArea*MM_TO_M*MM_TO_M+areaSet.bottomArea*MM_TO_M*MM_TO_M);
+  const fHeatLossRate = (1/resistSet.frameResistSide)*(areaSet.headArea*MM_TO_M*MM_TO_M+areaSet.jambArea*MM_TO_M*MM_TO_M)+(1/resistSet.frameResistSill)*areaSet.sillArea*MM_TO_M*MM_TO_M + (1/resistSet.sashResist)*(areaSet.topRailArea*MM_TO_M*MM_TO_M+areaSet.stileArea*MM_TO_M*MM_TO_M+areaSet.bottomArea*MM_TO_M*MM_TO_M);
   debuglog("木部の熱損失係数: " + fHeatLossRate);
 
   const gHeatLossRate = inputs.ugInput*areaSet.glazingArea*MM_TO_M*MM_TO_M;
@@ -429,7 +430,8 @@ function getAreas(inputs,selected,config) {
  
 function getResist(inputs,selected,config) {
 
-  const frameResist = config.rsi+(inputs.fDepth*MM_TO_M)/config.lambdaWood+config.rse;
+  const frameResistSide = config.rsi+(inputs.fDepth*MM_TO_M)/config.lambdaWood+config.rse;
+  const frameResistSill = config.rsi+(inputs.fDepth*MM_TO_M)/config.lambdaWood+config.rse;
   const sashResist = config.rsi+(inputs.sDepth*MM_TO_M)/config.lambdaWood+config.rse;
 
   debuglog("木部の熱伝導率: " + config.lambdaWood);
@@ -437,7 +439,8 @@ function getResist(inputs,selected,config) {
   debuglog2("室外側表面抵抗: " + config.rse);
 
   return {
-    frameResist: frameResist,
+    frameResistSide: frameResistSide,
+    frameResistSill: frameResistSill,
     sashResist: sashResist   
   };
  
