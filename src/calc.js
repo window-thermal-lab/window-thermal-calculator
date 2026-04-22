@@ -99,8 +99,8 @@ Promise.all([commonPromise, clientPromise])
     );
  
     // 初期値代入
-    document.getElementById("fWidth").value = 1000;
-    document.getElementById("fHeight").value = 1000;
+    document.getElementById("fw").value = 1000;
+    document.getElementById("fh").value = 1000;
     document.getElementById("ugInput").value = 1.6;
 
 
@@ -311,8 +311,8 @@ function getConfig(selected) {
 function getInputs() {
   return {
     
-    fWidth: parseFloat(document.getElementById("fWidth").value) || 0,
-    fHeight: parseFloat(document.getElementById("fHeight").value) || 0,
+    fw: parseFloat(document.getElementById("fw").value) || 0,
+    fh: parseFloat(document.getElementById("fh").value) || 0,
 
     ugInput: parseFloat(document.getElementById("ugInput").value) || 0,
   
@@ -350,7 +350,7 @@ function getAreas(inputs,selected,config) {
   const stileVisible = inputs.stileFaceW-inputs.jol;
   const bottomVisible = inputs.bottomRailFaceW-inputs.sol;
 
-  const sashTotalWidth = inputs.fWidth-inputs.jambFaceW*2;
+  const sashTotalWidth = inputs.fw-inputs.jambFaceW*2;
 
   const glazingTotalWidth = sashTotalWidth-inputs.stileFaceW*config.sashCount*2+inputs.jol*config.overlapCount;
 
@@ -368,7 +368,7 @@ function getAreas(inputs,selected,config) {
   // 障子が存在しているかどうか
   const hasSash = config.sashCount > 0 ? 1 : 0;
 
-  const frameInnerHeight = inputs.fHeight-inputs.headFaceW-inputs.sillFaceW;
+  const frameInnerHeight = inputs.fh-inputs.headFaceW-inputs.sillFaceW;
   const sashHeight = frameInnerHeight;
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
@@ -394,13 +394,13 @@ function getAreas(inputs,selected,config) {
   //debuglog("縦框の見える部分: " + stileVisible);
   //debuglog("下框の見える部分: " + bottomVisible);
   
-  const frameInnerWidth = inputs.fWidth - inputs.jambFaceW*2;
+  const frameInnerWidth = inputs.fw - inputs.jambFaceW*2;
 
   const isHorizontal = selected.advantageTypeKey === "horizontal";
   
-  const headArea = isHorizontal ? inputs.fWidth*inputs.headFaceW : frameInnerWidth*inputs.headFaceW;       // 上枠の表面積
-  const jambArea = isHorizontal ? frameInnerHeight*inputs.jambFaceW*2 : inputs.fHeight*inputs.jambFaceW*2; // 縦枠の表面積
-  const sillArea = isHorizontal ? inputs.fWidth*inputs.sillFaceW : frameInnerWidth*inputs.sillFaceW;       // 下枠の表面積
+  const headArea = isHorizontal ? inputs.fw*inputs.headFaceW : frameInnerWidth*inputs.headFaceW;       // 上枠の表面積
+  const jambArea = isHorizontal ? frameInnerHeight*inputs.jambFaceW*2 : inputs.fh*inputs.jambFaceW*2; // 縦枠の表面積
+  const sillArea = isHorizontal ? inputs.fw*inputs.sillFaceW : frameInnerWidth*inputs.sillFaceW;       // 下枠の表面積
   
   const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                                            // 上框の表面積
   const stileArea = frameInnerHeight*(inputs.stileFaceW*config.sashCount*2-inputs.jol*config.overlapCount);               // 縦框の表面積
