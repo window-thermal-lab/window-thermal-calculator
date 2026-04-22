@@ -372,8 +372,8 @@ function getAreas(inputs,selected,config) {
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
   
-  if (glazingTotalWidth <= 0) {
-    debuglog("エラー: glazingTotalWidth が 0 以下です");
+  if (glazingWidth <= 0) {
+    debuglog("エラー: glazingWidth が 0 以下です");
   }
 
   if (glazingHeight <= 0) {
@@ -393,39 +393,16 @@ function getAreas(inputs,selected,config) {
   //debuglog("縦框の見える部分: " + stileVisible);
   //debuglog("下框の見える部分: " + bottomVisible);
   
-  let effectiveWidth = inputs.fWidth;
+  const frameInnerWidth = inputs.fWidth - inputs.jfWidth*2;
 
-  if (selected.advantageTypeKey === "vertical") {
-    effectiveWidth -= inputs.jfWidth * 2;
-  }
-
-  // 上枠の表面積
-  const headArea = effectiveWidth * inputs.hfWidth;
+  const isHorizontal = selected.advantageTypeKey === "horizontal";
   
-
-  let effectiveHeight = inputs.fHeight;
-
-  if (selected.advantageTypeKey === "horizontal") {
-    effectiveHeight = frameInnerHeight;
-  }
-
-  // 縦枠の表面積
-  const jambArea = effectiveHeight*inputs.jfWidth*2;
-
-
-  effectiveWidth = inputs.fWidth;
-
- 
-  if (selected.advantageTypeKey === "vertical") {
-    effectiveWidth -= inputs.jfWidth * 2;
-  }
-
-  // 下枠の表面積
-  const sillArea = effectiveWidth*inputs.sfWidth;  
-
+  const headArea = isHorizontal ? inputs.fWidth*inputs.hfWidth : frameInnerWidth*inputs.hfWidth;       // 上枠の表面積
+  const jambArea = isHorizontal ? frameInnerHeight*inputs.jfWidth*2 : inputs.fHeight*inputs.jfWidth*2; // 縦枠の表面積
+  const sillArea = isHorizontal ? inputs.fWidth*inputs.sfWidth : frameInnerWidth*inputs.sfWidth;       // 下枠の表面積
   
   const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                                            // 上框の表面積
-  const stileArea = frameInnerHeight*(inputs.stilefWidth*config.sashCount*2-inputs.jol*config.overlapCount);                    // 縦框の表面積
+  const stileArea = frameInnerHeight*(inputs.stilefWidth*config.sashCount*2-inputs.jol*config.overlapCount);               // 縦框の表面積
   const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                                              // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
