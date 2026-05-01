@@ -236,9 +236,9 @@ function calculateUw(inputs,selected,config) {
 
   const Uw = totalHeatLossRate/(areaSet.totalArea*MM_TO_M*MM_TO_M);
 
-  Uw.toFixed(2);
+  const UwDisolay = Uw.toFixed(2);
   
-  return Uw;
+  return UwDisolay;
  
 }
 
