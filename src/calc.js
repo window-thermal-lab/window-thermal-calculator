@@ -236,6 +236,8 @@ function calculateUw(inputs,selected,config) {
 
   const Uw = totalHeatLossRate/(areaSet.totalArea*MM_TO_M*MM_TO_M);
 
+  Uw.toFixed(2);
+  
   return Uw;
  
 }
@@ -390,10 +392,7 @@ function getAreas(inputs,selected,config) {
  
   debuglog2("グレージングの総幅: " + glazingTotalWidth*MM_TO_M);
   debuglog2("グレージングの高さ: " + glazingHeight*MM_TO_M);
-  //debuglog("上框の見える部分: " + topRailVisible);
-  //debuglog("縦框の見える部分: " + stileVisible);
-  //debuglog("下框の見える部分: " + bottomVisible);
-  
+ 
   const frameInnerWidth = inputs.fw - inputs.jambFaceW*2;
 
   const isHorizontal = selected.advantageTypeKey === "horizontal";
