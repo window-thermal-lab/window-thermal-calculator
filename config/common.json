@@ -1,7 +1,7 @@
 {
  
-  "defaultGlass": "double_lowe_argon",
-  "defaultWindowType": "singleDoor",
+  "defaultGlass": "double_lowe_argon",  
+  "defaultWindowType": "sliding",
   "defaultWoodType": "douglasFir",
   "defaultSpacerType": "aluSpacerPsi",
   "defadvantageType": "horizontal",
