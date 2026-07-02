@@ -1,6 +1,7 @@
 {
  
   "defaultGlass": "double_lowe_argon",  
+  "defaultSlidingType": "unequalSliding",
   "defaultWindowType": "sliding",
   "defaultWoodType": "douglasFir",
   "defaultSpacerType": "aluSpacerPsi",

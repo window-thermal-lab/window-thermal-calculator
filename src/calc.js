@@ -75,6 +75,12 @@ Promise.all([commonPromise, clientPromise])
     );
 
     buildSelectFromObject(
+      "idSlidingType",
+      commonData.slidingTypes,
+      commonData.defaultSlidingType
+    );
+
+    buildSelectFromObject(
       "idWindowType",
       commonData.windowTypes,
       commonData.defaultWindowType
