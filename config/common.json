@@ -37,12 +37,17 @@
   },
 
   "windowTypes": {
+    "sliding": {
+      "name": "引違い",
+      "category":"sliding",
+      "sashCount":2,
+      "overlapCount":0
+    },
     "singleDoor": {      
       "name": "片開きドア",
       "category":"swing",
       "sashCount":1,
       "overlapCount":2
-
     },
     "doubleDoor": {
       "name": "両開きドア",
@@ -50,12 +55,7 @@
       "sashCount":2,
       "overlapCount":2
     },
-    "sliding": {
-      "name": "引違い",
-      "category":"sliding",
-      "sashCount":2,
-      "overlapCount":0
-    },
+    
     "fixed": {
       "name": "FIX",
       "category":"fixed",
