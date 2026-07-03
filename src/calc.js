@@ -208,7 +208,9 @@ function changeWindowType() {
   const windowType =
     document.getElementById("idWindowType")?.value;
 
-  ctargetIds.forEach(id => {
+    const targetIds = map[windowType] ?? [];
+
+  targetIds.forEach(id => {
   const elem = document.getElementById(id);
   if (elem) {
     elem.hidden = false;
