@@ -86,6 +86,13 @@ Promise.all([commonPromise, clientPromise])
       commonData.defaultWindowType
     );
 
+    const windowTypeSelect = document.getElementById("idWindowType");
+
+    if (windowTypeSelect) {
+      windowTypeSelect.addEventListener("change", changeWindowType);
+      changeWindowType();
+    }
+
      buildSelectFromObject(
       "idAdvantageType",
       commonData.advantageTypes,
@@ -175,6 +182,32 @@ function buildSelectFromObject(selectId, items, selectedKey) {
   console.log("items =", items);
 }
 
+
+function changeWindowType() {
+  const map = {
+  sliding: ["idSlidingType"],
+  singleDoor: [],
+  doubleDoor: [],
+  fixed: []
+  };
+
+  // 一旦全部隠す
+  Object.values(map)
+    .flat()
+    .forEach(id => {
+      document.getElementById(id)?.hidden = true;
+    });
+
+  // 選択されたものだけ表示
+  const windowType =
+    document.getElementById("idWindowType")?.value;
+
+  const targetIds = map[windowType] ?? [];
+
+  targetIds.forEach(id => {
+    document.getElementById(id)?.hidden = false;
+  });
+}
 
 function updateCalculation() {
 
