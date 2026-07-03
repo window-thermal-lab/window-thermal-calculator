@@ -197,19 +197,23 @@ function changeWindowType() {
   };
 
    // 一旦、制御対象を全部隠す
-  allControls.forEach(id => {
-    document.getElementById(id)?.hidden = true;
-  });
+ allControls.forEach(id => {
+  const elem = document.getElementById(id);
+  if (elem) {
+    elem.hidden = true;
+  }
+});
 
   // 選択されたものだけ表示
   const windowType =
     document.getElementById("idWindowType")?.value;
 
-  const targetIds = map[windowType] ?? [];
-
-  targetIds.forEach(id => {
-    document.getElementById(id)?.hidden = false;
-  });
+  ctargetIds.forEach(id => {
+  const elem = document.getElementById(id);
+  if (elem) {
+    elem.hidden = false;
+  }
+});
 
   console.log(
   document.getElementById("idSlidingType").value
