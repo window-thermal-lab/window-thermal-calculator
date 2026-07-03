@@ -256,7 +256,7 @@ function getSashCountItems() {
 
 function rebuildSashCount(selectedKey) {
   buildSelectFromObject(
-    "idSashCountType",
+    "idSashCount",
     getSashCountItems(),
     selectedKey
   );
