@@ -267,6 +267,7 @@ function changeWindowType() {
   // 窓種プルダウンが選択されたとき
   const allControls = [
     "idSlidingType",
+    "idPocketType",
     "labelTopRailFaceW",
     "topRailFaceW",
     "labelTopRailFaceWMM",
@@ -293,6 +294,7 @@ function changeWindowType() {
   const map = {
     sliding: [
       "idSlidingType",
+      "idPocketType",
       "labelTopRailFaceW",
       "topRailFaceW",
       "labelTopRailFaceWMM",
