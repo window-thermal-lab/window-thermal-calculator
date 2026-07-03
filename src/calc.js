@@ -268,6 +268,7 @@ function changeWindowType() {
   const allControls = [
     "idSlidingType",
     "idPocketType",
+    "idSashCount",
     "labelTopRailFaceW",
     "topRailFaceW",
     "labelTopRailFaceWMM",
@@ -295,6 +296,7 @@ function changeWindowType() {
     sliding: [
       "idSlidingType",
       "idPocketType",
+      "idSashCount",
       "labelTopRailFaceW",
       "topRailFaceW",
       "labelTopRailFaceWMM",
