@@ -75,29 +75,40 @@ Promise.all([commonPromise, clientPromise])
     );
 
     buildSelectFromObject(
-      "idSlidingType",
-      commonData.slidingTypes,
-      commonData.defaultSlidingType
-    );
-
-    buildSelectFromObject(
       "idWindowType",
       commonData.windowTypes,
       commonData.defaultWindowType
     );
 
-    const windowTypeSelect = document.getElementById("idWindowType");
-
-    if (windowTypeSelect) {
-      windowTypeSelect.addEventListener("change", changeWindowType);
-      changeWindowType();
-    }
+    buildSelectFromObject(
+      "idSlidingType",
+      commonData.slidingTypes,
+      commonData.defaultSlidingType
+    );  
 
     buildSelectFromObject(
       "idPocketType",
       commonData.pocketTypes,
       commonData.defaultPocketType
-    );
+    );    
+
+    // 枚数プルダウンの初期化
+    rebuildSashCount(commonData.defaultSashCount);
+
+    // イベント登録
+    document
+      .getElementById("idWindowType")
+      .addEventListener("change", changeWindowType);
+
+    document
+      .getElementById("idSlidingType")
+      .addEventListener("change", changeSlidingType);
+
+    document
+      .getElementById("idPocketType")
+      .addEventListener("change", changePocketType);
+
+    changeWindowType();
 
     buildSelectFromObject(
       "idAdvantageType",
@@ -188,9 +199,72 @@ function buildSelectFromObject(selectId, items, selectedKey) {
   console.log("items =", items);
 }
 
+function getSashCountItems() {
+
+  const sashCountItems =
+    commonData.sashCountItems;
+
+  const slidingType =
+    document.getElementById("idSlidingType").value;
+  const pocketType =
+    document.getElementById("idPocketType").value;
+
+  if(slidingType === "doublePocketSliding") {
+    // 両袖引き込みは2固定
+    return {
+      "2": sashCountItems["2"]
+    };
+  }
+
+  if (slidingType === "biPartingSliding") {
+    return {
+      "2": sashCountItems["2"],
+      "4": sashCountItems["4"],
+      "6": sashCountItems["6"],
+      "8": sashCountItems["8"]
+    };
+  }
+
+  if (slidingType === "unequalSliding") {
+   
+    if (pocketType === "noPocket") {
+      return {
+        "2": sashCountItems["2"],
+        "3": sashCountItems["3"],
+        "4": sashCountItems["4"],
+        "5": sashCountItems["5"],
+        "6": sashCountItems["6"],
+        "7": sashCountItems["7"],
+        "8": sashCountItems["8"]       
+      };
+    }
+    
+    return {
+        "1": sashCountItems["1"],  
+        "2": sashCountItems["2"],
+        "3": sashCountItems["3"],
+        "4": sashCountItems["4"],
+        "5": sashCountItems["5"],
+        "6": sashCountItems["6"],
+        "7": sashCountItems["7"]             
+    };
+
+  }
+
+  return {};
+}
+
+function rebuildSashCount(selectedKey) {
+  buildSelectFromObject(
+    "idSashCountType",
+    getSashCountItems(),
+    selectedKey
+  );
+}
  
 function changeWindowType() {
 
+  // 窓種プルダウンが選択されたとき
   const allControls = [
     "idSlidingType",
     "labelTopRailFaceW",
@@ -209,12 +283,12 @@ function changeWindowType() {
     "hol",
     "labelHolMM",
     "labelJol",
-    "jol",,
+    "jol",
     "labelJolMM",
     "labelSol",
     "sol",
     "labelSolMM"
-  ];
+  ]; 
 
   const map = {
     sliding: ["idSlidingType"],
@@ -235,7 +309,7 @@ function changeWindowType() {
       "hol",
       "labelHolMM",
       "labelJol",
-      "jol",,
+      "jol",
       "labelJolMM",
       "labelSol",
       "sol",
@@ -258,7 +332,7 @@ function changeWindowType() {
       "hol",
       "labelHolMM",
       "labelJol",
-      "jol",,
+      "jol",
       "labelJolMM",
       "labelSol",
       "sol",
@@ -292,6 +366,21 @@ function changeWindowType() {
   document.getElementById("idSlidingType").value
 );
 }
+
+function changeSlidingType() {
+  const current =
+    document.getElementById("idSashCountType").value;
+
+  rebuildSashCount(current);
+}
+
+function changePocketType() {
+  const current =
+    document.getElementById("idSashCountType").value;
+
+  rebuildSashCount(current);
+}
+
 
 function updateCalculation() {
 

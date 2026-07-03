@@ -3,6 +3,7 @@
   "defaultGlass": "double_lowe_argon",  
   "defaultSlidingType": "unequalSliding",
   "defaultPocketType": "noPocket",
+  "defaultSashCount": "2",
   "defaultWindowType": "sliding",
   "defaultWoodType": "douglasFir",
   "defaultSpacerType": "aluSpacerPsi",
@@ -49,6 +50,19 @@
       "name": "戸袋壁"      
     }    
   },
+
+ 
+  "sashCountItems": {
+    "1": { "name": "1枚" },
+    "2": { "name": "2枚" },
+    "3": { "name": "3枚" },
+    "4": { "name": "4枚" },
+    "5": { "name": "5枚" },
+    "6": { "name": "6枚" },
+    "7": { "name": "7枚" },
+    "8": { "name": "8枚" }
+  },
+
 
   "windowTypes": {
     "sliding": {
