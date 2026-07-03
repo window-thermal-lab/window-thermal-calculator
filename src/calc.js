@@ -291,7 +291,21 @@ function changeWindowType() {
   ]; 
 
   const map = {
-    sliding: ["idSlidingType"],
+    sliding: [
+      "idSlidingType",
+      "labelTopRailFaceW",
+      "topRailFaceW",
+      "labelTopRailFaceWMM",
+      "labelStileFaceW",
+      "stileFaceW",
+      "labelStileFaceWMM",    
+      "labelBottomRailFaceW",
+      "bottomRailFaceW",
+      "labelBottomRailFaceWMM",
+      "labelSashD",
+      "sashD",
+      "labelSashDMM"    
+    ],
     singleDoor: [
       "labelTopRailFaceW",
       "topRailFaceW",
