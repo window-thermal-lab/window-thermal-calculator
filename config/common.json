@@ -7,7 +7,7 @@
   "defaultWindowType": "sliding",
   "defaultWoodType": "douglasFir",
   "defaultSpacerType": "aluSpacerPsi",
-  "defadvantageType": "horizontal",
+  "defaultAdvantageType": "horizontal",
 
   "rsi":0.13,
   "rse":0.04,

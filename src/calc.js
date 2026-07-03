@@ -113,7 +113,7 @@ Promise.all([commonPromise, clientPromise])
     buildSelectFromObject(
       "idAdvantageType",
       commonData.advantageTypes,
-      commonData.defadvantageType
+      commonData.defaultAdvantageType
     );
 
     buildSelectFromObject(
