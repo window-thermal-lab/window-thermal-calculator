@@ -199,10 +199,15 @@ function changeWindowType() {
     "labelSashD",
     "sashD",
     "labelSashDMM",
-
+    "labelHol",
     "hol",
-    "jol",
-    "sol"
+    "labelHolMM",
+    "labelJol",
+    "jol",,
+    "labelJolMM",
+    "labelSol",
+    "sol",
+    "labelSolMM"
   ];
 
   const map = {
@@ -220,10 +225,15 @@ function changeWindowType() {
       "labelSashD",
       "sashD",
       "labelSashDMM",
-
+      "labelHol",
       "hol",
-      "jol",
-      "sol"
+      "labelHolMM",
+      "labelJol",
+      "jol",,
+      "labelJolMM",
+      "labelSol",
+      "sol",
+      "labelSolMM"
     ],
     doubleDoor: [
       "labelTopRailFaceW",
@@ -238,10 +248,15 @@ function changeWindowType() {
       "labelSashD",
       "sashD",
       "labelSashDMM",
-      
+      "labelHol",
       "hol",
-      "jol",
-      "sol"
+      "labelHolMM",
+      "labelJol",
+      "jol",,
+      "labelJolMM",
+      "labelSol",
+      "sol",
+      "labelSolMM"
     ],
     fixed: []
   };
