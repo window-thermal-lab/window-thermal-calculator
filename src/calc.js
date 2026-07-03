@@ -369,14 +369,14 @@ function changeWindowType() {
 
 function changeSlidingType() {
   const current =
-    document.getElementById("idSashCountType").value;
+    document.getElementById("idSashCount").value;
 
   rebuildSashCount(current);
 }
 
 function changePocketType() {
   const current =
-    document.getElementById("idSashCountType").value;
+    document.getElementById("idSashCount").value;
 
   rebuildSashCount(current);
 }
