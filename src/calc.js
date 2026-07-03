@@ -187,7 +187,9 @@ function changeWindowType() {
 
   const allControls = [
     "idSlidingType",
+    "labelTopRailFaceW",
     "topRailFaceW",
+    "labelTopRailFaceWMM",
     "stileFaceW",
     "bottomRailFaceW",
     "sashD",
@@ -199,7 +201,9 @@ function changeWindowType() {
   const map = {
     sliding: ["idSlidingType"],
     singleDoor: [
+      "labelTopRailFaceW",
       "topRailFaceW",
+      "labelTopRailFaceWMM",
       "stileFaceW",
       "bottomRailFaceW",
       "sashD",
@@ -208,7 +212,9 @@ function changeWindowType() {
       "sol"
     ],
     doubleDoor: [
+      "labelTopRailFaceW",
       "topRailFaceW",
+      "labelTopRailFaceWMM",
       "stileFaceW",
       "bottomRailFaceW",
       "sashD",
