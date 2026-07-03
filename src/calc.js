@@ -93,7 +93,13 @@ Promise.all([commonPromise, clientPromise])
       changeWindowType();
     }
 
-     buildSelectFromObject(
+    buildSelectFromObject(
+      "idPocketType",
+      commonData.pocketTypes,
+      commonData.defaultPocketType
+    );
+
+    buildSelectFromObject(
       "idAdvantageType",
       commonData.advantageTypes,
       commonData.defadvantageType

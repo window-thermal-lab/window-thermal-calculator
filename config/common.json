@@ -2,6 +2,7 @@
  
   "defaultGlass": "double_lowe_argon",  
   "defaultSlidingType": "unequalSliding",
+  "defaultPocketType": "noPocket",
   "defaultWindowType": "sliding",
   "defaultWoodType": "douglasFir",
   "defaultSpacerType": "aluSpacerPsi",
@@ -34,6 +35,18 @@
     },
     "doublePocketSliding": {
       "name": "両袖引き込み"      
+    }    
+  },
+  
+  "pocketTypes": {
+    "noPocket": {      
+      "name": "戸袋無し"   
+    },
+    "fixedPocket": {
+      "name": "戸袋FIX"     
+    },
+    "wallPocket": {
+      "name": "戸袋壁"      
     }    
   },
 
