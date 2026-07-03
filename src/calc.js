@@ -190,7 +190,10 @@ function changeWindowType() {
     "labelTopRailFaceW",
     "topRailFaceW",
     "labelTopRailFaceWMM",
+    "labelstileFaceW",
     "stileFaceW",
+    "labelstileFaceWMM",
+
     "bottomRailFaceW",
     "sashD",
     "hol",
@@ -204,7 +207,10 @@ function changeWindowType() {
       "labelTopRailFaceW",
       "topRailFaceW",
       "labelTopRailFaceWMM",
+      "labelstileFaceW",
       "stileFaceW",
+      "labelstileFaceWMM",
+    
       "bottomRailFaceW",
       "sashD",
       "hol",
@@ -215,7 +221,10 @@ function changeWindowType() {
       "labelTopRailFaceW",
       "topRailFaceW",
       "labelTopRailFaceWMM",
+      "labelstileFaceW",
       "stileFaceW",
+      "labelstileFaceWMM",
+    
       "bottomRailFaceW",
       "sashD",
       "hol",
