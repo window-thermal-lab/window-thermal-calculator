@@ -196,12 +196,10 @@ function changeWindowType() {
     fixed: []
   };
 
-  // 一旦全部隠す
-  Object.values(map)
-    .flat()
-    .forEach(id => {
-      document.getElementById(id)?.hidden = true;
-    });
+   // 一旦、制御対象を全部隠す
+  allControls.forEach(id => {
+    document.getElementById(id)?.hidden = true;
+  });
 
   // 選択されたものだけ表示
   const windowType =
