@@ -184,11 +184,16 @@ function buildSelectFromObject(selectId, items, selectedKey) {
 
 
 function changeWindowType() {
+
+  const allControls = [
+    "idSlidingType"
+  ];
+
   const map = {
-  sliding: ["idSlidingType"],
-  singleDoor: [],
-  doubleDoor: [],
-  fixed: []
+    sliding: ["idSlidingType"],
+    singleDoor: [],
+    doubleDoor: [],
+    fixed: []
   };
 
   // 一旦全部隠す
