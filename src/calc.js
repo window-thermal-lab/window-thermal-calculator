@@ -196,8 +196,10 @@ function changeWindowType() {
     "labelbottomRailFaceW",
     "bottomRailFaceW",
     "labelbottomRailFaceWMM",
-
+    "labelsashD",
     "sashD",
+    "labelsashDMM",
+
     "hol",
     "jol",
     "sol"
@@ -215,8 +217,10 @@ function changeWindowType() {
       "labelbottomRailFaceW",
       "bottomRailFaceW",
       "labelbottomRailFaceWMM",
-
+      "labelsashD",
       "sashD",
+      "labelsashDMM",
+
       "hol",
       "jol",
       "sol"
@@ -231,8 +235,10 @@ function changeWindowType() {
       "labelbottomRailFaceW",
       "bottomRailFaceW",
       "labelbottomRailFaceWMM",
-
+      "labelsashD",
       "sashD",
+      "labelsashDMM",
+      
       "hol",
       "jol",
       "sol"
