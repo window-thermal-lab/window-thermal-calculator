@@ -210,6 +210,10 @@ function changeWindowType() {
   targetIds.forEach(id => {
     document.getElementById(id)?.hidden = false;
   });
+
+  console.log(
+  document.getElementById("idSlidingType").value
+);
 }
 
 function updateCalculation() {
