@@ -210,8 +210,10 @@ function changeWindowType() {
       "labelstileFaceW",
       "stileFaceW",
       "labelstileFaceWMM",
-    
+      "labelbottomRailFaceW",
       "bottomRailFaceW",
+      "labelbottomRailFaceWMM",
+
       "sashD",
       "hol",
       "jol",
@@ -223,9 +225,11 @@ function changeWindowType() {
       "labelTopRailFaceWMM",
       "labelstileFaceW",
       "stileFaceW",
-      "labelstileFaceWMM",
-    
+      "labelstileFaceWMM",    
+      "labelbottomRailFaceW",
       "bottomRailFaceW",
+      "labelbottomRailFaceWMM",
+
       "sashD",
       "hol",
       "jol",
