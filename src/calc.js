@@ -182,17 +182,40 @@ function buildSelectFromObject(selectId, items, selectedKey) {
   console.log("items =", items);
 }
 
-
+ 
 function changeWindowType() {
 
   const allControls = [
-    "idSlidingType"
+    "idSlidingType",
+    "topRailFaceW",
+    "stileFaceW",
+    "bottomRailFaceW",
+    "sashD",
+    "hol",
+    "jol",
+    "sol"
   ];
 
   const map = {
     sliding: ["idSlidingType"],
-    singleDoor: [],
-    doubleDoor: [],
+    singleDoor: [
+      "topRailFaceW",
+      "stileFaceW",
+      "bottomRailFaceW",
+      "sashD",
+      "hol",
+      "jol",
+      "sol"
+    ],
+    doubleDoor: [
+      "topRailFaceW",
+      "stileFaceW",
+      "bottomRailFaceW",
+      "sashD",
+      "hol",
+      "jol",
+      "sol"
+    ],
     fixed: []
   };
 
