@@ -625,16 +625,26 @@ function getInputs() {
     headFaceW: parseFloat(document.getElementById("headFaceW").value) || 0,
     jambFaceW: parseFloat(document.getElementById("jambFaceW").value) || 0,
     sillFaceW: parseFloat(document.getElementById("sillFaceW").value) || 0,
+
+    sillUpperH: parseFloat(document.getElementById("sillUpperH").value) || 0,
+
     frameD: parseFloat(document.getElementById("frameD").value) || 0,
+
+    sillUpperD: parseFloat(document.getElementById("sillUpperD").value) || 0,
 
     topRailFaceW: parseFloat(document.getElementById("topRailFaceW").value) || 0,
     stileFaceW: parseFloat(document.getElementById("stileFaceW").value) || 0,
     bottomRailFaceW: parseFloat(document.getElementById("bottomRailFaceW").value) || 0,
     sashD: parseFloat(document.getElementById("sashD").value) || 0,
+
+    meetingD: parseFloat(document.getElementById("meetingD").value) || 0,
     
     hol: parseFloat(document.getElementById("hol").value) || 0,
     jol: parseFloat(document.getElementById("jol").value) || 0,
-    sol: parseFloat(document.getElementById("sol").value) || 0,    
+    sol: parseFloat(document.getElementById("sol").value) || 0,
+
+    capTotalH: parseFloat(document.getElementById("capTotalH").value) || 0,
+    capVisibleH: parseFloat(document.getElementById("capVisibleH").value) || 0
   };
 }
 
@@ -651,9 +661,31 @@ function getSelected() {
   };
 }
 
+function getSlidingAreas(inputs, selected, config) {
+
+  const sillUpperH = inputs.sillUpperH;
+  const sillUpperD = inputs.sillUpperD;
+
+  const meetingD = inputs.meetingD;
+
+  const capTotalH = inputs.capTotalH;
+  const capVisibleH = inputs.capVisibleH;
+  const capOverlapH = capTotalH - capVisibleH;
+
+  debuglog2("下枠上段高さ: " + sillUpperH);
+  debuglog2("下枠上段見込み: " + sillUpperD);
+  debuglog2("召合せ見込み: " + meetingD);
+  debuglog2("笠木全高さ: " + capTotalH);
+  debuglog2("笠木見え掛かり: " + capVisibleH);
+  debuglog2("笠木重なり高さ: " + capOverlapH);
+
+}
 
 function getAreas(inputs,selected,config) {
 
+  if (config.category === "sliding") {
+    return getSlidingAreas(inputs, selected, config);
+  }
 
   const topRailVisible = inputs.topRailFaceW-inputs.hol;
   const stileVisible = inputs.stileFaceW-inputs.jol;
