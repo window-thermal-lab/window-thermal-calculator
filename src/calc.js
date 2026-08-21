@@ -144,7 +144,7 @@ Promise.all([commonPromise, clientPromise])
         
 
         document.getElementById("sillUpperH").value =
-      client.SillUpperDepth ?? "";
+      client.SillUpperFaceWidth  ?? "";
 
       document.getElementById("frameD").value = client.FrameDepth ?? "";
 
