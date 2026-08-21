@@ -482,8 +482,8 @@ function renderResult(result) {
 function getConfig(selected) {
 
   if (!commonData) {
-  debuglog("commonData未ロード");
-  return null;
+    debuglog("commonData未ロード");
+    return null;
   }  
   
   const gt = commonData.glassTypes?.[selected.glassTypeKey];
@@ -491,7 +491,28 @@ function getConfig(selected) {
     debuglog(selected.glassTypeKey);
     debuglog(commonData.glassTypes);
     return null;     
-  }  
+  }
+
+  const slt = commonData.slidingTypes?.[selected.slidingTypeKey];
+  if (!slt){
+    debuglog(selected.slidingTypeKey);
+    debuglog(commonData.slidingTypes);
+    return null;
+  }
+
+  const pt = commonData.pocketTypes?.[selected.pocketTypeKey];
+  if (!pt){
+    debuglog(selected.pocketTypeKey);
+    debuglog(commonData.pocketTypes);
+    return null;
+  }
+
+  const sct = commonData.sashCountItems?.[selected.sashCountKey];
+  if (!sct){
+    debuglog(selected.sashCountKey);
+    debuglog(commonData.sashCountItems);
+    return null;
+  }
 
   const wt = commonData.windowTypes?.[selected.windowTypeKey];
   if (!wt){
@@ -523,16 +544,19 @@ function getConfig(selected) {
 
   return {
     gt: gt,
+    slt: slt,
+    pt: pt,
+    sct: sct,
     wt: wt,
-   
-    woodt:woodt,
+    at: at,
+    woodt: woodt,
     st: st,
-    sashCount: wt.sashCount ?? 0,
+
+    sashCount: parseInt(selected.sashCountKey) || 0,
     overlapCount: wt.overlapCount ?? 0,
     category: wt.category ?? "unknown",
         
     lambdaWood: woodt.lambdaWood ?? 0,
-
     spacerPsi: st.psi ?? 0,    
 
     rsi: commonData.rsi,
@@ -567,6 +591,9 @@ function getInputs() {
 function getSelected() {
   return {    
     glassTypeKey: document.getElementById("idGlassType").value,
+    slidingTypeKey: document.getElementById("idSlidingType").value,
+    pocketTypeKey: document.getElementById("idPocketType").value,
+    sashCountKey: document.getElementById("idSashCount").value,
     windowTypeKey: document.getElementById("idWindowType").value,
     advantageTypeKey: document.getElementById("idAdvantageType").value,
     woodTypeKey: document.getElementById("idWoodType").value,
