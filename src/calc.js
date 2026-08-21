@@ -289,7 +289,22 @@ function changeWindowType() {
     "labelJolMM",
     "labelSol",
     "sol",
-    "labelSolMM"
+    "labelSolMM",
+    "labelSillUpperH",
+    "sillUpperH",
+    "labelSillUpperHMM",
+    "labelSillUpperD",
+    "sillUpperD",
+    "labelSillUpperDMM",
+    "labelMeetingD",
+    "meetingD",
+    "labelMeetingDMM",
+    "labelCapTotalH",
+    "capTotalH",
+    "labelCapTotalHMM",
+    "labelCapVisibleH",
+    "capVisibleH",
+    "labelCapVisibleHMM"
   ]; 
 
   const map = {
@@ -308,7 +323,25 @@ function changeWindowType() {
       "labelBottomRailFaceWMM",
       "labelSashD",
       "sashD",
-      "labelSashDMM"    
+      "labelSashDMM",
+      "idSlidingType",
+      "idPocketType",
+      "idSashCount",
+      "labelSillUpperH",
+      "sillUpperH",
+      "labelSillUpperHMM",
+      "labelSillUpperD",
+      "sillUpperD",
+      "labelSillUpperDMM",
+      "labelMeetingD",
+      "meetingD",
+      "labelMeetingDMM",
+      "labelCapTotalH",
+      "capTotalH",
+      "labelCapTotalHMM",
+      "labelCapVisibleH",
+      "capVisibleH",
+      "labelCapVisibleHMM"   
     ],
     singleDoor: [
       "labelTopRailFaceW",
