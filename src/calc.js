@@ -141,16 +141,33 @@ Promise.all([commonPromise, clientPromise])
         document.getElementById("headFaceW").value = client.HeadFaceWidth ?? "";
         document.getElementById("jambFaceW").value = client.JambFaceWidth ?? "";
         document.getElementById("sillFaceW").value = client.SillFaceWidth ?? "";
-        document.getElementById("frameD").value = client.FrameDepth ?? "";
+        
+
+        document.getElementById("sillUpperD").value =
+      client.SillUpperDepth ?? "";
+
+      document.getElementById("frameD").value = client.FrameDepth ?? "";
+
+      document.getElementById("sillUpperD").value =
+      client.SillUpperDepth ?? "";
 
         document.getElementById("topRailFaceW").value = client.TopRailFaceWidth ?? "";
         document.getElementById("stileFaceW").value = client.StileFaceWidth ?? "";
         document.getElementById("bottomRailFaceW").value = client.BottomRailFaceWidth ?? "";
         document.getElementById("sashD").value = client.SashDepth ?? "";
 
+        document.getElementById("meetingD").value =
+      client.MeetingDepth ?? "";
+
         document.getElementById("hol").value = client.HeadOverlap ?? "";
         document.getElementById("jol").value = client.JambOverlap ?? "";
         document.getElementById("sol").value = client.SillOverlap ?? "";
+
+        document.getElementById("capTotalH").value =
+      client.CapTotalHeight ?? "";
+
+    document.getElementById("capVisibleH").value =
+      client.CapVisibleHeight ?? "";
       }     
 
       updateCalculation();   
