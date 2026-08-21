@@ -143,7 +143,7 @@ Promise.all([commonPromise, clientPromise])
         document.getElementById("sillFaceW").value = client.SillFaceWidth ?? "";
         
 
-        document.getElementById("sillUpperD").value =
+        document.getElementById("sillUpperH").value =
       client.SillUpperDepth ?? "";
 
       document.getElementById("frameD").value = client.FrameDepth ?? "";
