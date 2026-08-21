@@ -4,16 +4,22 @@
   "HeadFaceWidth":56,
   "JambFaceWidth":56,
   "SillFaceWidth":56,
-
+  
+  "SillUpperFaceWidth": 22,
   "FrameDepth":92,
 
+  "SillUpperDepth": 49,
   "TopRailFaceWidth":68,  
   "StileFaceWidth":68,
   "BottomRailFaceWidth":68,
 
   "SashDepth":56,
+  "MeetingDepth": 22,
 
   "HeadOverlap": 14,
   "JambOverlap": 14,
-  "SillOverlap": 14
+  "SillOverlap": 14,
+
+  "CapTotalHeight": 46,
+  "CapVisibleHeight": 12
 }
