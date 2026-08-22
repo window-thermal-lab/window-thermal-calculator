@@ -733,11 +733,11 @@ function getSlidingAreas(inputs, selected, config) {
   // 左端と右端の2本
   const normalStileCount = 2;
 
-  // 笠木の幅から縦框の総幅を減算する。
- const capEffectiveLength =
-  frameInnerWidth
-  - inputs.stileFaceW * normalStileCount
-  - meetingFaceW * meetingCount;
+ // 笠木・障子重なり部分だけの有効幅
+  const capOverlapEffectiveLength =
+    frameInnerWidth
+    - inputs.stileFaceW * normalStileCount
+    - meetingFaceW * meetingCount;
 
   // 召合せ框の高さ
   const meetingHeight =
@@ -759,7 +759,8 @@ function getSlidingAreas(inputs, selected, config) {
 
   // 笠木見え掛かり部
   const capVisibleArea =
-  capEffectiveLength * capVisibleH;
+  frameInnerWidth * capVisibleH;  
+
  
   // 通常障子框
   const normalSashArea =
@@ -773,8 +774,8 @@ function getSlidingAreas(inputs, selected, config) {
 
 
   // 笠木・障子重なり部
-  const capSashOverlapArea =
-    capEffectiveLength * capOverlapH;
+   const capSashOverlapArea =
+  capOverlapEffectiveLength * capOverlapH;
 
   // ガラス
   const glazingArea =
