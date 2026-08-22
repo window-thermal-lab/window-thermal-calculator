@@ -476,12 +476,14 @@ function calculateUw(inputs,selected,config) {
 
   const areaSet = getAreas(inputs,selected,config);
 
-  debuglog("上枠の表面積: " + areaSet.headArea*MM_TO_M*MM_TO_M);
-  debuglog("縦枠の表面積: " + areaSet.jambArea*MM_TO_M*MM_TO_M);
-  debuglog("下枠の表面積: " + areaSet.sillArea*MM_TO_M*MM_TO_M);
-  debuglog("上框の表面積: " + areaSet.topRailArea*MM_TO_M*MM_TO_M);
-  debuglog("縦框の表面積: " + areaSet.stileArea*MM_TO_M*MM_TO_M);
-  debuglog("下框の表面積: " + areaSet.bottomArea*MM_TO_M*MM_TO_M);
+  if (config.category !== "sliding") {
+    debuglog("上枠の表面積: " + areaSet.headArea * MM_TO_M * MM_TO_M);
+    debuglog("縦枠の表面積: " + areaSet.jambArea * MM_TO_M * MM_TO_M);
+    debuglog("下枠の表面積: " + areaSet.sillArea * MM_TO_M * MM_TO_M);
+    debuglog("上框の表面積: " + areaSet.topRailArea * MM_TO_M * MM_TO_M);
+    debuglog("縦框の表面積: " + areaSet.stileArea * MM_TO_M * MM_TO_M);
+    debuglog("下框の表面積: " + areaSet.bottomArea * MM_TO_M * MM_TO_M);
+  }
 
   if(selected.lambdaWood <= 0 ){
     debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
@@ -490,18 +492,60 @@ function calculateUw(inputs,selected,config) {
 
   const resistSet = getResist(inputs,selected,config);
 
-  debuglog2("3方枠の総抵抗値: " + resistSet.threeSideFrameResist);
-  debuglog2("下枠の総抵抗値: " + resistSet.frameResistSill);
-  if(areaSet.topRailArea + areaSet.stileArea + areaSet.bottomArea>0) debuglog2("障子の総抵抗値: " + resistSet.sashResist);
-  debuglog("Ug: " + inputs.ugInput);
+  if (config.category !== "sliding") {
+    debuglog2("3方枠の総抵抗値: " + resistSet.threeSideFrameResist);
+    debuglog2("下枠の総抵抗値: " + resistSet.frameResistSill);
+    if(areaSet.topRailArea + areaSet.stileArea + areaSet.bottomArea>0) debuglog2("障子の総抵抗値: " + resistSet.sashResist);
+    debuglog("Ug: " + inputs.ugInput);
 
-  if(resistSet.threeSideFrameResist <=0 || resistSet.frameResistSill <=0 || resistSet.sashResist <=0 ){
-    debuglog("熱抵抗: threeSideFrameResist 又は frameResistSill 又は sashResistが 0 以下です");
-    return null;
-  } 
+    if(resistSet.threeSideFrameResist <=0 || resistSet.frameResistSill <=0 || resistSet.sashResist <=0 ){
+      debuglog("熱抵抗: threeSideFrameResist 又は frameResistSill 又は sashResistが 0 以下です");
+      return null;
+    } 
+  }
 
   // 熱損失係数
-  const fHeatLossRate = (1/resistSet.threeSideFrameResist)*(areaSet.headArea*MM_TO_M*MM_TO_M+areaSet.jambArea*MM_TO_M*MM_TO_M)+(1/resistSet.frameResistSill)*areaSet.sillArea*MM_TO_M*MM_TO_M + (1/resistSet.sashResist)*(areaSet.topRailArea*MM_TO_M*MM_TO_M+areaSet.stileArea*MM_TO_M*MM_TO_M+areaSet.bottomArea*MM_TO_M*MM_TO_M);
+  let fHeatLossRate;
+
+if (config.category === "sliding") {
+
+  fHeatLossRate =
+    (1 / resistSet.threeSideFrameResist)
+      * areaSet.threeSideFrameArea * MM_TO_M * MM_TO_M
+
+    + (1 / resistSet.sillUpperResist)
+      * areaSet.sillUpperArea * MM_TO_M * MM_TO_M
+
+    + (1 / resistSet.sillLowerResist)
+      * areaSet.sillLowerArea * MM_TO_M * MM_TO_M
+
+    + (1 / resistSet.capResist)
+      * areaSet.capVisibleArea * MM_TO_M * MM_TO_M
+
+    + (1 / resistSet.sashResist)
+      * areaSet.normalSashArea * MM_TO_M * MM_TO_M
+
+    + (1 / resistSet.meetingResist)
+      * areaSet.meetingArea * MM_TO_M * MM_TO_M
+
+    + (1 / resistSet.meetingResist)
+      * areaSet.capSashOverlapArea * MM_TO_M * MM_TO_M;
+
+} else {
+
+  fHeatLossRate =
+    (1 / resistSet.threeSideFrameResist)
+      * (areaSet.headArea + areaSet.jambArea)
+      * MM_TO_M * MM_TO_M
+
+    + (1 / resistSet.frameResistSill)
+      * areaSet.sillArea * MM_TO_M * MM_TO_M
+
+    + (1 / resistSet.sashResist)
+      * (areaSet.topRailArea + areaSet.stileArea + areaSet.bottomArea)
+      * MM_TO_M * MM_TO_M;
+}
+
   debuglog("木部の熱損失係数: " + fHeatLossRate);
 
   const gHeatLossRate = inputs.ugInput*areaSet.glazingArea*MM_TO_M*MM_TO_M;
@@ -861,7 +905,9 @@ function getSlidingAreas(inputs, selected, config) {
       capSashOverlapArea: capSashOverlapArea,
 
       glazingArea: glazingArea,
-      glazingPerimeter: glazingPerimeter
+      glazingPerimeter: glazingPerimeter,
+
+      totalArea: totalArea
     };
 
 }
@@ -954,7 +1000,7 @@ function getAreas(inputs,selected,config) {
 
 function getSlidingResist(inputs, selected, config) {
 
-  const frameResistSide =
+  const threeSideFrameResist =
     config.rsi
     + (inputs.frameD * MM_TO_M) / config.lambdaWood
     + config.rse;
@@ -964,6 +1010,11 @@ function getSlidingResist(inputs, selected, config) {
     + (inputs.sillUpperD * MM_TO_M) / config.lambdaWood
     + config.rse;
 
+  const sillLowerResist =
+    config.rsi
+    + (inputs.frameD * MM_TO_M) / config.lambdaWood
+    + config.rse;
+
   const sashResist =
     config.rsi
     + (inputs.sashD * MM_TO_M) / config.lambdaWood
@@ -971,25 +1022,30 @@ function getSlidingResist(inputs, selected, config) {
 
   const meetingResist =
     config.rsi
-    + (inputs.meetingD * MM_TO_M) / config.lambdaWood
+    + (inputs.sashD * 2 * MM_TO_M + inputs.meetingD * MM_TO_M) / config.lambdaWood
     + config.rse;
 
-  // 下枠下段
-  // const sillLowerResist = ...
-
-  // 笠木見え掛かり
-  // const capResist = ...
+  const capResist =
+  config.rsi
+  + (inputs.meetingD * MM_TO_M) / config.lambdaWood
+  + config.rse;
 
   return {
-    frameResistSide,
-    sillUpperResist,
-    sashResist,
-    meetingResist
+    threeSideFrameResist: threeSideFrameResist,
+    sillUpperResist: sillUpperResist,
+    sillLowerResist: sillLowerResist,    
+    sashResist: sashResist,
+    meetingResist: meetingResist,
+    capResist: capResist
   };
 }
 
  
 function getResist(inputs,selected,config) {
+
+  if (config.category === "sliding") {
+    return getSlidingResist(inputs, selected, config);
+  }
 
   const threeSideFrameResist = config.rsi+(inputs.frameD*MM_TO_M)/config.lambdaWood+config.rse;
   const frameResistSill = config.rsi+(inputs.frameD*MM_TO_M)/config.lambdaWood+config.rse;
@@ -1000,7 +1056,7 @@ function getResist(inputs,selected,config) {
   debuglog2("室外側表面抵抗: " + config.rse);
 
   return {
-    frameResistSide: threeSideFrameResist,
+    threeSideFrameResist: threeSideFrameResist,
     frameResistSill: frameResistSill,
     sashResist: sashResist   
   };
