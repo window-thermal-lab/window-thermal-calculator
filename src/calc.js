@@ -670,14 +670,193 @@ function getSlidingAreas(inputs, selected, config) {
 
   const capTotalH = inputs.capTotalH;
   const capVisibleH = inputs.capVisibleH;
-  const capOverlapH = capTotalH - capVisibleH;
-
+  
   debuglog2("下枠上段高さ: " + sillUpperH);
   debuglog2("下枠上段見込み: " + sillUpperD);
   debuglog2("召合せ見込み: " + meetingD);
   debuglog2("笠木全高さ: " + capTotalH);
   debuglog2("笠木見え掛かり: " + capVisibleH);
+ 
+  // 左右の縦枠を除いた枠内幅
+  const frameInnerWidth = inputs.fw - inputs.jambFaceW * 2;
+
+  /// 上枠と下枠全体を除いた枠内高さ
+  const frameInnerHeight = inputs.fh - inputs.headFaceW - inputs.sillFaceW;
+
+  // 下枠下段の高さ
+  const sillLowerH =
+    inputs.sillFaceW - sillUpperH;
+
+  // 笠木と障子が重なる高さ
+  const capOverlapH = capTotalH - capVisibleH;
   debuglog2("笠木重なり高さ: " + capOverlapH);
+
+  const sashCount = config.sashCount;
+  const meetingCount = sashCount - 1;
+
+  // 笠木の見え掛かりを除いた障子高さ
+  const sashHeight = frameInnerHeight - capVisibleH;
+
+  // 召し合わせの見付け
+  const meetingFaceW = inputs.stileFaceW;
+
+  // 全障子の実幅合計
+  const sashTotalWidth = frameInnerWidth + meetingFaceW * meetingCount;
+
+  // 障子1枚の幅
+  const sashWidth =
+    sashTotalWidth / sashCount;
+
+  // ガラスの枚数
+  const glazingCount =
+    sashCount;
+
+  // 障子1枚当たりのガラス幅
+  const glazingWidth =
+    sashWidth - inputs.stileFaceW * 2;
+
+  // 障子1枚当たりのガラス高さ
+  const glazingHeight =
+    sashHeight
+    - inputs.topRailFaceW
+    - inputs.bottomRailFaceW;
+
+  // 全ガラスの幅合計
+  const glazingTotalWidth =
+    glazingWidth * glazingCount;
+
+  // 通常の縦框数
+  // 左端と右端の2本
+  const normalStileCount = 2;
+
+  // 召合せ優先のため、笠木から召合せ幅を除いた長さ
+  const capEffectiveLength =
+    frameInnerWidth
+    - meetingFaceW * meetingCount;
+
+  // 召合せ框の高さ
+  const meetingHeight =
+    sashHeight;
+
+
+  // 三方枠
+  const threeSideFrameArea =
+    inputs.fw * inputs.headFaceW
+    + frameInnerHeight * inputs.jambFaceW * 2;
+
+  // 下枠上段
+  const sillUpperArea =
+    inputs.fw * sillUpperH;
+
+  // 下枠下段
+  const sillLowerArea =
+  inputs.fw * sillLowerH;
+
+  // 笠木見え掛かり部
+  const capVisibleArea =
+  capEffectiveLength * capVisibleH;
+ 
+  // 通常障子框
+  const normalSashArea =
+    glazingTotalWidth * inputs.topRailFaceW
+    + glazingTotalWidth * inputs.bottomRailFaceW
+    + normalStileCount * inputs.stileFaceW * sashHeight;
+
+  // 召合せ部
+  const meetingArea =
+    meetingFaceW * meetingHeight * meetingCount;
+
+
+  // 笠木・障子重なり部
+  const capSashOverlapArea =
+    capEffectiveLength * capOverlapH;
+
+  // ガラス
+  const glazingArea =
+    glazingWidth * glazingHeight * glazingCount;
+
+  // スペーサー周長
+  const glazingPerimeter =
+    (glazingWidth + glazingHeight) * 2 * glazingCount;
+  
+  // 表面積の総合計
+  const totalArea =
+    threeSideFrameArea
+    + sillUpperArea
+    + sillLowerArea
+    + capVisibleArea
+    + normalSashArea
+    + meetingArea
+    + capSashOverlapArea
+    + glazingArea;
+
+   // デバッグ表示
+    debuglog2(
+      "三方枠の表面積: "
+      + threeSideFrameArea * MM_TO_M * MM_TO_M
+    );
+
+    debuglog2(
+      "下枠上段の表面積: "
+      + sillUpperArea * MM_TO_M * MM_TO_M
+    );
+
+    debuglog2(
+      "下枠下段の表面積: "
+      + sillLowerArea * MM_TO_M * MM_TO_M
+    );
+
+    debuglog2(
+      "笠木見え掛かり部の表面積: "
+      + capVisibleArea * MM_TO_M * MM_TO_M
+    );
+
+    debuglog2(
+      "通常障子框の表面積: "
+      + normalSashArea * MM_TO_M * MM_TO_M
+    );
+
+    debuglog2(
+      "召合せ部の表面積: "
+      + meetingArea * MM_TO_M * MM_TO_M
+    );
+
+    debuglog2(
+      "笠木・障子重なり部の表面積: "
+      + capSashOverlapArea * MM_TO_M * MM_TO_M
+    );
+
+    debuglog2(
+      "ガラスの総表面積: "
+      + glazingArea * MM_TO_M * MM_TO_M
+    );
+
+    debuglog2(
+      "スペーサーの総周長: "
+      + glazingPerimeter * MM_TO_M
+    );
+
+    debuglog2(
+      "表面積の総合計: "
+      + totalArea * MM_TO_M * MM_TO_M
+    );
+    
+    return {
+      threeSideFrameArea: threeSideFrameArea,
+
+      sillUpperArea: sillUpperArea,
+      sillLowerArea: sillLowerArea,
+
+      capVisibleArea: capVisibleArea,
+
+      normalSashArea: normalSashArea,
+      meetingArea: meetingArea,
+
+      capSashOverlapArea: capSashOverlapArea,
+
+      glazingArea: glazingArea,
+      glazingPerimeter: glazingPerimeter
+    };
 
 }
 
@@ -687,6 +866,8 @@ function getAreas(inputs,selected,config) {
     return getSlidingAreas(inputs, selected, config);
   }
 
+
+  // 障子の見え掛かり寸法
   const topRailVisible = inputs.topRailFaceW-inputs.hol;
   const stileVisible = inputs.stileFaceW-inputs.jol;
   const bottomVisible = inputs.bottomRailFaceW-inputs.sol;
