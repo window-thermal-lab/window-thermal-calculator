@@ -18,128 +18,159 @@
   <br>
 
   <select id="idGlassType">
-  <option value="single_clear">単板クリア</option>
-  <option value="double_clear">複層クリア</option>
-  <option value="double_lowe_argon">複層Low-E Ar</option>
+    <option value="single_clear">単板クリア</option>
+    <option value="double_clear">複層クリア</option>
+    <option value="double_lowe_argon">複層Low-E Ar</option>
   </select>
+
   <select id="idSlidingType">
-  <option value="unequalSliding">非対称</option>
-  <option value="biPartingSliding">引き分け</option>
-  <option value="doublePocketSliding">両袖引き込み</option>
+    <option value="unequalSliding">非対称</option>
+    <option value="biPartingSliding">引き分け</option>
+    <option value="doublePocketSliding">両袖引き込み</option>
   </select>
+
   <select id="idPocketType">
-  <option value="noPocket">戸袋無し</option>
-  <option value="fixedPocket">戸袋FIX</option>
-  <option value="wallPocket">戸袋壁</option>
+    <option value="noPocket">戸袋無し</option>
+    <option value="fixedPocket">戸袋FIX</option>
+    <option value="wallPocket">戸袋壁</option>
   </select>
+
   <select id="idSashCount">
   </select>
   <br>
-  <select id="idWindowType">  
-  <option value="sliding">引違い</option>
-  <option value="doubleDoor">両開きドア</option>
+
+  <select id="idWindowType">
+    <option value="sliding">引違い</option>
+    <option value="doubleDoor">両開きドア</option>
   </select>
+
   <select id="idAdvantageType">
-  <option value="horizontal">横勝ち枠</option>
-  <option value="vertical">縦勝ち枠</option>  
+    <option value="horizontal">横勝ち枠</option>
+    <option value="vertical">縦勝ち枠</option>
   </select>
   <br>
+
   <label>FW:</label>
   <input type="number" id="fw">
   <label>mm</label>
   <br>
+
   <label>FH:</label>
   <input type="number" id="fh">
   <label>mm</label>
   <br>
+
   <label>上枠:</label>
   <input type="number" id="headFaceW">
   <label>mm</label>
   <br>
+
   <label>縦枠:</label>
   <input type="number" id="jambFaceW">
   <label>mm</label>
   <br>
+
+
+  <!-- 下枠 -->
   <span style="display:inline-block; width:280px;">
-  <div style="display:flex;">
-  <div style="width:285px;">
-   <label>下枠:</label>
-<input type="number" id="sillFaceW">
-<label>mm</label>
+    <label>下枠:</label>
+    <input type="number" id="sillFaceW">
+    <label>mm</label>
+  </span>
 
-<span style="display:inline-block; width:30px;"></span>
+  <label id="labelSillUpperH">下枠上段:</label>
+  <input type="number" id="sillUpperH">
+  <label id="labelSillUpperHMM">mm</label>
+  <br>
 
-<label id="labelSillUpperH">下枠上段:</label>
-<input type="number" id="sillUpperH">
-<label id="labelSillUpperHMM">mm</label>
-<br>
 
-<label>枠見込み:</label>
-<input type="number" id="frameD">
-<label>mm</label>
+  <!-- 枠見込み -->
+  <span style="display:inline-block; width:280px;">
+    <label>枠見込み:</label>
+    <input type="number" id="frameD">
+    <label>mm</label>
+  </span>
 
-<span style="display:inline-block; width:6px;"></span>
+  <label id="labelSillUpperD">下枠上段見込み:</label>
+  <input type="number" id="sillUpperD">
+  <label id="labelSillUpperDMM">mm</label>
+  <br>
 
-<label id="labelSillUpperD">下枠上段見込み:</label>
-<input type="number" id="sillUpperD">
-<label id="labelSillUpperDMM">mm</label>
-  <br>  
+
   <label id="labelTopRailFaceW">上框:</label>
   <input type="number" id="topRailFaceW">
   <label id="labelTopRailFaceWMM">mm</label>
   <br>
+
   <label id="labelStileFaceW">縦框:</label>
   <input type="number" id="stileFaceW">
   <label id="labelStileFaceWMM">mm</label>
   <br>
+
   <label id="labelBottomRailFaceW">下框:</label>
   <input type="number" id="bottomRailFaceW">
   <label id="labelBottomRailFaceWMM">mm</label>
   <br>
+
   <label id="labelSashD">戸厚:</label>
   <input type="number" id="sashD">
   <label id="labelSashDMM">mm</label>
   <br>
+
+
   <label id="labelHol">上枠と上框の重なり:</label>
   <input type="number" id="hol">
   <label id="labelHolMM">mm</label>
+
   <label id="labelMeetingD">召合せ見込み:</label>
   <input type="number" id="meetingD">
   <label id="labelMeetingDMM">mm</label>
   <br>
+
+
   <label id="labelJol">縦枠と縦框の重なり:</label>
   <input type="number" id="jol">
   <label id="labelJolMM">mm</label>
+
   <label id="labelCapTotalH">笠木高さ:</label>
   <input type="number" id="capTotalH">
   <label id="labelCapTotalHMM">mm</label>
   <br>
+
+
   <label id="labelSol">下枠と下框の重なり:</label>
   <input type="number" id="sol">
   <label id="labelSolMM">mm</label>
+
   <label id="labelCapVisibleH">笠木見え掛かり:</label>
   <input type="number" id="capVisibleH">
   <label id="labelCapVisibleHMM">mm</label>
   <br>
+
+
   <select id="idWoodType">
-  <option value="douglasFir">米松</option>
-  <option value="pine">パイン</option>
-  <option value="ash">タモ</option>
-  <option value="whiteOak">ホワイトオーク</option>
+    <option value="douglasFir">米松</option>
+    <option value="pine">パイン</option>
+    <option value="ash">タモ</option>
+    <option value="whiteOak">ホワイトオーク</option>
   </select>
- 
+
   <select id="idSpacerType">
-  <option value="aluSpacerPsi">アルミスペーサー</option>
-  <option value="plasticSpacerPsi">樹脂スペーサー</option>
+    <option value="aluSpacerPsi">アルミスペーサー</option>
+    <option value="plasticSpacerPsi">樹脂スペーサー</option>
   </select>
-   
+
 
   <div style="display:flex; gap:20px;">
-  <pre id="output" style="width:300px; border:1px solid #ccc; padding:10px;"></pre>
-  <pre id="output2" style="width:300px; border:1px solid #ccc; padding:10px;"></pre>
+    <pre id="output"
+         style="width:300px; border:1px solid #ccc; padding:10px;"></pre>
+
+    <pre id="output2"
+         style="width:300px; border:1px solid #ccc; padding:10px;"></pre>
   </div>
 
-<script src="./src/calc.js"></script>
+
+  <script src="./src/calc.js"></script>
 
 </body>
 </html>
