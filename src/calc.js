@@ -733,10 +733,11 @@ function getSlidingAreas(inputs, selected, config) {
   // 左端と右端の2本
   const normalStileCount = 2;
 
-  // 召合せ優先のため、笠木から召合せ幅を除いた長さ
-  const capEffectiveLength =
-    frameInnerWidth
-    - meetingFaceW * meetingCount;
+  // 笠木の幅から縦框の総幅を減算する。
+ const capEffectiveLength =
+  frameInnerWidth
+  - inputs.stileFaceW * normalStileCount
+  - meetingFaceW * meetingCount;
 
   // 召合せ框の高さ
   const meetingHeight =
