@@ -691,6 +691,10 @@ function getSlidingAreas(inputs, selected, config) {
   const capOverlapH = capTotalH - capVisibleH;
   debuglog2("笠木重なり高さ: " + capOverlapH);
 
+  // 笠木と障子が重なっていない部分の高さ
+  const topRailVisibleH =
+  inputs.topRailFaceW - capOverlapH;
+
   const sashCount = config.sashCount;
   const meetingCount = sashCount - 1;
 
@@ -758,28 +762,10 @@ function getSlidingAreas(inputs, selected, config) {
  
   // 通常障子框
   const normalSashArea =
-    glazingTotalWidth * inputs.topRailFaceW
+    glazingTotalWidth * topRailVisibleH
     + glazingTotalWidth * inputs.bottomRailFaceW
     + normalStileCount * inputs.stileFaceW * sashHeight;
-
-    // これは区分ではない  デバッグ用
-    const normalStileArea =
-  normalStileCount * inputs.stileFaceW * sashHeight;
-    debuglog2(
-  "通常縦框2本のみ: "
-  + normalStileArea * MM_TO_M * MM_TO_M
-);
-
-debuglog2(
-  "通常縦框1本換算: "
-  + normalStileArea / normalStileCount * MM_TO_M * MM_TO_M
-);
-
-debuglog2(
-  "召合せ1本: "
-  + meetingFaceW * meetingHeight
-);
-
+    
   // 召合せ部
   const meetingArea =
     meetingFaceW * meetingHeight * meetingCount;
