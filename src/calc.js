@@ -762,6 +762,21 @@ function getSlidingAreas(inputs, selected, config) {
     + glazingTotalWidth * inputs.bottomRailFaceW
     + normalStileCount * inputs.stileFaceW * sashHeight;
 
+    debuglog2(
+  "通常縦框2本のみ: "
+  + normalStileArea * MM_TO_M * MM_TO_M
+);
+
+debuglog2(
+  "通常縦框1本換算: "
+  + normalStileArea / normalStileCount * MM_TO_M * MM_TO_M
+);
+
+debuglog2(
+  "召合せ1本: "
+  + meetingFaceW * meetingHeight * MM_TO_M * MM_TO_M
+);
+
   // 召合せ部
   const meetingArea =
     meetingFaceW * meetingHeight * meetingCount;
