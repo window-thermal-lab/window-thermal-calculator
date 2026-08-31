@@ -646,7 +646,11 @@ function getConfig(selected) {
     woodt: woodt,
     st: st,
 
-    sashCount: parseInt(selected.sashCountKey) || 0,
+    sashCount:
+  wt.category === "sliding"
+    ? (parseInt(selected.sashCountKey) || 0)
+    : (wt.sashCount ?? 0),
+    
     overlapCount: wt.overlapCount ?? 0,
     category: wt.category ?? "unknown",
         
