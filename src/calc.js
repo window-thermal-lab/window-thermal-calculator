@@ -759,6 +759,16 @@ function getSlidingAreas(inputs, selected, config) {
   const sashWidth =
     sashTotalWidth / sashCount;
 
+    debuglog2(
+      "障子の幅: "
+      + sashWidth
+    );
+
+    debuglog2(
+      "障子の高さ: "
+      + sashHeight
+    );
+
   // ガラスの枚数
   const glazingCount =
     sashCount;
