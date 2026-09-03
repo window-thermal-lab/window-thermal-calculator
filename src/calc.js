@@ -960,7 +960,18 @@ function getAreas(inputs,selected,config) {
   const sashHeight = frameInnerHeight;
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
-  
+  // debug用変数
+  const sashWidth = (inputs.fw-inputs.jambFaceW*2)/config.sashCount;
+   debuglog2(
+      "障子の幅: "
+      + sashWidth
+    );
+
+    debuglog2(
+      "障子の高さ: "
+      + sashHeight
+    );
+
   if (glazingWidth <= 0) {
     debuglog("エラー: glazingWidth が 0 以下です");
   }
