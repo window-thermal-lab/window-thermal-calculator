@@ -8,6 +8,7 @@
   "defaultWoodType": "douglasFir",
   "defaultSpacerType": "aluSpacerPsi",
   "defaultAdvantageType": "horizontal",
+  "defaultSillType": "standard",
 
   "rsi":0.13,
   "rse":0.04,
@@ -123,6 +124,18 @@
     }   
   },
 
+  "sillTypes": {
+  "standard": {
+    "name": "標準"
+  },
+  "sus": {
+    "name": "SUS下枠",
+    "lambdaSus": 16.0,
+    "lambdaMortar": 1.5,
+    "susThickness": 1.5
+  }
+},
+
   "advantageTypes": {
   
   "horizontal": {
@@ -132,9 +145,6 @@
     "name": "縦勝ち枠"
   }
 }
-
-
-
 
   
 }

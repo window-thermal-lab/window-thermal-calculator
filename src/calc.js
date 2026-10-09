@@ -123,6 +123,12 @@ Promise.all([commonPromise, clientPromise])
     );   
 
     buildSelectFromObject(
+      "idSillType",
+      commonData.sillTypes,
+      commonData.defaultSillType
+    );
+
+    buildSelectFromObject(
       "idSpacerType",
       commonData.spacerTypes,
       commonData.defaultSpacerType
@@ -449,7 +455,6 @@ function changePocketType() {
   rebuildSashCount(current);
 }
 
-
 function updateCalculation() {
 
   if(output) output.textContent = "";
@@ -629,6 +634,13 @@ function getConfig(selected) {
     return null;
   } 
 
+  const sillt = commonData.sillTypes?.[selected.sillTypeKey];
+  if (!sillt) {
+    debuglog(selected.sillTypeKey);
+    debuglog(commonData.sillTypes);
+    return null;
+  }
+
   const st = commonData.spacerTypes?.[selected.spacerTypeKey];
   if (!st){
     debuglog(selected.spacerTypeKey);
@@ -705,6 +717,7 @@ function getSelected() {
     windowTypeKey: document.getElementById("idWindowType").value,
     advantageTypeKey: document.getElementById("idAdvantageType").value,
     woodTypeKey: document.getElementById("idWoodType").value,
+    sillTypeKey: document.getElementById("idSillType").value,
     spacerTypeKey: document.getElementById("idSpacerType").value,   
   };
 }
