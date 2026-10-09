@@ -490,7 +490,7 @@ function calculateUw(inputs,selected,config) {
     debuglog("下框の表面積: " + areaSet.bottomArea * MM_TO_M * MM_TO_M);
   }
 
-  if(selected.lambdaWood <= 0 ){
+  if(config.lambdaWood <= 0 ){
     debuglog("木部の熱伝導率: lambdaWood が 0 以下です");
     return null;
   }
@@ -975,7 +975,11 @@ function getAreas(inputs,selected,config) {
   const glazingHeight = sashHeight-topRailVisible*hasSash-bottomVisible*hasSash;
 
   // debug用変数
-  const sashWidth = (inputs.fw-inputs.jambFaceW*2)/config.sashCount;
+  const sashWidth = config.sashCount > 0
+    ? (inputs.fw - inputs.jambFaceW * 2) / config.sashCount
+    : 0;
+
+  
    debuglog2(
       "障子の幅: "
       + sashWidth
