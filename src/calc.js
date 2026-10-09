@@ -551,7 +551,7 @@ if (config.category === "sliding") {
       * MM_TO_M * MM_TO_M;
 }
 
-  debuglog("木部の熱損失係数: " + fHeatLossRate);
+  debuglog("枠・障子の熱損失係数: " + fHeatLossRate);
 
   const gHeatLossRate = inputs.ugInput*areaSet.glazingArea*MM_TO_M*MM_TO_M;
   debuglog("グレージングの熱損失係数: " + gHeatLossRate);
