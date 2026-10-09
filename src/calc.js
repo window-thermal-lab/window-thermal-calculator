@@ -1091,7 +1091,7 @@ function getResist(inputs,selected,config) {
 
   let frameResistSill;  // 下枠の抵抗値
 
-  if ( config.sillTypeKey === "standard" )
+  if ( selected.sillTypeKey === "standard" )
   {
     // 下枠が標準の場合
     frameResistSill = config.rsi+(inputs.frameD*MM_TO_M)/config.lambdaWood+config.rse;
@@ -1101,13 +1101,12 @@ function getResist(inputs,selected,config) {
     // 下枠がSUSの場合
     const sillHeight = inputs.sillFaceW;
  
-    const susResist = 1;
-    const mortalResist = 1;
+    const susResist = config.rsi + (inputs.frameD*MM_TO_M) / config.sillt.lambdaSus + config.rse;
+    const mortalResist = config.rsi + (config.sillt.susThickness*2*MM_TO_M) / config.sillt.lambdaSus + ((inputs.frameD - config.sillt.susThickness*2)*MM_TO_M) / config.sillt.lambdaMortar + config.rse;   
 
     frameResistSill = sillHeight / (config.sillt.susThickness*2 / susResist + (sillHeight-config.sillt.susThickness*2) / mortalResist )
 
   }
-
   
   const sashResist = config.rsi+(inputs.sashD*MM_TO_M)/config.lambdaWood+config.rse;
 
