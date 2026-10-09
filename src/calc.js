@@ -656,6 +656,7 @@ function getConfig(selected) {
     wt: wt,
     at: at,
     woodt: woodt,
+    sillt: sillt,
     st: st,
 
     sashCount:
@@ -1008,11 +1009,11 @@ function getAreas(inputs,selected,config) {
   const isHorizontal = selected.advantageTypeKey === "horizontal";
   
   const headArea = isHorizontal ? inputs.fw*inputs.headFaceW : frameInnerWidth*inputs.headFaceW;       // 上枠の表面積
-  const jambArea = isHorizontal ? frameInnerHeight*inputs.jambFaceW*2 : inputs.fh*inputs.jambFaceW*2; // 縦枠の表面積
+  const jambArea = isHorizontal ? frameInnerHeight*inputs.jambFaceW*2 : inputs.fh*inputs.jambFaceW*2;  // 縦枠の表面積
   const sillArea = isHorizontal ? inputs.fw*inputs.sillFaceW : frameInnerWidth*inputs.sillFaceW;       // 下枠の表面積
   
   const topRailArea = glazingTotalWidth*topRailVisible*hasSash;                                                            // 上框の表面積
-  const stileArea = frameInnerHeight*(inputs.stileFaceW*config.sashCount*2-inputs.jol*config.overlapCount);               // 縦框の表面積
+  const stileArea = frameInnerHeight*(inputs.stileFaceW*config.sashCount*2-inputs.jol*config.overlapCount);                // 縦框の表面積
   const bottomArea = glazingTotalWidth*bottomVisible*hasSash;                                                              // 下框の表面積
 
   const totalArea = headArea + jambArea + sillArea + topRailArea + stileArea + bottomArea + glazingArea;
@@ -1086,7 +1087,28 @@ function getResist(inputs,selected,config) {
   }
 
   const threeSideFrameResist = config.rsi+(inputs.frameD*MM_TO_M)/config.lambdaWood+config.rse;
-  const frameResistSill = config.rsi+(inputs.frameD*MM_TO_M)/config.lambdaWood+config.rse;
+
+
+  let frameResistSill;  // 下枠の抵抗値
+
+  if ( config.sillTypeKey === "standard" )
+  {
+    // 下枠が標準の場合
+    frameResistSill = config.rsi+(inputs.frameD*MM_TO_M)/config.lambdaWood+config.rse;
+
+  } else {
+
+    // 下枠がSUSの場合
+    const sillHeight = inputs.sillFaceW;
+ 
+    const susResist = 1;
+    const mortalResist = 1;
+
+    frameResistSill = sillHeight / (config.sillt.susThickness*2 / susResist + (sillHeight-config.sillt.susThickness*2) / mortalResist )
+
+  }
+
+  
   const sashResist = config.rsi+(inputs.sashD*MM_TO_M)/config.lambdaWood+config.rse;
 
   debuglog("木部の熱伝導率: " + config.lambdaWood);
